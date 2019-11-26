@@ -1,2 +1,2 @@
 # foodbar_app
-foodbar is a reservation system for restaurant, and this is an Flutter App for this system.
+foodbar is a reservation system for restaurants, and this is an Flutter App for this system.
