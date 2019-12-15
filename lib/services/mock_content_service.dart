@@ -5,11 +5,13 @@ import 'package:Food_Bar/interfaces/content_provider.dart';
 
 class MockContentService implements ContentProvider {
   Future<List<Category>> getCategories() {
-    return Future.delayed(Duration(seconds: 4)).then((r) => mockCategories);
+    return Future.delayed(Duration(seconds: 4))
+      .then((r) => mockCategories.map((cat) => cat..imageUrl = getRandomImage('header')).toList());
   }
 
   Future<List<Food>> getFoods(String category) {
-    return Future.delayed(Duration(seconds: 4)).then((r) => mockFoods);
+    return Future.delayed(Duration(seconds: 4))
+      .then((r) => mockFoods.map((food) => food..imageUrl = getRandomImage('food')).toList());
   }
 
   Future<List<CategoryWithFoods>> getCategoriesWithFoods()

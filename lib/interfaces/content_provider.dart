@@ -5,7 +5,7 @@ class ContentProvider {
     return null;
   }
 
-  Future<List<Food>> getFoods(String category) {
+  Future<List<Food>> getFoods(String categoryId) {
     return null;
   }
 

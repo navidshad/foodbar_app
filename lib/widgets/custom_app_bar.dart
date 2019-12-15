@@ -50,6 +50,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
     return AppBar(
       title: Text(title),
       actions: <Widget>[actionBtn],
+      elevation: 4,
     );
   }
 

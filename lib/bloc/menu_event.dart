@@ -7,4 +7,7 @@ class GetOnePageMenuMenuEvent extends MenuEvent {}
 
 class GetCategoriesMenuEvent extends MenuEvent {}
 
-class GetFoodsMenuEvent extends MenuEvent {}
+class GetFoodsMenuEvent extends MenuEvent {
+  final String categoryId;
+  GetFoodsMenuEvent(this.categoryId);
+}

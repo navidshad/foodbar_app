@@ -29,7 +29,7 @@ class _MenuTabState extends State<MenuTab> {
           return MenuTabOnePageView(stateDetail.list);
         } else {
           ShowCategoriesMenuState stateDetail = state;
-          return null;
+          return MenuTabTwoPageCategoriesView(stateDetail.list);
         }
       },
     );

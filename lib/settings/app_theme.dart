@@ -14,7 +14,8 @@ class AppTheme {
           textTheme: TextTheme(
             title: TextStyle(color: Colors.black, fontSize: 18),
             )
-        )
+        ),
+        scaffoldBackgroundColor: Colors.white
       );
   }
 }

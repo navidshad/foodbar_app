@@ -12,6 +12,12 @@ class ShowOnePageMenuMenuState extends MenuState {
   ShowOnePageMenuMenuState(this.list);
 }
 
-class ShowCategoriesMenuState extends MenuState {}
+class ShowCategoriesMenuState extends MenuState {
+  final List<Category> list;
+  ShowCategoriesMenuState(this.list);
+}
 
-class ShowFoodsMenuState extends MenuState {}
+class ShowFoodsMenuState extends MenuState {
+  final List<Food> list;
+  ShowFoodsMenuState(this.list);
+}

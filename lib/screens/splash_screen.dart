@@ -13,6 +13,7 @@ class SplashScreen extends StatelessWidget {
 
     // build splash screen
     return Scaffold(
+      backgroundColor: AppProperties.backLightColor,
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

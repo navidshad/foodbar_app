@@ -23,5 +23,16 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
       yield ShowOnePageMenuMenuState(categoriesWithFoods);
     }
 
+    else if (event is GetCategoriesMenuEvent){
+      List<Category> categories = await contentProvider.getCategories();
+      yield ShowCategoriesMenuState(categories);
+    }
+
+    else if (event is GetFoodsMenuEvent){
+      GetFoodsMenuEvent eventDetail = event;
+      List<Food> foods = await contentProvider.getFoods(eventDetail.categoryId);
+      yield ShowFoodsMenuState(foods);
+    }
+
   }
 }
