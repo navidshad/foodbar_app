@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:Food_Bar/bloc/bloc.dart';
 import 'package:Food_Bar/settings/settings.dart';
+import 'package:Food_Bar/utilities/food_bar_icons.dart';
 
 class CustomAppBar extends StatefulWidget with PreferredSizeWidget {
   @override
@@ -35,12 +36,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
     // setup title and action button according to tabType
     if (type == FrameTabType.MENU) {
       actionBtn = FlatButton(
-        child: Icon(Icons.shopping_cart),
+        child: Icon(FoodBarIcons.shopping_bag),
         onPressed: onAppBarActionButtonPressed,
       );
     } else if (type == FrameTabType.CART) {
       actionBtn = FlatButton(
-        child: Icon(Icons.fastfood),
+        child: Icon(FoodBarIcons.spoon_and_fork),
         onPressed: onAppBarActionButtonPressed,
       );
     }

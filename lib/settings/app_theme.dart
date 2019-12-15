@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
+import 'package:Food_Bar/settings/app_properties.dart';
+
 class AppTheme {
   static ThemeData getData(){
     return ThemeData(
         primarySwatch: Colors.pink,
         appBarTheme: AppBarTheme(
-          color: Colors.pink[50],
+          color: AppProperties.backLightColor,
           iconTheme: IconThemeData(
             color: Colors.black
             ),

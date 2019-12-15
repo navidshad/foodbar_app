@@ -4,13 +4,18 @@ import 'package:Food_Bar/settings/types.dart';
 /// All default values are here, texts, colorsand etc
 class AppProperties {
   
+  // general
   static String title = 'Food Bar';
   static String slagon = 'Eat Your Taste';
-  static Color mainColor = Colors.green;
   
   static String menuTitle = 'Menu';
   static String cartTitle = 'My Cart';
 
   static int splashDelay = 5;
+  
+  // appframe
   static MenuType menuType = MenuType.OnePage;
+
+  static Color mainColor = Colors.green;
+  static Color backLightColor = Color.fromRGBO(255, 240, 235, 1);
 }
