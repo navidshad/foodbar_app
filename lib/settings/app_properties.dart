@@ -6,7 +6,7 @@ class AppProperties {
   
   static String title = 'Food Bar';
   static String slagon = 'Eat Your Taste';
-  static Color mainColor = Colors.blue;
+  static Color mainColor = Colors.green;
   
   static String menuTitle = 'Menu';
   static String cartTitle = 'My Cart';

@@ -13,7 +13,7 @@ class MenuTabOnePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: list.length,
-      padding: EdgeInsets.all(10),
+      //padding: EdgeInsets.all(10),
       itemBuilder: (itemContext, int i) {
         CategoryWithFoods detail = list[i];
         return CategoryWithFoodsCard(detail);

@@ -19,6 +19,7 @@ class FoodCard extends StatelessWidget {
         double one5th = constraints.biggest.width / 5;
 
         Widget widget = Container(
+          padding: EdgeInsets.all(8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -35,13 +36,14 @@ class FoodCard extends StatelessWidget {
               // title, description and price
               Container(
                 width: two4th,
+                margin: EdgeInsets.only(left: 8, right: 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
                       TextUtil.toUperCaseForLable(food.title),
                       textScaleFactor: 1,
-                      softWrap: true,
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(
                       TextUtil.toCapital(food.description),
@@ -66,7 +68,9 @@ class FoodCard extends StatelessWidget {
                     OutlineButton(
                       child: Text('+ADD',
                           textScaleFactor: 0.8,
-                          style: TextStyle(color: AppProperties.mainColor)),
+                          style: TextStyle(
+                            color: AppProperties.mainColor,
+                            fontWeight: FontWeight.bold)),
                       onPressed: () {},
                     ),
                   ],
