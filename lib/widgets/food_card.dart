@@ -15,8 +15,9 @@ class FoodCard extends StatelessWidget {
       builder: (con, constraints) {
         // divide the maxScreenSize into 2/4 & 1/4 vars
         // widget elements will use these size
+        double textblocmargin = 8;
         double two4th = constraints.biggest.width / 2;
-        double one5th = constraints.biggest.width / 5;
+        double one5th = constraints.biggest.width / 5 - textblocmargin;
 
         Widget widget = Container(
           padding: EdgeInsets.all(8),
@@ -36,7 +37,7 @@ class FoodCard extends StatelessWidget {
               // title, description and price
               Container(
                 width: two4th,
-                margin: EdgeInsets.only(left: 8, right: 8),
+                margin: EdgeInsets.only(left: textblocmargin, right: textblocmargin),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -65,13 +66,15 @@ class FoodCard extends StatelessWidget {
                 width: one5th,
                 child: Column(
                   children: <Widget>[
-                    OutlineButton(
-                      child: Text('+ADD',
-                          textScaleFactor: 0.8,
-                          style: TextStyle(
-                            color: AppProperties.mainColor,
-                            fontWeight: FontWeight.bold)),
-                      onPressed: () {},
+                    FittedBox(
+                      child: OutlineButton(
+                        child: Text('+ADD',
+                            textScaleFactor: 0.8,
+                            style: TextStyle(
+                                color: AppProperties.mainColor,
+                                fontWeight: FontWeight.bold)),
+                        onPressed: () {},
+                      ),
                     ),
                   ],
                 ),

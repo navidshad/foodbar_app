@@ -6,11 +6,14 @@ import 'package:Food_Bar/utilities/text_util.dart';
 class CategoryCard extends StatelessWidget {
 
   final Category category;
+  BuildContext _context;
 
   CategoryCard(this.category);
 
   @override
   Widget build(BuildContext context) {
+
+    _context = context;
 
     return LayoutBuilder(
       builder: (layoutContext, constraints) {
@@ -22,17 +25,20 @@ class CategoryCard extends StatelessWidget {
           children: <Widget>[
             
             // thumbnail
-            Container(
-              width: one3,
-              height: one3,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: Image.asset(category.imageUrl).image,
-                )
+            Hero(
+              tag: category.id,
+              child: Container(
+                width: one3,
+                height: one3,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: Image.asset(category.imageUrl).image,
+                  )
+                ),
               ),
             ),
-
+            
             // title & description
             Container(
               width: two3,
@@ -56,16 +62,23 @@ class CategoryCard extends StatelessWidget {
           ],
         );
 
-        return Card(
-          child: cardBody,
-          margin: EdgeInsets.only(bottom: 15),
-          elevation: 100,
-          // shape: RoundedRectangleBorder(
-          //   side: BorderSide(color: Colors.grey[300], width: 0.5, )
-          // ),
+        return InkWell(
+          child: Card(
+            child: cardBody,
+            margin: EdgeInsets.only(bottom: 15),
+            elevation: 100,
+            // shape: RoundedRectangleBorder(
+            //   side: BorderSide(color: Colors.grey[300], width: 0.5, )
+            // ),
+          ),
+          onTap: onCardTab,
         );
 
       },
     );
+  }
+
+  void onCardTab() {
+    Navigator.pushNamed(_context, '/category', arguments: category);
   }
 }

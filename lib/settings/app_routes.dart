@@ -23,6 +23,13 @@ class AppRoutes {
 
           ],
         );
+      },
+
+      '/category': (BuildContext context) {
+        return BlocProvider(
+          child: SingleCategory(),
+          create: (con) => MenuBloc(),
+        );
       }
     };
 
