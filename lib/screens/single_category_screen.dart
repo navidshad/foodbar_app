@@ -5,9 +5,9 @@ import 'package:Food_Bar/models/models.dart';
 import 'package:Food_Bar/widgets/widgets.dart';
 import 'package:Food_Bar/bloc/bloc.dart';
 import 'package:Food_Bar/utilities/text_util.dart';
+import 'package:Food_Bar/settings/app_properties.dart';
 
 class SingleCategory extends StatelessWidget {
-  
   MenuBloc bloc;
   Category category;
 
@@ -29,7 +29,8 @@ class SingleCategory extends StatelessWidget {
                   centerTitle: true,
                   title: Text(
                     TextUtil.toUperCaseForLable(category.title),
-                    style: TextStyle(fontWeight: FontWeight.bold),),
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   background: Hero(
                     tag: category.id,
                     child: Image.asset(category.imageUrl, fit: BoxFit.cover),
@@ -40,18 +41,20 @@ class SingleCategory extends StatelessWidget {
         body: BlocBuilder(
           bloc: bloc,
           condition: (previousState, state) {
-            return (state is InitialMenuState || state is ShowFoodsMenuState) ? true : false;
+            return (state is InitialMenuState || state is ShowFoodsMenuState)
+                ? true
+                : false;
           },
           builder: (context, MenuState state) {
-
-            if(state is InitialMenuState){
+            if (state is InitialMenuState) {
               askFoodList();
-              return Center(child: CircularProgressIndicator(),);
-            } else{
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
               ShowFoodsMenuState stateDetail = state;
               return buildFoodList(stateDetail.list);
             }
-
           },
         ),
       ),
@@ -65,13 +68,13 @@ class SingleCategory extends StatelessWidget {
   Widget buildFoodList(List<Food> foods) {
     return ListView.builder(
       itemCount: foods.length,
-      padding: EdgeInsets.all(15),
+       padding: EdgeInsets.all(AppProperties.foodCardSideMargin),
       itemBuilder: (itemContext, int i) {
         Food food = foods[i];
         return Column(
           children: <Widget>[
             FoodCard(food),
-            Divider(height: 0,)
+            //Divider(height: 0,)
           ],
         );
       },

@@ -83,7 +83,11 @@ class FoodCard extends StatelessWidget {
           ),
         );
 
-        return widget;
+        //return widget;
+        return Card(
+          child: widget,
+          elevation: 20,
+        );
       },
     );
   }

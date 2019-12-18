@@ -1,5 +1,6 @@
 import 'dart:ui' as prefix0;
 
+import 'package:Food_Bar/settings/settings.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Food_Bar/models/models.dart';
@@ -40,8 +41,16 @@ class CategoryWithFoodsCard extends StatelessWidget {
     // listing foods
     int foodCounter = 0;
     category.foods.forEach((food) {
-      if (foodCounter > 0) wigitList.add(Divider(height: 0,));
-      wigitList.add(FoodCard(food));
+      //if (foodCounter > 0) wigitList.add(Divider(height: 0,));
+      Widget foodCard = Container(
+        child: FoodCard(food),
+        padding: EdgeInsets.only(
+            left: AppProperties.foodCardSideMargin,
+            right: AppProperties.foodCardSideMargin,
+            top: 5),
+      );
+
+      wigitList.add(foodCard);
       foodCounter++;
     });
 

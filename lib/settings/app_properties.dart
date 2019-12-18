@@ -14,7 +14,9 @@ class AppProperties {
   static int splashDelay = 5;
   
   // appframe
-  static MenuType menuType = MenuType.TwoPage;
+  static MenuType menuType = MenuType.OnePage;
+
+  static double foodCardSideMargin = 15;
 
   static Color mainColor = Colors.green;
   static Color backLightColor = Color.fromRGBO(255, 240, 225, 1);
