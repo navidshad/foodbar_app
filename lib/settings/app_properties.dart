@@ -16,7 +16,8 @@ class AppProperties {
   // appframe
   static MenuType menuType = MenuType.OnePage;
 
-  static double foodCardSideMargin = 15;
+  static double cardSideMargin = 15;
+  static double cardVerticalMargin = 5;
 
   static Color mainColor = Colors.green;
   static Color backLightColor = Color.fromRGBO(255, 240, 225, 1);

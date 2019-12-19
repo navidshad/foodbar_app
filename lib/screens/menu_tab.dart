@@ -23,7 +23,7 @@ class _MenuTabState extends State<MenuTab> {
       builder: (blocContext, MenuState state) {
         if (state is InitialMenuState) {
           loadMenu();
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         } else if (state is ShowOnePageMenuMenuState) {
           ShowOnePageMenuMenuState stateDetail = state;
           return MenuTabOnePageView(stateDetail.list);

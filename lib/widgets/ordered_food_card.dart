@@ -6,17 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:Food_Bar/models/models.dart';
 import 'package:Food_Bar/utilities/text_util.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:Food_Bar/widgets/widgets.dart';
 
-class FoodCard extends StatelessWidget {
-  
+class OrderedFoodCard extends StatelessWidget {
   final Food food;
   CartBloc bloc;
 
-  FoodCard(this.food);
+  OrderedFoodCard(this.food);
 
   @override
   Widget build(BuildContext context) {
-
     bloc = BlocProvider.of<CartBloc>(context);
 
     return LayoutBuilder(
@@ -24,9 +23,9 @@ class FoodCard extends StatelessWidget {
         // divide the maxScreenSize into 2/4 & 1/4 vars
         // widget elements will use these size
         double textblocmargin = 8;
+        double one3th = constraints.biggest.width / 3.5;
         double two4th = constraints.biggest.width / 2;
-        double one4th = constraints.biggest.width / 4;
-        double one5th = constraints.biggest.width / 5 - textblocmargin;
+        double one4th = constraints.biggest.width / 4 - textblocmargin;
 
         Widget widget = Container(
           //padding: EdgeInsets.all(8),
@@ -35,58 +34,47 @@ class FoodCard extends StatelessWidget {
             children: <Widget>[
               // thumbnial
               Container(
-                width: one4th,
-                height: one4th,
+                width: one3th,
+                height: one3th,
                 child: Image.asset(
                   food.imageUrl,
                   fit: BoxFit.cover,
                 ),
               ),
 
-              // title, description and price
+              // title, counte
               Container(
-                width: two4th,
-                margin: EdgeInsets.all(textblocmargin),
+                width: one3th,
+                padding: EdgeInsets.only(
+                    left: textblocmargin, right: textblocmargin),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      TextUtil.toUperCaseForLable(food.title),
-                      textScaleFactor: 1,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      TextUtil.toCapital(food.description),
-                      textScaleFactor: 0.7,
-                    ),
                     Container(
-                      margin: EdgeInsets.only(top: 8),
+                      margin: EdgeInsets.only(bottom: 10),
                       child: Text(
-                        '\$25',
-                        style: TextStyle(color: AppProperties.mainColor),
+                        TextUtil.toUperCaseForLable(food.title),
+                        textScaleFactor: 1,
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
+                    ),
+                    OrderCounterForOneFood(
+                      count: 1,
                     )
                   ],
                 ),
               ),
 
-              // button & price
+              // price
               Container(
-                width: one5th,
-                padding: EdgeInsets.only(right: 10),
-                child: Column(
-                  children: <Widget>[
-                    FittedBox(
-                      child: OutlineButton(
-                        child: Text('+ADD',
-                            textScaleFactor: 0.8,
-                            style: TextStyle(
-                                color: AppProperties.mainColor,
-                                fontWeight: FontWeight.bold)),
-                        onPressed: addToCart,
-                      ),
+                width: one4th,
+                child: Center(
+                  child: FittedBox(
+                    child: Text(
+                      '\$25',
+                      style: TextStyle(color: AppProperties.mainColor),
                     ),
-                  ],
+                  ),
                 ),
               )
             ],
@@ -105,9 +93,9 @@ class FoodCard extends StatelessWidget {
     );
   }
 
-  void addToCart() {
-    bloc.add(AddToCartEvent(food));
-  } 
+  void removeFromCart() {
+    bloc.add(RemovefromCatEvent(food));
+  }
 
   // void showBottomSlider(BuildContext context) {
   //   showModalBottomSheet(
@@ -120,5 +108,5 @@ class FoodCard extends StatelessWidget {
   //       backgroundColor: Colors.green,
   //       isScrollControlled: false
   //       );
-  // }
+  // }s
 }

@@ -21,14 +21,28 @@ class AppRoutes {
               create: (BuildContext con) => MenuBloc(),
             ),
 
+            BlocProvider<CartBloc>(
+              create: (BuildContext con) => CartBloc(),
+            ),
+
           ],
         );
       },
 
       '/category': (BuildContext context) {
-        return BlocProvider(
+        return MultiBlocProvider(
           child: SingleCategory(),
-          create: (con) => MenuBloc(),
+          providers: [
+            
+            BlocProvider<MenuBloc>(
+              create: (con) => MenuBloc(),
+            ),
+
+            BlocProvider<CartBloc>(
+              create: (con) => CartBloc(),
+            ),
+
+          ],
         );
       }
     };

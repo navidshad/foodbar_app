@@ -4,3 +4,6 @@ export 'app_frame_state.dart';
 export 'menu_bloc.dart';
 export 'menu_event.dart';
 export 'menu_state.dart';
+export 'cart_bloc.dart';
+export 'cart_event.dart';
+export 'cart_state.dart';

@@ -68,7 +68,7 @@ class SingleCategory extends StatelessWidget {
   Widget buildFoodList(List<Food> foods) {
     return ListView.builder(
       itemCount: foods.length,
-       padding: EdgeInsets.all(AppProperties.foodCardSideMargin),
+       padding: EdgeInsets.all(AppProperties.cardSideMargin),
       itemBuilder: (itemContext, int i) {
         Food food = foods[i];
         return Column(

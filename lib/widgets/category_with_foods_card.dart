@@ -39,19 +39,15 @@ class CategoryWithFoodsCard extends StatelessWidget {
 
     // card body
     // listing foods
-    int foodCounter = 0;
     category.foods.forEach((food) {
-      //if (foodCounter > 0) wigitList.add(Divider(height: 0,));
       Widget foodCard = Container(
         child: FoodCard(food),
         padding: EdgeInsets.only(
-            left: AppProperties.foodCardSideMargin,
-            right: AppProperties.foodCardSideMargin,
-            top: 5),
+            left: AppProperties.cardSideMargin,
+            right: AppProperties.cardSideMargin),
       );
 
       wigitList.add(foodCard);
-      foodCounter++;
     });
 
     return Card(

@@ -1,3 +1,4 @@
+import 'package:Food_Bar/screens/screens.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -57,12 +58,8 @@ class _AppFrameState extends State<AppFrame>
           controller: _tabController,
           physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
-            Center(
-              child: MenuTab(),
-            ),
-            Center(
-              child: Text('Cart'),
-            )
+            MenuTab(),
+            CartTab()
           ],
         );
 
@@ -84,7 +81,7 @@ class _AppFrameState extends State<AppFrame>
 
   @override
   void dispose(){
-    bloc.close();
+    //bloc.close();
     super.dispose();
   }
 }
