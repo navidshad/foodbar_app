@@ -14,7 +14,7 @@ class AppProperties {
   static int splashDelay = 5;
   
   // appframe
-  static MenuType menuType = MenuType.OnePage;
+  static MenuType menuType = MenuType.TwoPage;
 
   static double cardSideMargin = 15;
   static double cardVerticalMargin = 5;

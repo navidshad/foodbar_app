@@ -1,8 +1,8 @@
-export './app_frame.dart';
+export './screen_appFrame.dart';
 export './screens.dart';
-export './splash_screen.dart';
-export './cart_tab.dart';
-export './menu_tab.dart';
-export './menu_tab_onePage_view.dart';
-export './menu_tab_twoPage_categories_view.dart';
-export './single_category_screen.dart';
+export './screen_splash.dart';
+export './tab_cart.dart';
+export './tab_menu.dart';
+export './tab_menu_onePageView.dart';
+export './tab_menu_twoPageCategoriesView.dart';
+export './screen_singleCategory.dart';

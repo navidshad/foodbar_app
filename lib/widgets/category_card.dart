@@ -4,7 +4,6 @@ import 'package:Food_Bar/models/models.dart';
 import 'package:Food_Bar/utilities/text_util.dart';
 
 class CategoryCard extends StatelessWidget {
-
   final Category category;
   BuildContext _context;
 
@@ -12,18 +11,15 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     _context = context;
 
     return LayoutBuilder(
       builder: (layoutContext, constraints) {
-
-        double one3 = constraints.biggest.width /3;
-        double two3 = constraints.biggest.width /3*2;
+        double one3 = constraints.biggest.width / 3;
+        double two3 = constraints.biggest.width / 3 * 2;
 
         Widget cardBody = Row(
           children: <Widget>[
-            
             // thumbnail
             Hero(
               tag: category.id,
@@ -31,14 +27,13 @@ class CategoryCard extends StatelessWidget {
                 width: one3,
                 height: one3,
                 decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: Image.asset(category.imageUrl).image,
-                  )
-                ),
+                    image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: Image.asset(category.imageUrl).image,
+                )),
               ),
             ),
-            
+
             // title & description
             Container(
               width: two3,
@@ -58,22 +53,20 @@ class CategoryCard extends StatelessWidget {
                 ],
               ),
             ),
-
           ],
         );
 
         return InkWell(
           child: Card(
-            child: cardBody,
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(5)),
+              child: cardBody,
+            ),
             margin: EdgeInsets.only(bottom: 15),
             elevation: 100,
-            // shape: RoundedRectangleBorder(
-            //   side: BorderSide(color: Colors.grey[300], width: 0.5, )
-            // ),
           ),
           onTap: onCardTab,
         );
-
       },
     );
   }

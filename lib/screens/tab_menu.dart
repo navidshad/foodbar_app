@@ -27,7 +27,7 @@ class _MenuTabState extends State<MenuTab> {
         } else if (state is ShowOnePageMenuMenuState) {
           ShowOnePageMenuMenuState stateDetail = state;
           return MenuTabOnePageView(stateDetail.list);
-        } else {
+        } else if (state is ShowCategoriesMenuState) {
           ShowCategoriesMenuState stateDetail = state;
           return MenuTabTwoPageCategoriesView(stateDetail.list);
         }
@@ -53,7 +53,7 @@ class _MenuTabState extends State<MenuTab> {
 
   @override
   void dispose() {
-    bloc.close();
+    //bloc.close();
     super.dispose();
   }
 }
