@@ -14,7 +14,6 @@ class AppFrame extends StatefulWidget {
 
 class _AppFrameState extends State<AppFrame>
     with SingleTickerProviderStateMixin {
-      
   AppFrameBloc bloc;
   FrameTabType currentTab;
   TabController _tabController;
@@ -27,43 +26,38 @@ class _AppFrameState extends State<AppFrame>
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    bloc = BlocProvider.of<AppFrameBloc>(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
     print('build appframe');
 
-    bloc = BlocProvider.of<AppFrameBloc>(context);
-
-    Scaffold scaffold = Scaffold(
+    return Scaffold(
       appBar: CustomAppBar(),
-      body: buildFrameBloc()
-    );
+      body: BlocBuilder(
+        bloc: bloc,
+        condition: (old, state) {
+          return AppFrameBloc.blocCondition(state, [InitialAppFrameState, ShowingTabAppFrameState]);
+        },
+        builder: (stateContext, AppFrameState state) {
+          currentTab = state.tabType;
 
-    return scaffold;
-  }
+          if (state is ShowingTabAppFrameState)
+            _tabController.index = getTypeIndex(state.tabType);
 
-  Widget buildFrameBloc()
-  {
-    return BlocBuilder(
-      bloc: bloc,
-      condition: (stateContext, AppFrameState state) {
-        return (state is ShowingTabAppFrameState) ? true : false;
-      },
-      builder: (stateContext, AppFrameState state) {
-
-        currentTab = state.tabType;
-        
-        if (state is ShowingTabAppFrameState)
-          _tabController.index = getTypeIndex(state.tabType);
-
-        return TabBarView(
-          controller: _tabController,
-          physics: NeverScrollableScrollPhysics(),
-          children: <Widget>[
-            MenuTab(),
-            CartTab()
-          ],
-        );
-
-      },
+          return TabBarView(
+            controller: _tabController,
+            physics: NeverScrollableScrollPhysics(),
+            children: <Widget>[
+              MenuTab(),
+              CartTab(),
+            ],
+          );
+        },
+      ),
     );
   }
 
@@ -80,8 +74,8 @@ class _AppFrameState extends State<AppFrame>
   }
 
   @override
-  void dispose(){
-    //bloc.close();
+  void dispose() {
+    bloc.close();
     super.dispose();
   }
 }

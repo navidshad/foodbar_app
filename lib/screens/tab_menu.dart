@@ -21,15 +21,15 @@ class _MenuTabState extends State<MenuTab> {
     return BlocBuilder(
       bloc: bloc,
       builder: (blocContext, MenuState state) {
-        if (state is InitialMenuState) {
-          loadMenu();
-          return Center(child: CircularProgressIndicator());
-        } else if (state is ShowOnePageMenuMenuState) {
+        if (state is ShowOnePageMenuMenuState) {
           ShowOnePageMenuMenuState stateDetail = state;
           return MenuTabOnePageView(stateDetail.list);
         } else if (state is ShowCategoriesMenuState) {
           ShowCategoriesMenuState stateDetail = state;
           return MenuTabTwoPageCategoriesView(stateDetail.list);
+        } else {
+          loadMenu();
+          return Center(child: CircularProgressIndicator());
         }
       },
     );

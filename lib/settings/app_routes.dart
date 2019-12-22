@@ -8,7 +8,8 @@ class AppRoutes {
   static Map<String, WidgetBuilder> getRoutes() {
     List<BlocProvider> blocProviders = [
       BlocProvider<AppFrameBloc>(
-        create: (BuildContext con) => AppFrameBloc(),
+        create: (BuildContext con) 
+        => AppFrameBloc(),
       ),
       BlocProvider<MenuBloc>(
         create: (BuildContext con) => MenuBloc(),

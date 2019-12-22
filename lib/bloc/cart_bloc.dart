@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
 
-  OrderService _orderService = OrderService();
+  OrderService _orderService = OrderService.instace;
 
   @override
   CartState get initialState => ShowCartState(_orderService.cart);
