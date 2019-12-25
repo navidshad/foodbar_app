@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:Food_Bar/custom_bloc/bloc.dart';
+import 'package:Food_Bar/bloc/bloc.dart';
 //import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Food_Bar/widgets/widgets.dart';
 import 'package:Food_Bar/settings/app_properties.dart';
