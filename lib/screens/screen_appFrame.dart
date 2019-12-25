@@ -1,8 +1,7 @@
 import 'package:Food_Bar/screens/screens.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
-import 'package:Food_Bar/bloc/bloc.dart';
+import 'package:Food_Bar/custom_bloc/bloc.dart';
 import 'package:Food_Bar/settings/settings.dart';
 import 'package:Food_Bar/widgets/widgets.dart';
 import 'package:Food_Bar/screens/tab_menu.dart';
@@ -28,7 +27,7 @@ class _AppFrameState extends State<AppFrame>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    bloc = BlocProvider.of<AppFrameBloc>(context);
+    bloc = AppFrameBlocProvider.of<AppFrameBloc>(context);
   }
 
   @override
@@ -37,23 +36,26 @@ class _AppFrameState extends State<AppFrame>
 
     return Scaffold(
       appBar: CustomAppBar(),
-      body: BlocBuilder(
-        bloc: bloc,
-        condition: (old, state) {
-          return AppFrameBloc.blocCondition(state, [InitialAppFrameState, ShowingTabAppFrameState]);
-        },
-        builder: (stateContext, AppFrameState state) {
-          currentTab = state.tabType;
+      body: StreamBuilder<AppFrameState>(
+        stream: bloc.stateStream,
+        initialData: bloc.getInitialState(),
+        builder: (stateContext, AsyncSnapshot<AppFrameState> snapshot) {
+          currentTab = snapshot.data.type;
 
-          if (state is ShowingTabAppFrameState)
-            _tabController.index = getTypeIndex(state.tabType);
+          _tabController.index = getTypeIndex(currentTab);
 
           return TabBarView(
             controller: _tabController,
             physics: NeverScrollableScrollPhysics(),
             children: <Widget>[
-              MenuTab(),
-              CartTab(),
+              AppFrameBlocProvider(
+                child: MenuTab(),
+                bloc: MenuBloc(),
+              ),
+              AppFrameBlocProvider(
+                child: CartTab(),
+                bloc: CartBloc(),
+              )
             ],
           );
         },
@@ -75,7 +77,7 @@ class _AppFrameState extends State<AppFrame>
 
   @override
   void dispose() {
-    bloc.close();
+    bloc.dispose();
     super.dispose();
   }
 }

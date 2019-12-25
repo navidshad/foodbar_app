@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:Food_Bar/bloc/bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:Food_Bar/custom_bloc/bloc.dart';
+//import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Food_Bar/widgets/widgets.dart';
 import 'package:Food_Bar/settings/app_properties.dart';
 
@@ -14,18 +14,23 @@ class _CartTabState extends State<CartTab> {
   CartBloc bloc;
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    bloc = AppFrameBlocProvider.of<CartBloc>(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    bloc = BlocProvider.of<CartBloc>(context);
 
-    return BlocBuilder(
-      bloc: bloc,
-      condition: (oldState, newState) => (newState == ShowCartState),
-      builder: (blocContext, CartState state) {
+    return StreamBuilder (
+      stream: bloc.stateStream,
+      initialData: bloc.getInitialState(),
+      builder: (streamContext, AsyncSnapshot snapshot) {
+
         List<Widget> widgets = [];
+        CartState state = snapshot.data;
 
-        ShowCartState stateDetail = state;
-
-        stateDetail.cart.foods.forEach((food) {
+        state.cart.foods.forEach((food) {
           widgets.add(OrderedFoodCard(food));
         });
 
@@ -33,13 +38,14 @@ class _CartTabState extends State<CartTab> {
           children: widgets,
           padding: EdgeInsets.all(AppProperties.cardSideMargin),
         );
+
       },
     );
   }
 
   @override
   void dispose() {
-    //bloc.close();
+    bloc.dispose();
     super.dispose();
   }
 }

@@ -1,11 +1,9 @@
-import 'package:Food_Bar/bloc/bloc.dart';
-import 'package:Food_Bar/bloc/cart_event.dart';
-import 'package:Food_Bar/settings/app_properties.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Food_Bar/models/models.dart';
 import 'package:Food_Bar/utilities/text_util.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:Food_Bar/custom_bloc/bloc.dart';
+import 'package:Food_Bar/settings/app_properties.dart';
 import 'package:Food_Bar/widgets/widgets.dart';
 
 class OrderedFoodCard extends StatelessWidget {
@@ -16,7 +14,7 @@ class OrderedFoodCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bloc = BlocProvider.of<CartBloc>(context);
+    bloc = AppFrameBlocProvider.of<CartBloc>(context);
 
     return LayoutBuilder(
       builder: (con, constraints) {
@@ -94,7 +92,7 @@ class OrderedFoodCard extends StatelessWidget {
   }
 
   void removeFromCart() {
-    bloc.add(RemovefromCatEvent(food));
+    bloc.eventSink.add(CartEvent(remove:food));
   }
 
   // void showBottomSlider(BuildContext context) {

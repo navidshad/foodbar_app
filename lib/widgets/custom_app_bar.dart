@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:Food_Bar/bloc/bloc.dart';
+import 'package:Food_Bar/custom_bloc/bloc.dart';
 import 'package:Food_Bar/settings/settings.dart';
 import 'package:Food_Bar/utilities/food_bar_icons.dart';
 
@@ -20,19 +19,16 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    bloc = BlocProvider.of<AppFrameBloc>(context);
+    bloc = AppFrameBlocProvider.of<AppFrameBloc>(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder(
-      bloc: bloc,
-      condition: (old, state) {
-        return AppFrameBloc.blocCondition(
-            state, [InitialAppFrameState, ChangingAppBarAppFrameState]);
-      },
-      builder: (stateContext, AppFrameState state) {
-        return buildAppBar(state.title, state.tabType);
+    return StreamBuilder(
+      stream: bloc.stateStream,
+      initialData: bloc.getInitialState(),
+      builder: (stateContext, AsyncSnapshot<AppFrameState> snapshot) {
+        return buildAppBar(snapshot.data.title, snapshot.data.type);
       },
     );
   }
@@ -63,13 +59,13 @@ class _CustomAppBarState extends State<CustomAppBar> {
   }
 
   void onAppBarActionButtonPressed() {
-    FrameTabType type = AppFrameBloc.switchType(currentTab);
-    bloc.add(ChangeTabAppFrameEvent(type));
+    AppFrameEvent event = AppFrameEvent(currentTab);
+    bloc.eventSink.add(event);
   }
 
   @override
   void dispose() {
-    bloc.close();
+    bloc.dispose();
     super.dispose();
   }
 }

@@ -1,10 +1,11 @@
 import 'package:Food_Bar/settings/types.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+//import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:Food_Bar/bloc/bloc.dart';
+import 'package:Food_Bar/custom_bloc/bloc.dart';
 import 'package:Food_Bar/screens/screens.dart';
 import 'package:Food_Bar/settings/app_properties.dart';
+import 'package:Food_Bar/settings/types.dart';
 
 class MenuTab extends StatefulWidget {
   @override
@@ -15,45 +16,42 @@ class _MenuTabState extends State<MenuTab> {
   MenuBloc bloc;
 
   @override
-  Widget build(BuildContext context) {
-    bloc = BlocProvider.of<MenuBloc>(context);
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    bloc = AppFrameBlocProvider.of<MenuBloc>(context);
+  }
 
-    return BlocBuilder(
-      bloc: bloc,
-      builder: (blocContext, MenuState state) {
-        if (state is ShowOnePageMenuMenuState) {
-          ShowOnePageMenuMenuState stateDetail = state;
-          return MenuTabOnePageView(stateDetail.list);
-        } else if (state is ShowCategoriesMenuState) {
-          ShowCategoriesMenuState stateDetail = state;
-          return MenuTabTwoPageCategoriesView(stateDetail.list);
-        } else {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: bloc.stateStream,
+      initialData: bloc.getInitialState(),
+      builder: (streamContext, AsyncSnapshot snapshop) {
+        MenuState state = snapshop.data;
+        Widget widget;
+
+        if (state.isInitState) {
           loadMenu();
-          return Center(child: CircularProgressIndicator());
+          widget = Center(child: CircularProgressIndicator());
+        } else if (state.type == MenuType.OnePage) {
+          widget = MenuTabOnePageView(state.categoriesWithFoods);
+        } else if (state.type == MenuType.TwoPage) {
+          widget = MenuTabTwoPageCategoriesView(state.categories);
         }
+
+        return widget;
       },
     );
   }
 
   void loadMenu() {
-    MenuEvent event;
-
-    switch (AppProperties.menuType) {
-      case MenuType.OnePage:
-        event = GetOnePageMenuMenuEvent();
-        break;
-
-      case MenuType.TwoPage:
-        event = GetCategoriesMenuEvent();
-        break;
-    }
-
-    bloc.add(event);
+    MenuEvent event = MenuEvent(AppProperties.menuType);
+    bloc.eventSink.add(event);
   }
 
   @override
   void dispose() {
-    //bloc.close();
+    bloc.dispose();
     super.dispose();
   }
 }
