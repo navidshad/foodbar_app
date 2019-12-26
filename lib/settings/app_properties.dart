@@ -21,4 +21,8 @@ class AppProperties {
 
   static Color mainColor = Colors.green;
   static Color backLightColor = Color.fromRGBO(255, 240, 225, 1);
+  static Color textOnMainColor = Colors.white;
+
+  // payment
+  static double deliveryChages = 30;
 }

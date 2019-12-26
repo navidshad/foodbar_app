@@ -5,8 +5,9 @@ class Food {
   String subTitle;
   String description;
   String imageUrl;
+  double price;
 
-  Food({this.id, this.categoryId, this.title, this.subTitle, this.description, this.imageUrl});
+  Food({this.id, this.categoryId, this.title, this.subTitle, this.description, this.price, this.imageUrl});
 
   factory Food.fromMap(Map detail) {
     return Food(
@@ -14,6 +15,7 @@ class Food {
       title: detail['title'],
       subTitle: detail['subTitle'],
       description: detail['description'],
-      imageUrl: detail['imageUrl']);
+      imageUrl: detail['imageUrl'],
+      price: detail['price']);
   }
 }

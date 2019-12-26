@@ -30,9 +30,19 @@ class _CartTabState extends State<CartTab> {
         List<Widget> widgets = [];
         CartState state = snapshot.data;
 
+        // add foods
         state.cart.foods.forEach((food) {
           widgets.add(OrderedFoodCard(food));
         });
+
+        // add Proceed card
+        ProceedToCheckout proceedCard = ProceedToCheckout(
+          cart: state.cart,
+          onApplyCoupon: () {},
+          onProceedToCheckout: (){},
+        );
+
+        widgets.add(proceedCard);
 
         return ListView(
           children: widgets,
