@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class AppFrameBlocProvider<T> extends InheritedWidget {
+class BlocProvider<T> extends InheritedWidget {
   final T bloc;
 
-  AppFrameBlocProvider({@required Widget child, this.bloc})
+  BlocProvider({@required Widget child, this.bloc})
       : super(child: child);
 
   @override
@@ -11,7 +11,7 @@ class AppFrameBlocProvider<T> extends InheritedWidget {
 
   static of<T>(BuildContext context) {
     return context
-        .dependOnInheritedWidgetOfExactType<AppFrameBlocProvider<T>>()
+        .dependOnInheritedWidgetOfExactType<BlocProvider<T>>()
         .bloc;
   }
 }

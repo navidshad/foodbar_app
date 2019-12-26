@@ -6,16 +6,17 @@ import 'package:Food_Bar/bloc/bloc.dart';
 import 'package:Food_Bar/settings/app_properties.dart';
 
 class FoodCard extends StatelessWidget {
-  
   final Food food;
   CartBloc bloc;
+
+  BuildContext _context;
 
   FoodCard(this.food);
 
   @override
   Widget build(BuildContext context) {
-
-    bloc = AppFrameBlocProvider.of<CartBloc>(context);
+    _context = context;
+    bloc = BlocProvider.of<CartBloc>(context);
 
     return LayoutBuilder(
       builder: (con, constraints) {
@@ -32,12 +33,15 @@ class FoodCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               // thumbnial
-              Container(
-                width: one4th,
-                height: one4th,
-                child: Image.asset(
-                  food.imageUrl,
-                  fit: BoxFit.cover,
+              Hero(
+                tag: food.getCombinedTag(),
+                child: Container(
+                  width: one4th,
+                  height: one4th,
+                  child: Image.asset(
+                    food.imageUrl,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
 
@@ -92,20 +96,27 @@ class FoodCard extends StatelessWidget {
         );
 
         //return widget;
-        return Card(
-          child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-            child: widget,
+        return InkWell(
+          onTap: onCardTab,
+          child: Card(
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(5)),
+              child: widget,
+            ),
+            elevation: 20,
           ),
-          elevation: 20,
         );
       },
     );
   }
 
   void addToCart() {
-    bloc.eventSink.add(CartEvent(add:food));
-  } 
+    bloc.eventSink.add(CartEvent(add: food));
+  }
+
+  void onCardTab() {
+    Navigator.pushNamed(_context, '/food', arguments: food);
+  }
 
   // void showBottomSlider(BuildContext context) {
   //   showModalBottomSheet(

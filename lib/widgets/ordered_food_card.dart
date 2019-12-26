@@ -14,7 +14,7 @@ class OrderedFoodCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bloc = AppFrameBlocProvider.of<CartBloc>(context);
+    bloc = BlocProvider.of<CartBloc>(context);
 
     return LayoutBuilder(
       builder: (con, constraints) {

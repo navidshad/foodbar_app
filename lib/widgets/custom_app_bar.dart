@@ -19,7 +19,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    bloc = AppFrameBlocProvider.of<AppFrameBloc>(context);
+    bloc = BlocProvider.of<AppFrameBloc>(context);
   }
 
   @override

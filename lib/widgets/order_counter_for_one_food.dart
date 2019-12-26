@@ -3,28 +3,26 @@ import 'package:flutter/material.dart';
 class OrderCounterForOneFood extends StatefulWidget {
   int count;
   Function(int newCount) onChange;
+  String title;
 
-  OrderCounterForOneFood({int count, Function(int newCount) onChange}){
-    this.count = count;
-    this.onChange = onChange;
-  }
+  OrderCounterForOneFood({this.count, this.onChange, this.title});
 
   @override
   _OrderCounterForOneFoodState createState() =>
-      _OrderCounterForOneFoodState(count, onChange);
+      _OrderCounterForOneFoodState(count, onChange, title);
 }
 
 class _OrderCounterForOneFoodState extends State<OrderCounterForOneFood> {
   int counter;
   Function(int newCount) onChange;
+  String title;
 
-  _OrderCounterForOneFoodState(this.counter, this.onChange);
+  _OrderCounterForOneFoodState(this.counter, this.onChange, this.title);
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (layoutContext, boxConstraints) {
-
         double borderThikness = 0.1;
         double defaultWidth = 80;
         double width;
@@ -36,12 +34,11 @@ class _OrderCounterForOneFoodState extends State<OrderCounterForOneFood> {
 
         double oneThird = width / 3 - borderThikness;
 
-        return Container(
+        Widget buttons = Container(
           width: width,
           decoration: BoxDecoration(
-            shape: BoxShape.rectangle,
-            border: Border.all(width: borderThikness)
-          ),
+              shape: BoxShape.rectangle,
+              border: Border.all(width: borderThikness)),
           child: Row(
             children: <Widget>[
               // plus counter
@@ -96,6 +93,23 @@ class _OrderCounterForOneFoodState extends State<OrderCounterForOneFood> {
               )
             ],
           ),
+        );
+
+        List<Widget> bodyElements = [];
+
+        if (title != null) {
+          bodyElements.add(Text(
+            title,
+            textScaleFactor: 0.9,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ));
+          bodyElements.add(Divider(thickness: 0, height: 10,));
+        }
+
+        bodyElements.add(buttons);
+
+        return Column(
+          children: bodyElements,
         );
       },
     );

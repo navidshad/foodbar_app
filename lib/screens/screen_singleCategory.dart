@@ -13,7 +13,7 @@ class SingleCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     category = ModalRoute.of(context).settings.arguments;
-    bloc = AppFrameBlocProvider.of<CategoryBloc>(context);
+    bloc = BlocProvider.of<CategoryBloc>(context);
 
     return Scaffold(
       body: NestedScrollView(
@@ -31,7 +31,7 @@ class SingleCategory extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   background: Hero(
-                    tag: category.id,
+                    tag: category.getCombinedTag(),
                     child: Image.asset(category.imageUrl, fit: BoxFit.cover),
                   ),
                 ))
@@ -62,7 +62,7 @@ class SingleCategory extends StatelessWidget {
   }
 
   Widget buildFoodList(List<Food> foods) {
-    return AppFrameBlocProvider(
+    return BlocProvider(
       bloc: CartBloc(),
       child: ListView.builder(
         itemCount: foods.length,

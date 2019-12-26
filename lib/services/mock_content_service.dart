@@ -4,14 +4,17 @@ import 'package:Food_Bar/models/models.dart';
 import 'package:Food_Bar/interfaces/content_provider.dart';
 
 class MockContentService implements ContentProvider {
+
+  int _delay = 1;
+
   Future<List<Category>> getCategories() {
-    return Future.delayed(Duration(seconds: 2)).then((r) => mockCategories
+    return Future.delayed(Duration(seconds: _delay)).then((r) => mockCategories
         .map((cat) => cat..imageUrl = getRandomImage('header'))
         .toList());
   }
 
   Future<List<Food>> getFoods(String category) {
-    return Future.delayed(Duration(seconds: 2)).then((r) => mockFoods
+    return Future.delayed(Duration(seconds: _delay)).then((r) => mockFoods
         .where((item) => item.categoryId == category)
         .toList()
         .map((food) => food..imageUrl = getRandomImage('food'))
@@ -32,7 +35,7 @@ class MockContentService implements ContentProvider {
       list.firstWhere((cat) => (food.categoryId == cat.id)).foods.add(food);
     });
 
-    return Future.delayed(Duration(seconds: 4)).then((r) => list);
+    return Future.delayed(Duration(seconds: _delay)).then((r) => list);
   }
 }
 

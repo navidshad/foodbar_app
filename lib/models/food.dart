@@ -18,4 +18,6 @@ class Food {
       imageUrl: detail['imageUrl'],
       price: detail['price']);
   }
+
+  String getCombinedTag() => '#$id-$imageUrl';
 }

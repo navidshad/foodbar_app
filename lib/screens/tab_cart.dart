@@ -16,7 +16,7 @@ class _CartTabState extends State<CartTab> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    bloc = AppFrameBlocProvider.of<CartBloc>(context);
+    bloc = BlocProvider.of<CartBloc>(context);
   }
 
   @override

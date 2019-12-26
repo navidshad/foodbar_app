@@ -22,7 +22,7 @@ class CategoryCard extends StatelessWidget {
           children: <Widget>[
             // thumbnail
             Hero(
-              tag: category.id,
+              tag: category.getCombinedTag(),
               child: Container(
                 width: one3,
                 height: one3,

@@ -18,7 +18,7 @@ class _MenuTabState extends State<MenuTab> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    bloc = AppFrameBlocProvider.of<MenuBloc>(context);
+    bloc = BlocProvider.of<MenuBloc>(context);
   }
 
   @override

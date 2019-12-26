@@ -27,7 +27,7 @@ class _AppFrameState extends State<AppFrame>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    bloc = AppFrameBlocProvider.of<AppFrameBloc>(context);
+    bloc = BlocProvider.of<AppFrameBloc>(context);
   }
 
   @override
@@ -48,11 +48,11 @@ class _AppFrameState extends State<AppFrame>
             controller: _tabController,
             physics: NeverScrollableScrollPhysics(),
             children: <Widget>[
-              AppFrameBlocProvider(
+              BlocProvider(
                 child: MenuTab(),
                 bloc: MenuBloc(),
               ),
-              AppFrameBlocProvider(
+              BlocProvider(
                 child: CartTab(),
                 bloc: CartBloc(),
               )

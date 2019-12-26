@@ -15,6 +15,8 @@ class Category {
         description: detail['description'],
         imageUrl: detail['imageUrl']);
   }
+
+  String getCombinedTag() => '#$id-$imageUrl';
 }
 
 class CategoryWithFoods extends Category {

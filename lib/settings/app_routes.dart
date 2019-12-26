@@ -7,15 +7,21 @@ class AppRoutes {
   static Map<String, WidgetBuilder> getRoutes() {
     return {
       '/home': (BuildContext context) {
-        return AppFrameBlocProvider<AppFrameBloc>(
+        return BlocProvider<AppFrameBloc>(
             bloc: AppFrameBloc(),
             child: AppFrame(),
         );
       },
       '/category': (BuildContext context) {
-        return AppFrameBlocProvider<CategoryBloc>(
+        return BlocProvider<CategoryBloc>(
           child: SingleCategory(),
           bloc: CategoryBloc(),
+        );
+      },
+      '/food': (BuildContext context) {
+        return BlocProvider<CartBloc>(
+          child: SingleFood(),
+          bloc: CartBloc(),
         );
       }
     };
