@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class OrderCounterForOneFood extends StatefulWidget {
-  int count;
-  Function(int newCount) onChange;
-  String title;
+  final int count;
+  final Function(int newCount) onChange;
+  final String title;
 
   OrderCounterForOneFood({this.count, this.onChange, this.title});
 

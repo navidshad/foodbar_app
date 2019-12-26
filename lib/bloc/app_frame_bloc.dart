@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 
-import 'package:Food_Bar/bloc/bloc.dart';
 import 'package:Food_Bar/interfaces/bloc_interface.dart';
 import 'package:Food_Bar/settings/types.dart';
 

@@ -22,7 +22,7 @@ class OrderedFoodCard extends StatelessWidget {
         // widget elements will use these size
         double textblocmargin = 8;
         double one3th = constraints.biggest.width / 3.5;
-        double two4th = constraints.biggest.width / 2;
+        //double two4th = constraints.biggest.width / 2;
         double one4th = constraints.biggest.width / 4 - textblocmargin;
 
         Widget widget = Container(

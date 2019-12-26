@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:Food_Bar/settings/app_properties.dart';
 
 class CardButton extends StatelessWidget {
-  double elevation;
-  double radius;
-  double height;
-  String title;
-  Function onTap;
-  bool isOutline;
-  EdgeInsets margin;
+  final double elevation;
+  final double radius;
+  final double height;
+  final String title;
+  final Function onTap;
+  final bool isOutline;
+  final EdgeInsets margin;
 
   CardButton(
       {this.elevation,

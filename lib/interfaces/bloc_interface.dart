@@ -14,7 +14,7 @@ abstract class BlocInterface<BlocEvent, BlocState> {
 
   void _handler(BlocEvent event) {}
 
-  BlocState getInitialState() {}
+  BlocState getInitialState() { return null; }
 
   void dispose() {
     _stateController.close();
