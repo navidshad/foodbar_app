@@ -10,7 +10,7 @@ class SingleFood extends StatelessWidget {
   CartBloc bloc;
 
   Food food;
-  int count = 0;
+  int total = 0;
 
   double elevation = 0;
   double cardPadding = 20;
@@ -66,8 +66,8 @@ class SingleFood extends StatelessWidget {
                   children: <Widget>[
                     OrderCounterForOneFood(
                       title: 'Quantity',
-                      count: count,
-                      onChange: (value) { count = value; },
+                      count: total,
+                      onChange: (value) { total = value; },
                     )
                   ],
                 ),
@@ -79,7 +79,7 @@ class SingleFood extends StatelessWidget {
               elevation: elevation,
               title: 'Order Now',
               height: 50,
-              onTap: (){},
+              //onTap: (){},
               margin: EdgeInsets.only(bottom: 15),
             ),
 
@@ -89,11 +89,16 @@ class SingleFood extends StatelessWidget {
               title: 'Add To Cart',
               height: 50,
               isOutline: true,
-              onTap: (){},
+              onTap: addToCart,
             )
           ],
         ),
       ),
     );
+  }
+
+  void addToCart() {
+    var event = CartEvent(add: OrderedFood.fromFood(food, total: total));
+    bloc.eventSink.add(event);
   }
 }

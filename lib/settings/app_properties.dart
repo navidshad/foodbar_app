@@ -20,8 +20,11 @@ class AppProperties {
   static double cardVerticalMargin = 5;
 
   static Color mainColor = Colors.green;
+  static Color disabledColor = Colors.grey;
   static Color backLightColor = Color.fromRGBO(255, 240, 225, 1);
+  
   static Color textOnMainColor = Colors.white;
+  static Color textOnDisabled  = Colors.black;
 
   // payment
   static double deliveryChages = 30;

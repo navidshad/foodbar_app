@@ -30,6 +30,8 @@ class CardButton extends StatelessWidget {
           button = OutlineButton(
             onPressed: onTap,
             borderSide: BorderSide(color: AppProperties.mainColor),
+            disabledBorderColor: AppProperties.disabledColor,
+            disabledTextColor: AppProperties.textOnDisabled,
             child: Text(
               title,
               style: TextStyle(
@@ -42,6 +44,8 @@ class CardButton extends StatelessWidget {
           button = FlatButton(
             onPressed: onTap,
             color: AppProperties.mainColor,
+            disabledColor: AppProperties.disabledColor,
+            disabledTextColor: AppProperties.textOnDisabled,
             child: Text(
               title,
               style: TextStyle(

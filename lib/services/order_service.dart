@@ -10,8 +10,15 @@ class OrderService {
 
   Cart get cart => _cart;
 
-  void addToCart(Food food) {
-    _cart.foods.add(food);
+  void addToCart(OrderedFood orderedfood) {
+    // set intial hashcode
+    orderedfood.initialHash = orderedfood.hashCode;
+    _cart.foods.add(orderedfood);
+  }
+
+  void updateCart(OrderedFood orderedfood) {
+    int index = _cart.foods.indexWhere((f) => (f.initialHash == orderedfood.initialHash));
+    if(index > -1) _cart.foods[index] = orderedfood;
   }
 
   void removeFromCart(Food food)

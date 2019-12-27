@@ -6,9 +6,10 @@ import 'package:Food_Bar/models/models.dart';
 import 'package:Food_Bar/services/services.dart';
 
 class CartEvent {
-  Food add;
-  Food remove;
-  CartEvent({this.add, this.remove});
+  OrderedFood add;
+  OrderedFood update;
+  OrderedFood remove;
+  CartEvent({this.add, this.update, this.remove});
 }
 
 class CartState {
@@ -36,6 +37,9 @@ class CartBloc implements BlocInterface<CartEvent, CartState> {
 
     if(event.add != null){
       _orderService.addToCart(event.add);
+    }
+    if(event.update != null){
+      _orderService.updateCart(event.update);
     }
     if(event.remove != null){
       _orderService.removeFromCart(event.remove);

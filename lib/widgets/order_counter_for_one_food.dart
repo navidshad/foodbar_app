@@ -54,8 +54,7 @@ class _OrderCounterForOneFoodState extends State<OrderCounterForOneFood> {
                     ),
                   ),
                   onPressed: () {
-                    counter++;
-                    setState(() {});
+                    setState(increment);
                   },
                 ),
               ),
@@ -86,8 +85,7 @@ class _OrderCounterForOneFoodState extends State<OrderCounterForOneFood> {
                     ),
                   ),
                   onPressed: () {
-                    counter--;
-                    setState(() {});
+                    setState(decrement);
                   },
                 ),
               )
@@ -103,7 +101,10 @@ class _OrderCounterForOneFoodState extends State<OrderCounterForOneFood> {
             textScaleFactor: 0.9,
             style: TextStyle(fontWeight: FontWeight.bold),
           ));
-          bodyElements.add(Divider(thickness: 0, height: 10,));
+          bodyElements.add(Divider(
+            thickness: 0,
+            height: 10,
+          ));
         }
 
         bodyElements.add(buttons);
@@ -113,5 +114,15 @@ class _OrderCounterForOneFoodState extends State<OrderCounterForOneFood> {
         );
       },
     );
+  }
+
+  void increment() {
+    counter++;
+    onChange(counter);
+  }
+
+  void decrement() {
+    if (counter > 0) counter--;
+    onChange(counter);
   }
 }

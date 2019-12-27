@@ -111,7 +111,7 @@ class FoodCard extends StatelessWidget {
   }
 
   void addToCart() {
-    bloc.eventSink.add(CartEvent(add: food));
+    bloc.eventSink.add(CartEvent(add: OrderedFood.fromFood(food)));
   }
 
   void onCardTab() {

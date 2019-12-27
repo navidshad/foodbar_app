@@ -7,7 +7,8 @@ import 'package:Food_Bar/settings/app_properties.dart';
 import 'package:Food_Bar/widgets/widgets.dart';
 
 class OrderedFoodCard extends StatelessWidget {
-  final Food food;
+  
+  OrderedFood food;
   CartBloc bloc;
 
   OrderedFoodCard(this.food);
@@ -26,7 +27,6 @@ class OrderedFoodCard extends StatelessWidget {
         double one4th = constraints.biggest.width / 4 - textblocmargin;
 
         Widget widget = Container(
-          //padding: EdgeInsets.all(8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -43,8 +43,7 @@ class OrderedFoodCard extends StatelessWidget {
               // title, counte
               Container(
                 width: one3th,
-                padding: EdgeInsets.only(
-                    left: textblocmargin, right: textblocmargin),
+                padding: EdgeInsets.all(textblocmargin),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -57,7 +56,11 @@ class OrderedFoodCard extends StatelessWidget {
                       ),
                     ),
                     OrderCounterForOneFood(
-                      count: 1,
+                      count: food.total,
+                      onChange: (value) {
+                        food.total = value;
+                        updateCart();
+                      },
                     )
                   ],
                 ),
@@ -93,6 +96,11 @@ class OrderedFoodCard extends StatelessWidget {
 
   void removeFromCart() {
     bloc.eventSink.add(CartEvent(remove:food));
+  }
+
+  void updateCart() {
+    var event = CartEvent(update: food);
+    bloc.eventSink.add(event);
   }
 
   // void showBottomSlider(BuildContext context) {

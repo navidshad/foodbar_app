@@ -2,17 +2,30 @@ import 'package:flutter/material.dart';
 
 import 'package:Food_Bar/models/models.dart';
 import 'package:Food_Bar/settings/app_properties.dart';
+import 'package:Food_Bar/bloc/bloc.dart';
 
 class ProceedToCheckout extends StatelessWidget {
-  final Cart cart;
   final Function onProceedToCheckout;
   final Function onApplyCoupon;
 
   ProceedToCheckout(
-      {@required this.cart, @required this.onApplyCoupon, @required this.onProceedToCheckout});
+      {@required this.onApplyCoupon, @required this.onProceedToCheckout});
 
   @override
   Widget build(BuildContext context) {
+    final CartBloc bloc = BlocProvider.of<CartBloc>(context);
+
+    return StreamBuilder(
+      stream: bloc.stateStream,
+      initialData: bloc.getInitialState(),
+      builder: (context, snapshot) {
+        CartState state = snapshot.data;
+        return buildCard(state.cart);
+      },
+    );
+  }
+
+  Widget buildCard(Cart cart) {
     return LayoutBuilder(
       builder: (con, constraints) {
         TextStyle bold = TextStyle(fontWeight: FontWeight.bold);
@@ -85,7 +98,9 @@ class ProceedToCheckout extends StatelessWidget {
                   ),
                 ),
                 color: AppProperties.mainColor,
-                onPressed: onProceedToCheckout,
+                disabledColor: AppProperties.disabledColor,
+                disabledTextColor: AppProperties.textOnDisabled,
+                onPressed: (cart.total > 0) ? onProceedToCheckout : null,
               ),
             )
           ],

@@ -15,7 +15,8 @@ class AppTheme {
             title: TextStyle(color: Colors.black, fontSize: 18),
             )
         ),
-        scaffoldBackgroundColor: Colors.white
+        scaffoldBackgroundColor: Colors.white,
+        disabledColor: Colors.grey
       );
   }
 }

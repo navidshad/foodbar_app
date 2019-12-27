@@ -37,7 +37,6 @@ class _CartTabState extends State<CartTab> {
 
         // add Proceed card
         ProceedToCheckout proceedCard = ProceedToCheckout(
-          cart: state.cart,
           onApplyCoupon: () {},
           onProceedToCheckout: (){},
         );
