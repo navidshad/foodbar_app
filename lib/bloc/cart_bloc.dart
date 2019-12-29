@@ -17,9 +17,16 @@ class CartState {
   CartState(this.cart);
 }
 
+class CartCounterState {
+  int total;
+  CartCounterState(this.total);
+}
+
 class CartBloc implements BlocInterface<CartEvent, CartState> {
   final StreamController<CartEvent> _eventController = BehaviorSubject<CartEvent>();
   final StreamController<CartState> _stateController = BehaviorSubject<CartState>();
+  final StreamController<CartCounterState> _counterStateController = BehaviorSubject<CartCounterState>();
+
 
   final OrderService _orderService = OrderService.instace;
 
@@ -28,6 +35,8 @@ class CartBloc implements BlocInterface<CartEvent, CartState> {
 
   @override
   Stream<CartState> get stateStream => _stateController.stream;
+
+  Stream<CartCounterState> get stateCounter => _counterStateController.stream;
 
   CartBloc() {
     _eventController.stream.listen(_handler);
@@ -46,16 +55,22 @@ class CartBloc implements BlocInterface<CartEvent, CartState> {
     }
     
     _stateController.add(CartState(_orderService.cart));
+    _counterStateController.add(CartCounterState(_orderService.cart.foods.length));
   }
 
   @override
   void dispose() {
     _eventController.close();
     _stateController.close();
+    _counterStateController.close();
   }
 
   @override
   CartState getInitialState() {
     return CartState(_orderService.cart);
+  }
+
+  CartCounterState getInitialCounterState() {
+    return CartCounterState(_orderService.cart.foods.length);
   }
 }

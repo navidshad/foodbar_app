@@ -3,6 +3,8 @@ import './food.dart';
 class OrderedFood extends Food {
   int total;
 
+  double get totalPrice => this.price * total;
+
   // his code is used when a copy of this object wants to update 
   // this object at cart food list.
   // this hashcode being given when this object is about to be a refrence;

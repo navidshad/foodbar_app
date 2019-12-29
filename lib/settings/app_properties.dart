@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:Food_Bar/settings/types.dart';
+import 'package:Food_Bar/utilities/food_bar_icons.dart';
 
 /// All default values are here, texts, colorsand etc
 class AppProperties {
@@ -12,12 +13,6 @@ class AppProperties {
   static String cartTitle = 'My Cart';
 
   static int splashDelay = 5;
-  
-  // appframe
-  static MenuType menuType = MenuType.TwoPage;
-
-  static double cardSideMargin = 15;
-  static double cardVerticalMargin = 5;
 
   static Color mainColor = Colors.green;
   static Color disabledColor = Colors.grey;
@@ -25,6 +20,16 @@ class AppProperties {
   
   static Color textOnMainColor = Colors.white;
   static Color textOnDisabled  = Colors.black;
+
+  static double cardSideMargin = 15;
+  static double cardVerticalMargin = 5;
+  
+  // appframe
+  static MenuType menuType = MenuType.TwoPage;
+
+  static IconData menuIcon = FoodBarIcons.spoon_and_fork;
+  static IconData cartIcon = FoodBarIcons.shopping_bag_not_empty;
+  static IconData cartIconEmpty = FoodBarIcons.shopping_bag;
 
   // payment
   static double deliveryChages = 30;

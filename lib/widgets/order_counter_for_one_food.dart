@@ -4,8 +4,9 @@ class OrderCounterForOneFood extends StatefulWidget {
   final int count;
   final Function(int newCount) onChange;
   final String title;
+  final min;
 
-  OrderCounterForOneFood({this.count, this.onChange, this.title});
+  OrderCounterForOneFood({this.count, this.onChange, this.title, this.min=1});
 
   @override
   _OrderCounterForOneFoodState createState() =>
@@ -122,7 +123,7 @@ class _OrderCounterForOneFoodState extends State<OrderCounterForOneFood> {
   }
 
   void decrement() {
-    if (counter > 0) counter--;
+    if (counter > widget.min) counter--;
     onChange(counter);
   }
 }

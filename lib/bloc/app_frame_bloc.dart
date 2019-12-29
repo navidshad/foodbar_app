@@ -26,6 +26,8 @@ class AppFrameBloc implements BlocInterface<AppFrameEvent, AppFrameState> {
   final _eventController = BehaviorSubject<AppFrameEvent>();
   StreamSink<AppFrameEvent> get eventSink => _eventController.sink;
 
+  static FrameTabType currentType = FrameTabType.MENU;
+
   AppFrameBloc() {
     _eventController.stream.listen(_mapEventToState);
   }
@@ -42,6 +44,8 @@ class AppFrameBloc implements BlocInterface<AppFrameEvent, AppFrameState> {
       type = FrameTabType.CART;
     }
 
+    AppFrameBloc.currentType = type;
+
     AppFrameState state = AppFrameState(title, type);
     _stateController.add(state);
   }
@@ -57,6 +61,6 @@ class AppFrameBloc implements BlocInterface<AppFrameEvent, AppFrameState> {
 
   @override
   AppFrameState getInitialState() {
-    return AppFrameState('Menu', FrameTabType.MENU);
+    return AppFrameState('Menu', AppFrameBloc.currentType);
   }
 }

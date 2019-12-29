@@ -72,7 +72,7 @@ class OrderedFoodCard extends StatelessWidget {
                 child: Center(
                   child: FittedBox(
                     child: Text(
-                      '\$25',
+                      food.totalPrice.toString(),
                       style: TextStyle(color: AppProperties.mainColor),
                     ),
                   ),

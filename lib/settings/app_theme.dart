@@ -16,7 +16,7 @@ class AppTheme {
             )
         ),
         scaffoldBackgroundColor: Colors.white,
-        disabledColor: Colors.grey
+        disabledColor: Colors.grey,
       );
   }
 }

@@ -19,22 +19,11 @@ class SingleCategory extends StatelessWidget {
       body: NestedScrollView(
         headerSliverBuilder: (headerContext, bool innerBoxIsScrolled) {
           return <Widget>[
-            SliverAppBar(
-                expandedHeight: 300,
-                pinned: true,
-                floating: true,
-                centerTitle: true,
-                flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: true,
-                  title: Text(
-                    TextUtil.toUperCaseForLable(category.title),
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  background: Hero(
-                    tag: category.getCombinedTag(),
-                    child: Image.asset(category.imageUrl, fit: BoxFit.cover),
-                  ),
-                ))
+            CustomSilverappBar(
+              title: category.title,
+              heroTag: category.getCombinedTag(),
+              backGroundImage: category.imageUrl,
+            )
           ];
         },
         body: StreamBuilder<CategoryState>(
@@ -62,21 +51,18 @@ class SingleCategory extends StatelessWidget {
   }
 
   Widget buildFoodList(List<Food> foods) {
-    return BlocProvider(
-      bloc: CartBloc(),
-      child: ListView.builder(
-        itemCount: foods.length,
-        padding: EdgeInsets.all(AppProperties.cardSideMargin),
-        itemBuilder: (itemContext, int i) {
-          Food food = foods[i];
-          return Column(
-            children: <Widget>[
-              FoodCard(food),
-              //Divider(height: 0,)
-            ],
-          );
-        },
-      ),
+    return ListView.builder(
+      itemCount: foods.length,
+      padding: EdgeInsets.all(AppProperties.cardSideMargin),
+      itemBuilder: (itemContext, int i) {
+        Food food = foods[i];
+        return Column(
+          children: <Widget>[
+            FoodCard(food),
+            //Divider(height: 0,)
+          ],
+        );
+      },
     );
   }
 }

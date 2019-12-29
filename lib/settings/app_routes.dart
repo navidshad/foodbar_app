@@ -8,20 +8,32 @@ class AppRoutes {
     return {
       '/home': (BuildContext context) {
         return BlocProvider<AppFrameBloc>(
-            bloc: AppFrameBloc(),
+          bloc: AppFrameBloc(),
+          child: BlocProvider<CartBloc>(
+            bloc: CartBloc(),
             child: AppFrame(),
+          ),
         );
       },
       '/category': (BuildContext context) {
-        return BlocProvider<CategoryBloc>(
-          child: SingleCategory(),
-          bloc: CategoryBloc(),
+        return BlocProvider<AppFrameBloc>(
+          bloc: AppFrameBloc(),
+          child: BlocProvider<CartBloc>(
+            bloc: CartBloc(),
+            child: BlocProvider<CategoryBloc>(
+              child: SingleCategory(),
+              bloc: CategoryBloc(),
+            ),
+          ),
         );
       },
       '/food': (BuildContext context) {
-        return BlocProvider<CartBloc>(
-          child: SingleFood(),
-          bloc: CartBloc(),
+        return BlocProvider<AppFrameBloc>(
+          bloc: AppFrameBloc(),
+          child: BlocProvider<CartBloc>(
+            child: SingleFood(),
+            bloc: CartBloc(),
+          ),
         );
       }
     };

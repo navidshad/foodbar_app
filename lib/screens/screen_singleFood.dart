@@ -1,3 +1,4 @@
+import 'package:Food_Bar/widgets/cart_button.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Food_Bar/models/models.dart';
@@ -10,7 +11,7 @@ class SingleFood extends StatelessWidget {
   CartBloc bloc;
 
   Food food;
-  int total = 0;
+  int total = 1;
 
   double elevation = 0;
   double cardPadding = 20;
@@ -24,24 +25,11 @@ class SingleFood extends StatelessWidget {
       body: NestedScrollView(
         headerSliverBuilder: (headerContext, bool innerBoxIsScrolled) {
           return <Widget>[
-            SliverAppBar(
-                expandedHeight: 300,
-                pinned: true,
-                floating: true,
-                centerTitle: true,
-                flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: true,
-                  titlePadding:
-                      EdgeInsets.only(left: 100, right: 100, bottom: 20),
-                  title: Text(
-                    TextUtil.toUperCaseForLable(food.title),
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  background: Hero(
-                    tag: food.getCombinedTag(),
-                    child: Image.asset(food.imageUrl, fit: BoxFit.cover),
-                  ),
-                ))
+            CustomSilverappBar(
+              title: food.title,
+              heroTag: food.getCombinedTag(),
+              backGroundImage: food.imageUrl,
+            )
           ];
         },
         body: ListView(
@@ -67,7 +55,9 @@ class SingleFood extends StatelessWidget {
                     OrderCounterForOneFood(
                       title: 'Quantity',
                       count: total,
-                      onChange: (value) { total = value; },
+                      onChange: (value) {
+                        total = value;
+                      },
                     )
                   ],
                 ),

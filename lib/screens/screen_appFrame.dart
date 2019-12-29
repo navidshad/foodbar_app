@@ -40,9 +40,13 @@ class _AppFrameState extends State<AppFrame>
         stream: bloc.stateStream,
         initialData: bloc.getInitialState(),
         builder: (stateContext, AsyncSnapshot<AppFrameState> snapshot) {
-          currentTab = snapshot.data.type;
+          currentTab = AppFrameBloc.currentType;//snapshot.data.type;
 
           _tabController.index = getTypeIndex(currentTab);
+
+          // switch to a specifc tab if it difined on route argument
+          // var argument = ModalRoute.of(context).settings.arguments;
+          // if (argument is FrameTabType) switchTab(argument);
 
           return TabBarView(
             controller: _tabController,
@@ -52,10 +56,9 @@ class _AppFrameState extends State<AppFrame>
                 child: MenuTab(),
                 bloc: MenuBloc(),
               ),
-              BlocProvider(
-                child: CartTab(),
-                bloc: CartBloc(),
-              )
+
+              // cartBloc was provided by the route of this page
+              CartTab(),
             ],
           );
         },
@@ -75,9 +78,14 @@ class _AppFrameState extends State<AppFrame>
     //sbloc.add(ChangeAppBarAppFrameEvent(type));
   }
 
+  void switchTab(FrameTabType type) {
+    //bloc.eventSink.add(AppFrameEvent(type));
+    _tabController.index = getTypeIndex(currentTab);
+  }
+
   @override
   void dispose() {
-    bloc.dispose();
+    //bloc.dispose();
     super.dispose();
   }
 }
