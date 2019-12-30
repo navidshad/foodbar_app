@@ -53,6 +53,14 @@ class _CustomAppBarState extends State<CustomAppBar> {
         child: Icon(FoodBarIcons.spoon_and_fork),
         onPressed: onAppBarActionButtonPressed,
       );
+    } else if (type == FrameTabType.Reserve) {
+      // actionBtn = FlatButton(
+      //   child: Icon(FoodBarIcons.shopping_bag),
+      //   onPressed: onAppBarActionButtonPressed,
+      // );
+      actionBtn = CartButton(
+        onTap: onAppBarActionButtonPressed,
+      );
     }
 
     // build appbar
@@ -64,7 +72,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   }
 
   void onAppBarActionButtonPressed() {
-    AppFrameEvent event = AppFrameEvent(currentTab);
+    AppFrameEvent event = AppFrameEvent(switchFrom: currentTab);
     bloc.eventSink.add(event);
   }
 

@@ -30,7 +30,7 @@ import 'package:flutter/widgets.dart';
 class FoodBarIcons {
   FoodBarIcons._();
 
-  static const _kFontFam = 'FoodBar';
+  static const _kFontFam = 'FoodBarIcons';
 
   static const IconData like = const IconData(0xe800, fontFamily: _kFontFam);
   static const IconData like_flat = const IconData(0xe801, fontFamily: _kFontFam);
@@ -44,4 +44,6 @@ class FoodBarIcons {
   static const IconData success = const IconData(0xe809, fontFamily: _kFontFam);
   static const IconData error = const IconData(0xe80a, fontFamily: _kFontFam);
   static const IconData spoon_and_fork = const IconData(0xe80b, fontFamily: _kFontFam);
+  static const IconData reservation01 = const IconData(0xe80c, fontFamily: _kFontFam);
+  static const IconData reservation02 = const IconData(0xe80d, fontFamily: _kFontFam);
 }

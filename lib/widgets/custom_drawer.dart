@@ -40,51 +40,68 @@ class _CustomDrawerState extends State<CustomDrawer> {
             child: ListView(
               padding: EdgeInsets.zero,
               children: <Widget>[
-                DrawerHeader(
-                  //decoration: BoxDecoration(color: AppProperties.mainColor),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      logo,
-                      Container(
-                        margin: EdgeInsets.only(left: 15),
-                        height: lohoHeight,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              AppProperties.title,
-                              textScaleFactor: 1.6,
-                            ),
-                            Text(AppProperties.slagon)
-                          ],
-                        ),
-                      )
-                    ],
+                Container(
+                  height: 120,
+                  child: DrawerHeader(
+                    margin: EdgeInsets.all(0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        logo,
+                        Container(
+                          margin: EdgeInsets.only(left: 15),
+                          height: lohoHeight,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                AppProperties.title,
+                                textScaleFactor: 1.6,
+                              ),
+                              Text(AppProperties.slagon)
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 ListTile(
                   title: Text(AppProperties.menuTitle),
                   leading: Icon(AppProperties.menuIcon),
-                  onTap: () {},
+                  onTap: () => switchTab(FrameTabType.MENU),
+                ),
+                Divider(
+                  height: 0,
                 ),
                 ListTile(
                   title: Text(AppProperties.cartTitle),
                   leading: Icon(AppProperties.cartIcon),
-                  onTap: () {},
+                  onTap: () => switchTab(FrameTabType.CART),
+                ),
+                Divider(
+                  height: 0,
                 ),
                 ListTile(
                   title: Text(AppProperties.reservationTitle),
                   leading: Icon(AppProperties.reservationIcon),
-                  onTap: () {},
-                )
+                  onTap: () => switchTab(FrameTabType.Reserve),
+                ),
+                Divider(
+                  height: 0,
+                ),
               ],
             ),
           ),
         );
       },
     );
+  }
+
+  void switchTab(FrameTabType type) {
+    bloc.eventSink.add(AppFrameEvent(switchTo: type));
+    Navigator.pop(context);
   }
 }

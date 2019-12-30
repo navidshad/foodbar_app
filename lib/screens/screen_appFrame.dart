@@ -20,7 +20,7 @@ class _AppFrameState extends State<AppFrame>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: 2);
+    _tabController = TabController(vsync: this, length: 3);
     _tabController.addListener(onTabViewChanged);
   }
 
@@ -57,6 +57,8 @@ class _AppFrameState extends State<AppFrame>
 
               // cartBloc was provided by the route of this page
               CartTab(),
+
+              ReservationTab(),
             ],
           );
         },
@@ -67,8 +69,10 @@ class _AppFrameState extends State<AppFrame>
   int getTypeIndex(FrameTabType type) {
     if (type == FrameTabType.MENU)
       return 0;
-    else
+    else if(type == FrameTabType.CART)
       return 1;
+    else if(type == FrameTabType.Reserve)
+      return 2;
   }
 
   void onTabViewChanged() {

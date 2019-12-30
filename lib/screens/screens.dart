@@ -7,3 +7,4 @@ export './tab_menu_onePageView.dart';
 export './tab_menu_twoPageCategoriesView.dart';
 export './screen_singleCategory.dart';
 export './screen_singleFood.dart';
+export './tab_reservation.dart';

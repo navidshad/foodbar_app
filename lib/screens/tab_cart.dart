@@ -51,10 +51,4 @@ class _CartTabState extends State<CartTab> {
       },
     );
   }
-
-  @override
-  void dispose() {
-    bloc.dispose();
-    super.dispose();
-  }
 }

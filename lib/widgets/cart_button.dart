@@ -78,6 +78,6 @@ class _CartButtonState extends State<CartButton> {
 
   void goToCartPage () {
     Navigator.popUntil(context, (route) => (route.settings.name == '/home'));
-    frameBloc.eventSink.add(AppFrameEvent(FrameTabType.MENU));
+    frameBloc.eventSink.add(AppFrameEvent(switchFrom: FrameTabType.MENU));
   }
 }

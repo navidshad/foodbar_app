@@ -46,10 +46,4 @@ class _MenuTabState extends State<MenuTab> {
     MenuEvent event = MenuEvent(AppProperties.menuType);
     bloc.eventSink.add(event);
   }
-
-  @override
-  void dispose() {
-    bloc.dispose();
-    super.dispose();
-  }
 }

@@ -31,7 +31,7 @@ class AppProperties {
   static IconData menuIcon = FoodBarIcons.spoon_and_fork;
   static IconData cartIcon = FoodBarIcons.shopping_bag_not_empty;
   static IconData cartIconEmpty = FoodBarIcons.shopping_bag;
-  static IconData reservationIcon = Icons.menu;
+  static IconData reservationIcon = FoodBarIcons.reservation02;
 
   // payment
   static double deliveryChages = 30;
