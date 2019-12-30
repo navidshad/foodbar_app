@@ -36,6 +36,8 @@ class _AppFrameState extends State<AppFrame>
 
     return Scaffold(
       appBar: CustomAppBar(),
+      drawer: CustomDrawer(),
+      drawerScrimColor: Colors.transparent,
       body: StreamBuilder<AppFrameState>(
         stream: bloc.stateStream,
         initialData: bloc.getInitialState(),
@@ -43,10 +45,6 @@ class _AppFrameState extends State<AppFrame>
           currentTab = AppFrameBloc.currentType;//snapshot.data.type;
 
           _tabController.index = getTypeIndex(currentTab);
-
-          // switch to a specifc tab if it difined on route argument
-          // var argument = ModalRoute.of(context).settings.arguments;
-          // if (argument is FrameTabType) switchTab(argument);
 
           return TabBarView(
             controller: _tabController,

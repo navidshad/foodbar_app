@@ -9,7 +9,7 @@ class SplashScreen extends StatelessWidget {
     startTimer(context);
 
     // load logo and setup it
-    Image logo = Image.asset('assets/images/logo.png', height: 230,);
+    Image logo = Image.asset(AppProperties.imgPath_logo, height: 230,);
 
     // build splash screen
     return Scaffold(
