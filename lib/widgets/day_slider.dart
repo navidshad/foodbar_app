@@ -4,8 +4,9 @@ import 'package:Food_Bar/widgets/widgets.dart';
 import 'package:Food_Bar/settings/app_properties.dart';
 import 'package:Food_Bar/utilities/date_util.dart';
 
-class CustomDayPicker extends StatefulWidget {
-  CustomDayPicker({Key key, this.totalDays, this.from, @required this.onDayPicked})
+class CustomDaySlider extends StatefulWidget {
+  CustomDaySlider(
+      {Key key, this.totalDays, this.from, @required this.onDayPicked})
       : super(key: key);
 
   final totalDays;
@@ -13,10 +14,10 @@ class CustomDayPicker extends StatefulWidget {
   final Function(DateTime day) onDayPicked;
 
   @override
-  _CustomDayPickerState createState() => _CustomDayPickerState();
+  _CustomDaySliderState createState() => _CustomDaySliderState();
 }
 
-class _CustomDayPickerState extends State<CustomDayPicker> {
+class _CustomDaySliderState extends State<CustomDaySlider> {
   int selectedDayIndex = 0;
   DateTime selectedDate;
 
@@ -52,23 +53,41 @@ class _CustomDayPickerState extends State<CustomDayPicker> {
         }
 
         // selected Day Lable -----
-        Container selectedDayLable = Container(
-            width: constraints.maxWidth,
-            padding: EdgeInsets.all(40),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  DateUtil.longWeekDays[selectedDate.weekday],
-                  textScaleFactor: 2,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  DateUtil.getOnlyDate(selectedDate),
-                  style: TextStyle(color: Colors.grey),
-                )
-              ],
-            ));
+        // Container selectedDayLable = Container(
+        //     width: constraints.maxWidth,
+        //     padding: EdgeInsets.all(40),
+        //     child: Column(
+        //       crossAxisAlignment: CrossAxisAlignment.start,
+        //       children: <Widget>[
+        //         Text(
+        //           DateUtil.longWeekDays[selectedDate.weekday],
+        //           textScaleFactor: 2,
+        //           style: TextStyle(fontWeight: FontWeight.bold),
+        //         ),
+        //         Text(
+        //           DateUtil.getOnlyDate(selectedDate),
+        //           style: TextStyle(color: Colors.grey),
+        //         )
+        //       ],
+        //     ));
+
+        Widget selectedDayLable = Container(
+          margin: EdgeInsets.all(15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                'Pick a date',
+                textScaleFactor: 1.5,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text(
+                DateUtil.getOnlyDate(selectedDate),
+                style: TextStyle(color: AppProperties.secondColor),
+              )
+            ],
+          ),
+        );
 
         bodyColumnWidgets.add(selectedDayLable);
 
@@ -77,7 +96,6 @@ class _CustomDayPickerState extends State<CustomDayPicker> {
           child: ConstrainedBox(
             constraints: BoxConstraints(
               minWidth: constraints.maxWidth,
-              //maxHeight: 100,
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,

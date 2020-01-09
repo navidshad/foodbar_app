@@ -1,6 +1,6 @@
 import 'package:Food_Bar/models/models.dart';
 
-class ContentProvider {
+abstract class ContentProvider {
   Future<List<Category>> getCategories() {
     return null;
   }

@@ -1,4 +1,7 @@
+import 'package:Food_Bar/models/models.dart';
 import 'package:Food_Bar/settings/settings.dart';
+import 'package:Food_Bar/widgets/date_picker.dart';
+import 'package:Food_Bar/widgets/time_slider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Food_Bar/widgets/widgets.dart';
@@ -17,18 +20,22 @@ class _ReservationTabState extends State<ReservationTab> {
       builder: (context, constraints) {
         List<Widget> bodyColumnWidgets = [];
 
-        // day picker -----
-        Widget dayPicker = CustomDayPicker(
+        // date picker -----
+        Widget dayPicker = CustomDatePicker(
           from: DateTime.now(),
           totalDays: 7,
-          onDayPicked: (DateTime selected) {},
+          periods: [
+            Period(
+                from: Time(houre: 12),
+                to: Time(houre: 21),
+                dividedPerMinutes: 60)
+          ],
+          onPickDate: (picked) {},
         );
-
         bodyColumnWidgets.add(dayPicker);
 
-        // table section ----------
-
-        return Column(children: bodyColumnWidgets);
+        // combine all
+        return ListView(children: bodyColumnWidgets);
       },
     );
   }

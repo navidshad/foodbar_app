@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:Food_Bar/utilities/date_util.dart';
 
-class CardDay extends StatelessWidget {
-  CardDay(
+class CardTime extends StatelessWidget {
+  CardTime(
       {Key key,
       this.date,
       this.margin,
@@ -32,36 +33,45 @@ class CardDay extends StatelessWidget {
     Color tempBackColor = (isActive) ? backgroundColor : disableColor;
     Color tempTextColor = (isActive) ? textColor : disableTextColor;
 
+    DateFormat formatedDate = DateFormat.jm();
+    String time = formatedDate.format(date);
+
     Widget body = Container(
       width: width,
       height: height,
-      margin: margin,
+//      margin: margin,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(15)),
+          shape: BoxShape.circle,
+          //borderRadius: BorderRadius.all(Radius.circular(15)),
           color: tempBackColor),
-      padding: EdgeInsets.only(left: 20, top: 15, bottom: 15),
+      //padding: EdgeInsets.only(left: 20, top: 15, bottom: 15),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
-            DateUtil.shortWeekDays[date.weekday],
-            textScaleFactor: 0.9,
+            time.split(' ')[0],
+            textScaleFactor: 1,
             style: TextStyle(color: tempTextColor),
           ),
           Text(
-            date.day.toString(),
-            textScaleFactor: 2,
+            time.split(' ')[1],
+            textScaleFactor: 0.5,
             style: TextStyle(color: tempTextColor),
           )
         ],
       ),
     );
 
-    return InkWell(
-      child: body,
-      borderRadius: BorderRadius.all(Radius.circular(15)),
-      onTap: (){ onPressed(date); },
+    return Container(
+      margin: margin,
+      child: InkWell(
+        child: body,
+        borderRadius: BorderRadius.all(Radius.circular(1000)),
+        onTap: () {
+          onPressed(date);
+        },
+      ),
     );
   }
 }
