@@ -6,9 +6,10 @@ import 'package:Food_Bar/utilities/date_util.dart';
 
 class CustomDaySlider extends StatefulWidget {
   CustomDaySlider(
-      {Key key, this.totalDays, this.from, @required this.onDayPicked})
+      {Key key, @required this.title, this.totalDays, this.from, @required this.onDayPicked})
       : super(key: key);
 
+  final String title;
   final totalDays;
   final DateTime from;
   final Function(DateTime day) onDayPicked;
@@ -53,31 +54,13 @@ class _CustomDaySliderState extends State<CustomDaySlider> {
         }
 
         // selected Day Lable -----
-        // Container selectedDayLable = Container(
-        //     width: constraints.maxWidth,
-        //     padding: EdgeInsets.all(40),
-        //     child: Column(
-        //       crossAxisAlignment: CrossAxisAlignment.start,
-        //       children: <Widget>[
-        //         Text(
-        //           DateUtil.longWeekDays[selectedDate.weekday],
-        //           textScaleFactor: 2,
-        //           style: TextStyle(fontWeight: FontWeight.bold),
-        //         ),
-        //         Text(
-        //           DateUtil.getOnlyDate(selectedDate),
-        //           style: TextStyle(color: Colors.grey),
-        //         )
-        //       ],
-        //     ));
-
         Widget selectedDayLable = Container(
           margin: EdgeInsets.all(15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                'Pick a date',
+                widget.title,
                 textScaleFactor: 1.5,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),

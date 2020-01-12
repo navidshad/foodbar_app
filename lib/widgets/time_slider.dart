@@ -7,11 +7,13 @@ import 'package:Food_Bar/settings/app_properties.dart';
 class CustomTimeSlider extends StatefulWidget {
   CustomTimeSlider(
       {Key key,
+      @required this.title,
       @required this.periods,
       @required this.date,
       @required this.onDayPicked})
       : super(key: key);
 
+  final String title;
   final List<Period> periods;
   final DateTime date;
 
@@ -36,6 +38,7 @@ class _CustomTimeSliderState extends State<CustomTimeSlider> {
         double cardMargin = 4;
         List<CardTime> cardTimes = [];
 
+        // create cards
         for (int i = 0; i < widget.periods.length; i++) {
           Period period = widget.periods[i];
           totalCards = 0;
@@ -64,8 +67,22 @@ class _CustomTimeSliderState extends State<CustomTimeSlider> {
             cardTimes.add(card);
           });
         }
-
-        //bodyColumnWidgets.add(selectedDayLable);
+        
+        Widget selectedDayLable = Container(
+          margin: EdgeInsets.all(15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                widget.title,
+                textScaleFactor: 1.5,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        );
+       
+        bodyColumnWidgets.add(selectedDayLable);
 
         SingleChildScrollView daysSectionWidget = SingleChildScrollView(
           scrollDirection: Axis.horizontal,

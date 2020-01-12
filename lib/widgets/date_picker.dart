@@ -4,9 +4,18 @@ import 'package:Food_Bar/widgets/widgets.dart';
 import 'package:Food_Bar/models/models.dart';
 
 class CustomDatePicker extends StatefulWidget {
-  CustomDatePicker({Key key, this.from, this.totalDays, this.periods, this.onPickDate})
+  CustomDatePicker(
+      {Key key,
+      @required this.dateTitle,
+      @required this.timeTitle,
+      this.from,
+      this.totalDays,
+      this.periods,
+      this.onPickDate})
       : super(key: key);
 
+  final String dateTitle;
+  final String timeTitle;
   final DateTime from;
   final int totalDays;
   final List<Period> periods;
@@ -29,6 +38,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
 
     // day picker -----
     Widget dayPicker = CustomDaySlider(
+      title: widget.dateTitle,
       from: widget.from,
       totalDays: widget.totalDays,
       onDayPicked: (DateTime value) {
@@ -41,7 +51,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
     bodyColumnWidgets.add(dayPicker);
 
     // time picker ----------
-    Widget timePicker = CustomTimeSlider(
+    Widget timeSlider = CustomTimeSlider(
+      title: widget.timeTitle,
       date: selected,
       periods: widget.periods,
       onDayPicked: (DateTime value) {
@@ -50,7 +61,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       },
     );
 
-    bodyColumnWidgets.add(timePicker);
+    bodyColumnWidgets.add(timeSlider);
 
     return Column(
       children: bodyColumnWidgets,
