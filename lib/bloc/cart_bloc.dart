@@ -39,10 +39,10 @@ class CartBloc implements BlocInterface<CartEvent, CartState> {
   Stream<CartCounterState> get stateCounter => _counterStateController.stream;
 
   CartBloc() {
-    _eventController.stream.listen(_handler);
+    _eventController.stream.listen(handler);
   }
 
-  void _handler(CartEvent event) {
+  void handler(CartEvent event) {
 
     if(event.add != null){
       _orderService.addToCart(event.add);

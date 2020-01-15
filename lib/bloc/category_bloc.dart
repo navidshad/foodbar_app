@@ -30,10 +30,10 @@ class CategoryBloc implements BlocInterface<CategoryEvent, CategoryState> {
   Stream<CategoryState> get stateStream => _stateController.stream;
 
   CategoryBloc() {
-    _eventController.stream.listen(_handler);
+    _eventController.stream.listen(handler);
   }
 
-  void _handler(CategoryEvent event) async {
+  void handler(CategoryEvent event) async {
       CategoryState state = CategoryState(
         foods : await _contentProvider.getFoods(event.id)
       );

@@ -1,10 +1,8 @@
-import 'package:Food_Bar/widgets/cart_button.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Food_Bar/models/models.dart';
 import 'package:Food_Bar/widgets/widgets.dart';
 import 'package:Food_Bar/bloc/bloc.dart';
-import 'package:Food_Bar/utilities/text_util.dart';
 import 'package:Food_Bar/settings/app_properties.dart';
 
 class SingleFood extends StatelessWidget {

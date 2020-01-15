@@ -32,10 +32,10 @@ class AppFrameBloc implements BlocInterface<AppFrameEvent, AppFrameState> {
   static String title = AppProperties.menuTitle;
 
   AppFrameBloc() {
-    _eventController.stream.listen(_mapEventToState);
+    _eventController.stream.listen(handler);
   }
 
-  void _mapEventToState(AppFrameEvent event) {
+  void handler(AppFrameEvent event) {
     String title;
     FrameTabType type;
 

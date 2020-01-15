@@ -9,12 +9,12 @@ abstract class BlocInterface<BlocEvent, BlocState> {
   StreamSink<BlocEvent> get eventSink => _eventController.sink;
 
   BlocInterface() {
-    _eventController.stream.listen(_handler);
+    _eventController.stream.listen(handler);
   }
 
-  void _handler(BlocEvent event) {}
+  void handler(BlocEvent event);
 
-  BlocState getInitialState() { return null; }
+  BlocState getInitialState();
 
   void dispose() {
     _stateController.close();

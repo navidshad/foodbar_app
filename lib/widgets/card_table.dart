@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:Food_Bar/utilities/date_util.dart';
+import 'package:Food_Bar/models/models.dart';
 
-class CardDay extends StatelessWidget {
-  CardDay(
+class CardTable extends StatelessWidget {
+  CardTable(
       {Key key,
-      this.date,
+      this.table,
       this.margin,
       this.backgroundColor,
       this.textColor,
@@ -15,18 +15,18 @@ class CardDay extends StatelessWidget {
       this.onPressed})
       : super(key: key);
 
-  final DateTime date;
+  final CustomTable table;
   final EdgeInsets margin;
   final Color backgroundColor;
   final Color textColor;
   final Color disableColor;
   final Color disableTextColor;
   final bool isActive;
-  final Function(DateTime date) onPressed;
+  final Function(CustomTable table) onPressed;
 
   @override
   Widget build(BuildContext context) {
-    double width = 75;
+    double width = 90;
     double height = 90;
 
     Color tempBackColor = (isActive) ? backgroundColor : disableColor;
@@ -45,15 +45,15 @@ class CardDay extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           Text(
-            DateUtil.shortWeekDays[date.weekday],
+            table.title,
             textScaleFactor: 0.9,
             style: TextStyle(color: tempTextColor),
           ),
-          Text(
-            date.day.toString(),
-            textScaleFactor: 2,
-            style: TextStyle(color: tempTextColor),
-          )
+          // Text(
+          //   date.day.toString(),
+          //   textScaleFactor: 2,
+          //   style: TextStyle(color: tempTextColor),
+          // )
         ],
       ),
     );
@@ -62,7 +62,7 @@ class CardDay extends StatelessWidget {
       child: body,
       borderRadius: BorderRadius.all(Radius.circular(15)),
       onTap: () {
-        onPressed(date);
+        onPressed(table);
       },
     );
   }

@@ -3,8 +3,11 @@ import 'package:Food_Bar/models/models.dart';
 
 abstract class ReservationScheduleProvider {
 
-  Future<List<Table>> getReseredTables(DateTime date);
+  Future<List<CustomTable>> getTableTypes();
 
-  Future<ReservationScheduleOption> getSchedule();
+  Future<ReservationScheduleOption> getScheduleOptions();
 
+  Future<List<DateTime>> getReservedDailyTime(DateTime day);
+
+  Future<int> getTotalPerson(DateTime date, CustomTable table);
 }

@@ -27,6 +27,7 @@ class _CustomTimeSliderState extends State<CustomTimeSlider> {
   int selectedDayIndex = 0;
   int totalCards = 0;
   DateTime selectedDate;
+  
 
   @override
   Widget build(BuildContext context) {

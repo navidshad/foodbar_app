@@ -11,7 +11,10 @@ class AppRoutes {
           bloc: AppFrameBloc(),
           child: BlocProvider<CartBloc>(
             bloc: CartBloc(),
-            child: AppFrame(),
+            child: BlocProvider<ReservationBloc>(
+              bloc: ReservationBloc(),
+              child: AppFrame(),
+            ),
           ),
         );
       },

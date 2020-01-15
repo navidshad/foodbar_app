@@ -36,10 +36,10 @@ class MenuBloc implements BlocInterface<MenuEvent, MenuState> {
   Stream<MenuState> get stateStream => _stateController.stream;
 
   MenuBloc() {
-    _eventController.stream.listen(_handler);
+    _eventController.stream.listen(handler);
   }
 
-  void _handler(MenuEvent event) async {
+  void handler(MenuEvent event) async {
     MenuState state;
 
     if (event.type == MenuType.OnePage) {
