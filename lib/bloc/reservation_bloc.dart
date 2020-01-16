@@ -9,20 +9,29 @@ import 'package:Food_Bar/models/models.dart';
 class ReservationBloc
     implements BlocInterface<ReservationEvent, ReservationState> {
   //
-  // controllers -------------------------------------------
+  // constructor ---------------------------------------------
   //
-  final StreamController<ReservationState> _stateController = BehaviorSubject();
-  final StreamController<PersonPickerOptions> _personController =
-      BehaviorSubject();
-  final StreamController<List<CustomTable>> _tableController =
-      BehaviorSubject();
-  final StreamController<ReservationEvent> _eventController = BehaviorSubject();
-
-  ReservationScheduleProvider _service = MockScheduleService();
-
   ReservationBloc() {
     _eventController.stream.listen(handler);
   }
+
+  //
+  // controllers -------------------------------------------
+  //
+  final StreamController<ReservationState> _stateController = BehaviorSubject();
+
+  final StreamController<ReservationEvent> _eventController = BehaviorSubject();
+
+  final StreamController<List<DateTime>> _reservedTimeController =
+      BehaviorSubject();
+
+  final StreamController<PersonPickerOptions> _personController =
+      BehaviorSubject();
+
+  final StreamController<List<CustomTable>> _tableController =
+      BehaviorSubject();
+
+  ReservationScheduleProvider _service = MockScheduleService();
 
   //
   // streams -------------------------------------------------
@@ -35,6 +44,9 @@ class ReservationBloc
 
   Stream<List<CustomTable>> get tableStream => _tableController.stream;
   Stream<PersonPickerOptions> get personStream => _personController.stream;
+
+  Stream<List<DateTime>> get reservedTimeStream =>
+      _reservedTimeController.stream;
 
   //
   // initializers ---------------------------------------------
@@ -59,18 +71,28 @@ class ReservationBloc
   void dispose() {
     _stateController.close();
     _eventController.close();
+    _personController.close();
+    _reservedTimeController.close();
   }
 
   @override
-  void handler(ReservationEvent event) async {
+  void handler(ReservationEvent event) {
+    //
+    // get and stream Schedule options
     if (event is GetScheduleOptions) {
       _service.getScheduleOptions().then(((options) {
         _stateController.add(ReservationState(options: options));
       }));
+
+      //
+      // get and stream types of table
     } else if (event is GetTables) {
       _service.getTableTypes().then((tables) {
         _tableController.add(tables);
       });
+
+      //
+      // get and stream allowed total person to reserve
     } else if (event is GetTotalPerson) {
       //GetTotalPerson eventDetail = event;
       _service.getTotalPerson(event.date, event.table).then((int totalPerson) {
@@ -79,6 +101,13 @@ class ReservationBloc
           min: 0,
           max: totalPerson.toDouble(),
         ));
+      });
+
+      //
+      // get and stream reserved time per day
+    } else if (event is GetReservedTimes) {
+      _service.getReservedDailyTime(event.date).then((times) {
+        _reservedTimeController.add(times);
       });
     }
   }
@@ -90,10 +119,14 @@ class GetScheduleOptions extends ReservationEvent {}
 
 class GetTables extends ReservationEvent {}
 
+class GetReservedTimes extends ReservationEvent {
+  DateTime date;
+  GetReservedTimes(this.date);
+}
+
 class GetTotalPerson extends ReservationEvent {
   DateTime date;
   CustomTable table;
-
   GetTotalPerson({this.date, this.table});
 }
 

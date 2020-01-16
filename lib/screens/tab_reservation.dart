@@ -123,25 +123,36 @@ class _ReservationTabState extends State<ReservationTab> {
     return personPicker;
   }
 
-  Widget buildDatePicker(context, AsyncSnapshot<ReservationState> snapshot) {
-    ReservationState state = snapshot.data;
+  Widget buildDatePicker(
+      context, AsyncSnapshot<ReservationState> optionsSnapshot) {
+    ReservationState state = optionsSnapshot.data;
     Widget datePickerWidget;
 
     if (state.options == null) {
       datePickerWidget = buildCircularProgressBar();
       getShceduleOptions();
     } else {
-      datePickerWidget = CustomDatePicker(
-        dateTitle: 'Pick a date',
-        timeTitle: 'Pick a time',
-        from: state.options.from,
-        totalDays: state.options.totalDays,
-        periods: state.options.periods,
-        onPickDate: (picked) {
-          setState(() {
-            selectedDate = picked;
-            getTotalPerson();
-          });
+      datePickerWidget = StreamBuilder<List<DateTime>>(
+        stream: bloc.reservedTimeStream,
+        initialData: [],
+        builder: (context, timesSnapShot) {
+          return CustomDatePicker(
+            dateTitle: 'Pick a date',
+            timeTitle: 'Pick a time',
+            from: state.options.from,
+            totalDays: state.options.totalDays,
+            periods: state.options.periods,
+            reservedTimes: timesSnapShot.data,
+            onPickedDate: (picked) {
+              getReservedTimes(picked);
+            },
+            onPickedTime: (picked) {
+              setState(() {
+                selectedDate = picked;
+                getTotalPerson();
+              });
+            },
+          );
         },
       );
     }
@@ -164,6 +175,10 @@ class _ReservationTabState extends State<ReservationTab> {
 
   void getTables() {
     bloc.eventSink.add(GetTables());
+  }
+
+  void getReservedTimes(DateTime day) {
+    bloc.eventSink.add(GetReservedTimes(day));
   }
 
   void getTotalPerson() {

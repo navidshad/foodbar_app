@@ -8,7 +8,13 @@ import 'package:Food_Bar/models/table.dart';
 class MockScheduleService implements ReservationScheduleProvider {
   @override
   Future<List<DateTime>> getReservedDailyTime(DateTime day) {
-    //return Future<>
+    return Future.delayed(Duration(seconds: 1)).then((r) {
+      return [
+        DateTime(day.year, day.month, day.day, 14, 00),
+        DateTime(day.year, day.month, day.day, 18, 00),
+        DateTime(day.year, day.month, day.day, 20, 00),
+      ];
+    });
   }
 
   @override

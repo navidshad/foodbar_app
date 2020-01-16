@@ -13,6 +13,7 @@ class CardTime extends StatelessWidget {
       this.disableColor = Colors.grey,
       this.disableTextColor = Colors.black,
       this.isActive = false,
+      this.isReserved = false,
       this.onPressed})
       : super(key: key);
 
@@ -23,6 +24,7 @@ class CardTime extends StatelessWidget {
   final Color disableColor;
   final Color disableTextColor;
   final bool isActive;
+  final bool isReserved;
   final Function(DateTime date) onPressed;
 
   @override
@@ -36,15 +38,11 @@ class CardTime extends StatelessWidget {
     DateFormat formatedDate = DateFormat.jm();
     String time = formatedDate.format(date);
 
+    // card body
     Widget body = Container(
       width: width,
       height: height,
-//      margin: margin,
-      decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          //borderRadius: BorderRadius.all(Radius.circular(15)),
-          color: tempBackColor),
-      //padding: EdgeInsets.only(left: 20, top: 15, bottom: 15),
+      decoration: BoxDecoration(shape: BoxShape.circle, color: tempBackColor),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -63,14 +61,41 @@ class CardTime extends StatelessWidget {
       ),
     );
 
+    // stack
+    List<Widget> stackBody = [body];
+
+    if (isReserved) {
+      Widget reservedWidget = Container(
+        width: width,
+        height: 28,
+        color: Colors.red[200],
+        child: Text(
+          'Reserved'.toUpperCase(),
+          textScaleFactor: 0.8,
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.white),
+        ),
+      );
+
+      stackBody.add(reservedWidget);
+    }
+
+    Widget stack = Stack(
+      children: stackBody,
+      alignment: AlignmentDirectional.bottomCenter,
+    );
+
     return Container(
       margin: margin,
-      child: InkWell(
-        child: body,
-        borderRadius: BorderRadius.all(Radius.circular(1000)),
-        onTap: () {
-          onPressed(date);
-        },
+      child: ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(100)),
+        child: InkWell(
+          child: stack,
+          borderRadius: BorderRadius.all(Radius.circular(1000)),
+          onTap: () {
+            if (!isReserved) onPressed(date);
+          },
+        ),
       ),
     );
   }

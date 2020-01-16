@@ -8,10 +8,13 @@ class CustomDatePicker extends StatefulWidget {
       {Key key,
       @required this.dateTitle,
       @required this.timeTitle,
-      this.from,
-      this.totalDays,
-      this.periods,
-      this.onPickDate})
+      @required this.from,
+      @required this.periods,
+      this.totalDays = 7,
+      this.reservedTimes = const [],
+      @required this.onPickedDate,
+      @required this.onPickedTime,
+      })
       : super(key: key);
 
   final String dateTitle;
@@ -19,7 +22,9 @@ class CustomDatePicker extends StatefulWidget {
   final DateTime from;
   final int totalDays;
   final List<Period> periods;
-  final Function(DateTime picked) onPickDate;
+  final List<DateTime> reservedTimes;
+  final Function(DateTime picked) onPickedDate;
+  final Function(DateTime picked) onPickedTime;
 
   @override
   _CustomDatePickerState createState() => _CustomDatePickerState();
@@ -44,6 +49,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       onDayPicked: (DateTime value) {
         setState(() {
           selected = value;
+          widget.onPickedDate(value);
         });
       },
     );
@@ -55,9 +61,10 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       title: widget.timeTitle,
       date: selected,
       periods: widget.periods,
+      reservedTimes: widget.reservedTimes,
       onDayPicked: (DateTime value) {
         print(value.toIso8601String());
-        widget.onPickDate(value);
+        widget.onPickedTime(value);
       },
     );
 

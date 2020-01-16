@@ -5,17 +5,19 @@ import 'package:Food_Bar/widgets/widgets.dart';
 import 'package:Food_Bar/settings/app_properties.dart';
 
 class CustomTimeSlider extends StatefulWidget {
-  CustomTimeSlider(
-      {Key key,
-      @required this.title,
-      @required this.periods,
-      @required this.date,
-      @required this.onDayPicked})
-      : super(key: key);
+  CustomTimeSlider({
+    Key key,
+    @required this.title,
+    @required this.periods,
+    @required this.date,
+    @required this.onDayPicked,
+    this.reservedTimes = const [],
+  }) : super(key: key);
 
   final String title;
   final List<Period> periods;
   final DateTime date;
+  final List<DateTime> reservedTimes;
 
   final Function(DateTime day) onDayPicked;
 
@@ -27,7 +29,6 @@ class _CustomTimeSliderState extends State<CustomTimeSlider> {
   int selectedDayIndex = 0;
   int totalCards = 0;
   DateTime selectedDate;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +59,7 @@ class _CustomTimeSliderState extends State<CustomTimeSlider> {
               disableColor: AppProperties.disabledColor,
               disableTextColor: AppProperties.textOnDisabled,
               isActive: (selectedDayIndex == currentCard),
+              isReserved: isReserved(speratedTime),
               onPressed: (DateTime d) {
                 selectedDayIndex = currentCard;
                 setState(() {});
@@ -68,7 +70,7 @@ class _CustomTimeSliderState extends State<CustomTimeSlider> {
             cardTimes.add(card);
           });
         }
-        
+
         Widget selectedDayLable = Container(
           margin: EdgeInsets.all(15),
           child: Row(
@@ -82,7 +84,7 @@ class _CustomTimeSliderState extends State<CustomTimeSlider> {
             ],
           ),
         );
-       
+
         bodyColumnWidgets.add(selectedDayLable);
 
         SingleChildScrollView daysSectionWidget = SingleChildScrollView(
@@ -105,5 +107,15 @@ class _CustomTimeSliderState extends State<CustomTimeSlider> {
         return Column(children: bodyColumnWidgets);
       },
     );
+  }
+
+  bool isReserved(DateTime time) {
+    bool key = false;
+
+    widget.reservedTimes.forEach((t) {
+      if(t.compareTo(time) == 0) key = true;
+    });
+
+    return key;
   }
 }

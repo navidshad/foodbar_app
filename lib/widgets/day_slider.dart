@@ -5,9 +5,13 @@ import 'package:Food_Bar/settings/app_properties.dart';
 import 'package:Food_Bar/utilities/date_util.dart';
 
 class CustomDaySlider extends StatefulWidget {
-  CustomDaySlider(
-      {Key key, @required this.title, this.totalDays, this.from, @required this.onDayPicked})
-      : super(key: key);
+  CustomDaySlider({
+    Key key,
+    @required this.title,
+    this.totalDays,
+    this.from,
+    @required this.onDayPicked,
+  }) : super(key: key);
 
   final String title;
   final totalDays;
