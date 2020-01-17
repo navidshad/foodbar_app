@@ -15,7 +15,7 @@ class ReservationTab extends StatefulWidget {
 
 class _ReservationTabState extends State<ReservationTab> {
   ReservationBloc bloc;
-  int selectedPerson = 0;
+  int selectedPersons = 0;
   CustomTable selectedTable;
   DateTime selectedDate;
 
@@ -27,6 +27,38 @@ class _ReservationTabState extends State<ReservationTab> {
 
   @override
   Widget build(BuildContext context) {
+    return StreamBuilder<ReservationState>(
+      stream: bloc.stateStream,
+      initialData: bloc.getInitialState(),
+      builder: (context, stateSnapShot) {
+        ReservationState state = stateSnapShot.data;
+        Widget page;
+
+        if (state is ConfirmState)
+          page = buildConfirmationState(state);
+        else
+          page = buildScheduleState(state);
+
+        return page;
+      },
+    );
+  }
+
+  Widget buildConfirmationState(ConfirmState confirmState) {
+    Widget stateWidget;
+
+    if (confirmState.waitingForResult) {
+      stateWidget = Center(
+        child: CircularProgressIndicator(),
+      );
+    } else {
+      stateWidget = Text('Thank You');
+    }
+
+    return stateWidget;
+  }
+
+  Widget buildScheduleState(ScheduleState scheduleState) {
     return LayoutBuilder(
       builder: (context, constraints) {
         List<Widget> bodyColumnWidgets = [];
@@ -41,11 +73,7 @@ class _ReservationTabState extends State<ReservationTab> {
         bodyColumnWidgets.add(tablePicker);
 
         // date picker -----
-        Widget datePicker = StreamBuilder<ReservationState>(
-          stream: bloc.stateStream,
-          initialData: bloc.getInitialState(),
-          builder: buildDatePicker,
-        );
+        Widget datePicker = buildDatePicker(scheduleState);
         bodyColumnWidgets.add(datePicker);
 
         //total person picker ------
@@ -64,7 +92,7 @@ class _ReservationTabState extends State<ReservationTab> {
             child: OutlineButton(
               child: Text('Reserve'),
               color: AppProperties.mainColor,
-              onPressed: (selectedPerson == 0) ? null : onConfirm,
+              onPressed: (selectedPersons == 0) ? null : onConfirm,
             ),
           ),
         );
@@ -76,8 +104,6 @@ class _ReservationTabState extends State<ReservationTab> {
       },
     );
   }
-
-  void onConfirm() {}
 
   Widget buildTablePicker(context, AsyncSnapshot<List<CustomTable>> snapshot) {
     List<CustomTable> tables = snapshot.data;
@@ -105,6 +131,7 @@ class _ReservationTabState extends State<ReservationTab> {
   Widget buildPersonPicker(context, snapshot) {
     PersonPickerOptions options = snapshot.data;
     Widget personPicker;
+    selectedPersons = 0;
 
     if (options.max == 0)
       personPicker = buildCircularProgressBar();
@@ -115,7 +142,7 @@ class _ReservationTabState extends State<ReservationTab> {
         min: options.min,
         max: options.max,
         onChanged: (int value) => setState(() {
-          selectedPerson = value;
+          selectedPersons = value;
         }),
       );
     }
@@ -123,9 +150,7 @@ class _ReservationTabState extends State<ReservationTab> {
     return personPicker;
   }
 
-  Widget buildDatePicker(
-      context, AsyncSnapshot<ReservationState> optionsSnapshot) {
-    ReservationState state = optionsSnapshot.data;
+  Widget buildDatePicker(ScheduleState state) {
     Widget datePickerWidget;
 
     if (state.options == null) {
@@ -187,6 +212,14 @@ class _ReservationTabState extends State<ReservationTab> {
     bloc.eventSink.add(GetTotalPerson(
       date: selectedDate,
       table: selectedTable,
+    ));
+  }
+
+  void onConfirm() {
+    bloc.eventSink.add(ReserveTable(
+      date: selectedDate,
+      persons: selectedPersons,
+      table: selectedTable
     ));
   }
 }

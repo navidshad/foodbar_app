@@ -10,4 +10,6 @@ abstract class ReservationScheduleProvider {
   Future<List<DateTime>> getReservedDailyTime(DateTime day);
 
   Future<int> getTotalPerson(DateTime date, CustomTable table);
+  
+  Future<void> reserve({int persons, CustomTable table, DateTime date});
 }

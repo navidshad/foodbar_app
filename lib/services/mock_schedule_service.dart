@@ -49,4 +49,15 @@ class MockScheduleService implements ReservationScheduleProvider {
         return 0;
     });
   }
+
+  @override
+  Future<void> reserve({int persons, CustomTable table, DateTime date}) {
+    return Future.delayed(Duration(seconds: 1)).then((r) {
+        Random random = Random(-5);
+        int number = random.nextInt(5);
+
+        if(number <= 0)
+          throw 'Your request wasn\'t accepted, try again, please';
+    });
+  }
 }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:Food_Bar/bloc/bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:Food_Bar/interfaces/bloc_interface.dart';
@@ -53,7 +54,7 @@ class ReservationBloc
   //
   @override
   ReservationState getInitialState() {
-    return ReservationState();
+    return ScheduleState();
   }
 
   PersonPickerOptions getPersonPickerIntialState() {
@@ -81,7 +82,7 @@ class ReservationBloc
     // get and stream Schedule options
     if (event is GetScheduleOptions) {
       _service.getScheduleOptions().then(((options) {
-        _stateController.add(ReservationState(options: options));
+        _stateController.add(ScheduleState(options: options));
       }));
 
       //
@@ -109,6 +110,25 @@ class ReservationBloc
       _service.getReservedDailyTime(event.date).then((times) {
         _reservedTimeController.add(times);
       });
+
+      //
+      // request to reserve a table and 
+      // stream its result state
+    } else if (event is ReserveTable) {
+      ConfirmState state = ConfirmState(waitingForResult: true);
+      _stateController.add(state);
+
+      _service
+          .reserve(date: event.date, persons: event.persons, table: event.table)
+          // return success state
+          .then((r) {
+        state = ConfirmState(done: true);
+        _stateController.add(state);
+        // return error state
+      }).catchError((e) {
+        state = ConfirmState(message: e);
+        _stateController.add(state);
+      });
     }
   }
 }
@@ -130,7 +150,25 @@ class GetTotalPerson extends ReservationEvent {
   GetTotalPerson({this.date, this.table});
 }
 
-class ReservationState {
+class ReserveTable extends ReservationEvent {
+  int persons;
+  CustomTable table;
+  DateTime date;
+
+  ReserveTable({this.persons, this.date, this.table});
+}
+
+class ReservationState {}
+
+class ScheduleState extends ReservationState {
   ReservationScheduleOption options;
-  ReservationState({this.options});
+  ScheduleState({this.options});
+}
+
+class ConfirmState extends ReservationState {
+  bool waitingForResult;
+  bool done;
+  String message;
+
+  ConfirmState({this.done = false, this.waitingForResult = false, this.message});
 }
