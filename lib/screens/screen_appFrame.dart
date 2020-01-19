@@ -42,7 +42,7 @@ class _AppFrameState extends State<AppFrame>
         stream: bloc.stateStream,
         initialData: bloc.getInitialState(),
         builder: (stateContext, AsyncSnapshot<AppFrameState> snapshot) {
-          currentTab = AppFrameBloc.currentType;//snapshot.data.type;
+          currentTab = AppFrameBloc.currentType; //snapshot.data.type;
 
           _tabController.index = getTypeIndex(currentTab);
 
@@ -69,10 +69,12 @@ class _AppFrameState extends State<AppFrame>
   int getTypeIndex(FrameTabType type) {
     if (type == FrameTabType.MENU)
       return 0;
-    else if(type == FrameTabType.CART)
+    else if (type == FrameTabType.CART)
       return 1;
-    else if(type == FrameTabType.Reserve)
+    else if (type == FrameTabType.Reserve)
       return 2;
+    else
+      return 0;
   }
 
   void onTabViewChanged() {

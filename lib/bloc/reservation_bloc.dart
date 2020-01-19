@@ -121,8 +121,8 @@ class ReservationBloc
       _service
           .reserve(date: event.date, persons: event.persons, table: event.table)
           // return success state
-          .then((r) {
-        state = ConfirmState(done: true);
+          .then((message) {
+        state = ConfirmState(done: true, message: message);
         _stateController.add(state);
         // return error state
       }).catchError((e) {

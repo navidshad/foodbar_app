@@ -1,3 +1,4 @@
+import 'package:Food_Bar/settings/settings.dart';
 import 'package:Food_Bar/widgets/table_type_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +53,38 @@ class _ReservationTabState extends State<ReservationTab> {
         child: CircularProgressIndicator(),
       );
     } else {
-      stateWidget = Text('Thank You');
+      //stateWidget = Text('Thank You');
+      stateWidget = ListView(
+        children: <Widget>[
+          ConfirmStateViewer(
+            isSucceed: confirmState.done,
+            subtitle: confirmState.message,
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 20, right: 20, top: 20),
+            child: CardButton(
+              title: 'Reserve a New Table',
+              height: 50,
+              onTap: () => getShceduleOptions(),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 20, right: 20, top: 10),
+            child: CardButton(
+              title: 'Back To Menu',
+              height: 50,
+              isOutline: true,
+              onTap: () {
+                AppFrameBloc menuBloc = BlocProvider.of<AppFrameBloc>(context);
+                menuBloc.eventSink.add(AppFrameEvent(
+                  //switchFrom: FrameTabType.Reserve,
+                  switchTo: FrameTabType.MENU,
+                ));
+              },
+            ),
+          )
+        ],
+      );
     }
 
     return stateWidget;
@@ -217,9 +249,6 @@ class _ReservationTabState extends State<ReservationTab> {
 
   void onConfirm() {
     bloc.eventSink.add(ReserveTable(
-      date: selectedDate,
-      persons: selectedPersons,
-      table: selectedTable
-    ));
+        date: selectedDate, persons: selectedPersons, table: selectedTable));
   }
 }
