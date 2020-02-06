@@ -6,7 +6,7 @@ class ReservationScheduleOption {
   int totalDays;
   DateTime from;
   List<Period> periods;
-  List<DateTime> reservedTimes = [];
+  //List<DateTime> reservedTimes = [];
 
   ReservationScheduleOption({
     @required this.from,

@@ -3,7 +3,7 @@ import 'package:Food_Bar/models/models.dart';
 class Cart {
   List<OrderedFood> foods = [];
 
-  double deliveryChages;
+  double deliveryCharges;
 
   double get itemTotal {
     double totalItemPrice = 0;
@@ -12,9 +12,9 @@ class Cart {
   }
 
   double get total {
-    double totalPrice = itemTotal + deliveryChages;
+    double totalPrice = itemTotal + deliveryCharges;
     return (itemTotal > 0) ? totalPrice : 0;
   }
 
-  Cart({this.deliveryChages=0});
+  Cart({this.deliveryCharges=0});
 }

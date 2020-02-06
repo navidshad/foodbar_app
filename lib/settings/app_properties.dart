@@ -11,7 +11,7 @@ class AppProperties {
   
   static String menuTitle = 'Menu';
   static String cartTitle = 'My Cart';
-  static String reservationTitle = 'Reservation';
+  static String reservationTitle = 'Table Reservation';
 
   static int splashDelay = 5;
 
@@ -35,8 +35,9 @@ class AppProperties {
   static IconData reservationIcon = FoodBarIcons.reservation02;
 
   // payment
-  static double deliveryChages = 30;
+  static double deliveryCharges = 30;
 
   // img
-  static String imgPath_logo = 'assets/images/logo.png';
+  static String imgPath_logo = 'assets/images/logo_haiku.png';
+  static bool logoHasitleAndSlagon = true;
 }

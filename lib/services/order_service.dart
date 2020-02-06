@@ -6,7 +6,7 @@ class OrderService {
   OrderService.privateConstructor();
   static final instace = OrderService.privateConstructor();
   
-  Cart _cart = Cart(deliveryChages: AppProperties.deliveryChages);
+  Cart _cart = Cart(deliveryCharges: AppProperties.deliveryCharges);
 
   Cart get cart => _cart;
 

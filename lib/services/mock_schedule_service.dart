@@ -51,14 +51,21 @@ class MockScheduleService implements ReservationScheduleProvider {
   }
 
   @override
-  Future<String> reserve({int persons, CustomTable table, DateTime date}) {
+  Future<ReserveConfirmationResult> reserve(
+      {int persons, CustomTable table, DateTime date}) {
     return Future.delayed(Duration(seconds: 1)).then((r) {
-        Random random = Random(-5);
-        int number = random.nextInt(5);
+      Random random = Random(-5);
+      int number = random.nextInt(5);
 
-        if(number <= 0)
-          throw 'Your request wasn\'t accepted, try again, please';
-        return 'Your Order is confirmed';
+      if (number <= 0)
+        throw ReserveConfirmationResult(
+            message: 'Your order has not been confirmed, try agaim, please',
+            succeed: false);
+      else
+        return ReserveConfirmationResult(
+            message: 'Your request is confirmed, this is your reservation ID:',
+            succeed: true,
+            reservationId: 344234234);
     });
   }
 }

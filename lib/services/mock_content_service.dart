@@ -4,12 +4,11 @@ import 'package:Food_Bar/models/models.dart';
 import 'package:Food_Bar/interfaces/content_provider.dart';
 
 class MockContentService implements ContentProvider {
-
   int _delay = 1;
 
   Future<List<Category>> getCategories() {
     return Future.delayed(Duration(seconds: _delay)).then((r) => mockCategories
-        .map((cat) => cat..imageUrl = getRandomImage('header'))
+        //.map((cat) => cat..imageUrl = getRandomImage('header'))
         .toList());
   }
 
@@ -26,7 +25,7 @@ class MockContentService implements ContentProvider {
 
     mockCategories.forEach((cat) {
       CategoryWithFoods catWithFood = CategoryWithFoods.fromCategory(cat);
-      catWithFood.imageUrl = getRandomImage('header');
+      //catWithFood.imageUrl = getRandomImage('header');
       list.add(catWithFood);
     });
 
@@ -41,11 +40,36 @@ class MockContentService implements ContentProvider {
 
 String catDesc = 'this is a mock destipction for items.';
 List<Category> mockCategories = [
-  Category(id: '1', title: 'sushi', description: catDesc),
-  Category(id: '2', title: 'special rullar', description: catDesc),
-  Category(id: '3', title: 'sashimi', description: catDesc),
-  Category(id: '4', title: 'hiku special', description: catDesc),
-  Category(id: '5', title: 'sushibuffe', description: catDesc),
+  Category(
+    id: '1',
+    title: 'sushi',
+    description: catDesc,
+    imageUrl: 'assets/mock_images/sushi.png'
+  ),
+  Category(
+    id: '2',
+    title: 'special rullar',
+    description: catDesc,
+    imageUrl: 'assets/mock_images/spesial_rulle.jpg'
+  ),
+  Category(
+    id: '3',
+    title: 'sashimi',
+    description: catDesc,
+    imageUrl: 'assets/mock_images/sashimi.jpg'
+  ),
+  Category(
+    id: '4',
+    title: 'hiku special',
+    description: catDesc,
+    imageUrl: 'assets/mock_images/yakitori.jpg'
+  ),
+  Category(
+    id: '5',
+    title: 'sushibuffe',
+    description: catDesc,
+    imageUrl: 'assets/mock_images/yakiniku.jpg'
+  ),
 ];
 
 String foodDesc = catDesc;

@@ -121,12 +121,12 @@ class ReservationBloc
       _service
           .reserve(date: event.date, persons: event.persons, table: event.table)
           // return success state
-          .then((message) {
-        state = ConfirmState(done: true, message: message);
+          .then((result) {
+        state = ConfirmState(result: result);
         _stateController.add(state);
         // return error state
-      }).catchError((e) {
-        state = ConfirmState(message: e);
+      }).catchError((ReserveConfirmationResult result) {
+        state = ConfirmState(result: result);
         _stateController.add(state);
       });
     }
@@ -167,8 +167,7 @@ class ScheduleState extends ReservationState {
 
 class ConfirmState extends ReservationState {
   bool waitingForResult;
-  bool done;
-  String message;
+  ReserveConfirmationResult result;
 
-  ConfirmState({this.done = false, this.waitingForResult = false, this.message});
+  ConfirmState({this.waitingForResult = false, this.result});
 }

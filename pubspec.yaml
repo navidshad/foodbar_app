@@ -31,6 +31,22 @@ dev_dependencies:
     sdk: flutter
   intl: ^0.16.0
 
+  flutter_launcher_icons: "^0.7.4"
+  flutter_launcher_name: "^0.0.1"
+
+# must run "flutter pub run flutter_launcher_icons:main"
+# after change this
+flutter_icons:
+    android: "launcher_icon" 
+    ios: true
+    image_path: "assets/icon/icon.png"
+
+# must run "flutter pub run flutter_launcher_name:main"
+# after change this
+flutter_launcher_name:
+  name: "Haiku Shushi"
+
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -46,6 +62,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
    - assets/images/logo.png
+   - assets/images/logo_haiku.png
    - assets/mock_images/food01.jpg
    - assets/mock_images/food02.png
    - assets/mock_images/food03.png
@@ -53,6 +70,12 @@ flutter:
    - assets/mock_images/header01.jpg
    - assets/mock_images/header02.jpg
    - assets/mock_images/header03.jpg
+   
+   - assets/mock_images/sashimi.jpg
+   - assets/mock_images/spesial_rulle.jpg
+   - assets/mock_images/sushi.png
+   - assets/mock_images/yakiniku.jpg
+   - assets/mock_images/yakitori.jpg
 
    
   # An image asset can refer to one or more resolution-specific "variants", see

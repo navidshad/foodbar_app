@@ -57,8 +57,9 @@ class _ReservationTabState extends State<ReservationTab> {
       stateWidget = ListView(
         children: <Widget>[
           ConfirmStateViewer(
-            isSucceed: confirmState.done,
-            subtitle: confirmState.message,
+            isSucceed: confirmState?.result?.succeed,
+            subtitle: confirmState?.result?.message,
+            reservationId: confirmState?.result?.reservationId,
           ),
           Container(
             margin: EdgeInsets.only(left: 20, right: 20, top: 20),

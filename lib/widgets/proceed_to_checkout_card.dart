@@ -47,7 +47,7 @@ class ProceedToCheckout extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text('Delivery Charges'),
-                        Text('\$${cart.deliveryChages}', style: bold)
+                        Text('\$${cart.deliveryCharges}', style: bold)
                       ]),
                   Container(
                     height: 20,

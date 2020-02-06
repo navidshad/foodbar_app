@@ -11,5 +11,5 @@ abstract class ReservationScheduleProvider {
 
   Future<int> getTotalPerson(DateTime date, CustomTable table);
   
-  Future<String> reserve({int persons, CustomTable table, DateTime date});
+  Future<ReserveConfirmationResult> reserve({int persons, CustomTable table, DateTime date});
 }
