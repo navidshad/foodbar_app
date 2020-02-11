@@ -35,14 +35,14 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
           _tabController.index = _getTabIndexFromType(state.type);
 
           // go to next tabs affter seconds
-          if (state.type == IntroTabType.Splash) _goToNextTab();
+          if (state.type == IntroTabType.Splash) _goToSlidesTab();
 
           return TabBarView(
             controller: _tabController,
             physics: NeverScrollableScrollPhysics(),
             children: <Widget>[
               SplashScreen(),
-              SliderIntroTab(),
+              SliderIntroTab(onDone: goToLoginForm),
               LoginFormTab(),
             ],
           );
@@ -67,17 +67,23 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
     }
   }
 
-  void _goToNextTab() async {
+  void _goToSlidesTab() async {
     await Future.delayed(Duration(seconds: AppProperties.splashDelayInSeconds));
 
     // check first enter to app
     bool firstEnter = false;
 
-    IntroEvent event;
-    if (firstEnter)
-      event = IntroEvent(switchTo: IntroTabType.LoginForm);
-    else
+    if (!firstEnter) {
+      IntroEvent event;
       event = IntroEvent(switchTo: IntroTabType.Slider);
+      bloc.eventSink.add(event);
+    } else
+      goToLoginForm();
+  }
+
+  Function goToLoginForm() {
+    IntroEvent event;
+    event = IntroEvent(switchTo: IntroTabType.LoginForm);
 
     bloc.eventSink.add(event);
   }

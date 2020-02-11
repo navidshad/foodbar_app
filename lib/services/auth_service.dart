@@ -18,7 +18,7 @@ class AuthService implements AuthInterface {
   User _user;
 
   @override
-  bool isLogedIn;
+  bool isLogedIn = false;
 
   @override
   String token;
@@ -50,7 +50,7 @@ class AuthService implements AuthInterface {
         .then(_loadUserFromPayload);
   }
 
-  void _loadUserFromPayload(Map payload) {
+  void _loadUserFromPayload(dynamic payload) {
     UserType type = User.getType(payload['type']);
 
     Map permissionDetail = payload['permission'];
@@ -63,11 +63,7 @@ class AuthService implements AuthInterface {
       permission: permission,
     );
 
-    if (type == UserType.user) {
-      print('== user has been logined from local token');
-      isLogedIn = true;
-      //_loginController.add(isLogedIn);
-    }
+    isLogedIn = true;
   }
 
   Future<dynamic> loginAnonymous(

@@ -1,5 +1,5 @@
 class Vars {
   
-  static String host = '';
+  static String host = 'http://192.168.1.33';
 
 }
