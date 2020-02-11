@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:Food_Bar/settings/settings.dart';
-import 'package:Food_Bar/screens/screens.dart';
-
 
 void main() => runApp(MyApp());
 
@@ -14,7 +12,7 @@ class MyApp extends StatelessWidget {
       title: AppProperties.title,
       theme: AppTheme.getData(),
       routes: AppRoutes.getRoutes(),
-      home: SplashScreen(),
+      initialRoute: 'intro',
     );
   }
 }

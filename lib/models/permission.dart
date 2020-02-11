@@ -1,4 +1,4 @@
-import './types.dart';
+import 'package:Food_Bar/settings/types.dart';
 
 class Permission {
   String id;

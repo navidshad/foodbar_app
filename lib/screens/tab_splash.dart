@@ -5,8 +5,6 @@ import 'package:Food_Bar/settings/app_properties.dart';
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // set a timer for opening home screen after it.
-    startTimer(context);
 
     // load logo and setup it
     Image logo = Image.asset(
@@ -41,10 +39,5 @@ class SplashScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void startTimer(BuildContext context) async {
-    new Future.delayed(Duration(seconds: AppProperties.splashDelay))
-        .whenComplete(() => Navigator.pushReplacementNamed(context, '/home'));
   }
 }

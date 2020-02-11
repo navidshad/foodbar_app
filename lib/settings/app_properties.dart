@@ -13,7 +13,7 @@ class AppProperties {
   static String cartTitle = 'My Cart';
   static String reservationTitle = 'Table Reservation';
 
-  static int splashDelay = 5;
+  static int splashDelayInSeconds = 5;
 
   static Color mainColor = Colors.green;
   static Color secondColor = Colors.blue;

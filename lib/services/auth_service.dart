@@ -6,7 +6,7 @@ import 'dart:async';
 import 'package:Food_Bar/interfaces/auth_interface.dart';
 import 'package:Food_Bar/models/user.dart';
 import 'package:Food_Bar/settings/static_vars.dart';
-import 'package:Food_Bar/models/types.dart';
+import 'package:Food_Bar/settings/types.dart';
 
 class AuthService implements AuthInterface {
   AuthService._privateConstructor();
