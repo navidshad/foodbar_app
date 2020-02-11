@@ -38,6 +38,7 @@ class AppProperties {
   static double deliveryCharges = 30;
 
   // img
-  static String imgPath_logo = 'assets/images/logo_haiku.png';
-  static bool logoHasitleAndSlagon = true;
+  static String imgPathLogoWide = 'assets/images/logo_wide.png';
+  static String imgPathLogoVertical = 'assets/images/logo_vertical.png';
+  static bool logoHasTitleAndSlagon = true;
 }

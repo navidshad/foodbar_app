@@ -8,7 +8,7 @@ class SplashScreen extends StatelessWidget {
 
     // load logo and setup it
     Image logo = Image.asset(
-      AppProperties.imgPath_logo,
+      AppProperties.imgPathLogoVertical,
       height: 230,
     );
 
@@ -16,7 +16,7 @@ class SplashScreen extends StatelessWidget {
 
     // if logo doesnt has Title ans slagon
     // add Title & slagon by text
-    if (!AppProperties.logoHasitleAndSlagon) {
+    if (!AppProperties.logoHasTitleAndSlagon) {
       columnChilds.add(Container(
         margin: EdgeInsets.only(top: 30),
         child: Column(

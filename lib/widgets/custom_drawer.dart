@@ -25,9 +25,20 @@ class _CustomDrawerState extends State<CustomDrawer> {
     double lohoHeight = 70;
 
     Image logo = Image.asset(
-      AppProperties.imgPath_logo,
+      AppProperties.imgPathLogoWide,
       height: lohoHeight,
     );
+
+    List<Widget> titles = [];
+    if (AppProperties.logoHasTitleAndSlagon) {
+      titles = [
+        Text(
+          AppProperties.title,
+          textScaleFactor: 1.6,
+        ),
+        Text(AppProperties.slagon)
+      ];
+    }
 
     return StreamBuilder(
       stream: bloc.stateStream,
@@ -55,13 +66,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                AppProperties.title,
-                                textScaleFactor: 1.6,
-                              ),
-                              Text(AppProperties.slagon)
-                            ],
+                            children: titles,
                           ),
                         )
                       ],
