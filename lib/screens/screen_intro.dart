@@ -21,12 +21,14 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
   void didChangeDependencies() {
     super.didChangeDependencies();
     bloc = BlocProvider.of<IntroBloc>(context);
-    _tabController = TabController(length: 3, vsync: this);
+    bloc.authService.loginEvent.listen(onLogedIn);
+    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppProperties.backLightColor,
       body: StreamBuilder(
         initialData: bloc.getInitialState(),
         stream: bloc.stateStream,
@@ -35,7 +37,8 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
           _tabController.index = _getTabIndexFromType(state.type);
 
           // go to next tabs affter seconds
-          if (state.type == IntroTabType.Splash) _goToSlidesTab();
+          if (state.type == IntroTabType.Splash)
+            _checkFirstEnterAndLoginStatus();
 
           return TabBarView(
             controller: _tabController,
@@ -44,6 +47,7 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
               SplashScreen(),
               SliderIntroTab(onDone: goToLoginForm),
               LoginFormTab(),
+              RegisterTab(),
             ],
           );
         },
@@ -62,12 +66,15 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
       case IntroTabType.LoginForm:
         return 2;
         break;
+      case IntroTabType.RegisterForm:
+        return 3;
+        break;
       default:
         return 0;
     }
   }
 
-  void _goToSlidesTab() async {
+  void _checkFirstEnterAndLoginStatus() async {
     await Future.delayed(Duration(seconds: AppProperties.splashDelayInSeconds));
 
     // check first enter to app
@@ -75,16 +82,24 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
 
     if (!firstEnter) {
       IntroEvent event;
-      event = IntroEvent(switchTo: IntroTabType.Slider);
+      event = IntroSwitchEvent(switchTo: IntroTabType.Slider);
       bloc.eventSink.add(event);
-    } else
+    } else {
       goToLoginForm();
+    }
   }
 
   Function goToLoginForm() {
     IntroEvent event;
-    event = IntroEvent(switchTo: IntroTabType.LoginForm);
+    event = IntroSwitchEvent(switchTo: IntroTabType.LoginForm);
 
     bloc.eventSink.add(event);
+  }
+
+  void onLogedIn(bool isLogedIn) {
+    if(!isLogedIn) return;
+
+    if(bloc.authService.user.type == UserType.user)
+      Navigator.pushReplacementNamed(context, '/home');
   }
 }

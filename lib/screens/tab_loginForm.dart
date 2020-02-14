@@ -1,14 +1,103 @@
+import 'package:Food_Bar/bloc/intro_bloc.dart';
 import 'package:flutter/material.dart';
 
-class LoginFormTab extends StatelessWidget {
-  const LoginFormTab({Key key}) : super(key: key);
+import 'package:Food_Bar/settings/app_properties.dart';
+import 'package:Food_Bar/widgets/widgets.dart';
+import 'package:Food_Bar/utilities/food_bar_icons.dart';
+import 'package:Food_Bar/bloc/bloc.dart';
+import 'package:Food_Bar/settings/types.dart';
+
+class LoginFormTab extends StatefulWidget {
+  LoginFormTab({Key key}) : super(key: key);
+
+  @override
+  _LoginFormTabState createState() => _LoginFormTabState();
+}
+
+class _LoginFormTabState extends State<LoginFormTab> {
+  IntroBloc bloc;
+  String _email = '';
+  String _password = '';
+
+  String errorMessage = '';
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    bloc = BlocProvider.of<IntroBloc>(context);
+    bloc.stateStream.listen(onGetState);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text('Login Form'),
+    // load logo and setup it
+    Widget logo = Container(
+      padding: EdgeInsets.only(top: 60, bottom: 40),
+      child: Image.asset(
+        AppProperties.imgPathLogoWide,
+        height: 120,
       ),
     );
+
+    return ListView(
+      padding: EdgeInsets.only(left: 30, right: 30),
+      children: <Widget>[
+        logo,
+        TextfieldWithIcon(
+          iconData: Icons.email,
+          hint: 'Email',
+          onSubmitted: (value) => _email = value,
+        ),
+        TextfieldWithIcon(
+          iconData: Icons.lock,
+          hint: 'Password',
+          obscureText: true,
+          onSubmitted: (value) => _password = value,
+        ),
+
+        // error
+        Container(
+          margin: EdgeInsets.only(top: 10),
+          child: Text(
+            errorMessage,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.red
+            ),
+          ),
+        ),
+
+        CardButton(
+          title: 'Login',
+          height: 43,
+          margin: EdgeInsets.only(top: 50),
+          onTap: login,
+        ),
+        CardButton(
+          title: 'Register',
+          isOutline: true,
+          height: 43,
+          margin: EdgeInsets.only(top: 8),
+          onTap: goToRegisterForm,
+        ),
+      ],
+    );
+  }
+
+  void goToRegisterForm() {
+    IntroEvent event;
+    event = IntroSwitchEvent(switchTo: IntroTabType.RegisterForm);
+
+    bloc.eventSink.add(event);
+  }
+
+  void login() {
+    IntroEvent event = IntroLoginEvent(email: _email, passwod: _password);
+    bloc.eventSink.add(event);
+  }
+
+  void onGetState(IntroState state) {
+    if (state is IntroLoginState && !state.isSuccess)
+      errorMessage = state.message;
   }
 }

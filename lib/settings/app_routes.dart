@@ -7,7 +7,7 @@ import 'package:Food_Bar/screens/screens.dart';
 class AppRoutes {
   static Map<String, WidgetBuilder> getRoutes() {
     return {
-      'intro': (BuildContext context) {
+      '/intro': (BuildContext context) {
         return BlocProvider<IntroBloc>(
           bloc: IntroBloc(),
           child: Intro(),

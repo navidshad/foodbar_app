@@ -22,6 +22,7 @@ class IntroBloc implements BlocInterface<IntroEvent, IntroState> {
 
   IntroBloc() {
     _eventController.stream.listen(handler);
+    //authService.loginEvent.listen(onLoginEvent);
   }
 
   @override
@@ -35,26 +36,59 @@ class IntroBloc implements BlocInterface<IntroEvent, IntroState> {
     return IntroState(type: IntroTabType.Splash);
   }
 
+  // void onLoginEvent(bool isLogedin) {
+  //   IntroEvent state = IntroSwitchEvent(switchTo: IntroTabType.LoginForm);
+  //   handler(state);
+  // }
+
   @override
   void handler(IntroEvent event) async {
-    IntroState state = IntroState(type: event.switchTo);
+    IntroState state;
 
     // check that is ther any Auth token
     // get a token if dosent exist
-    if(!authService.isLogedIn) {
+    if (!authService.isLogedIn) {
       await authService.loginAnonymous();
     }
 
-    // get intro slides
-    if (event.switchTo == IntroTabType.Slider) {
-      await mongodb
-          .find(database: 'cms', collection: 'introSlider')
-          .then((list) {
-        List slideDetail = list;
-        slideDetail.forEach((itemDetail) {
-          IntroSlideItem slide = IntroSlideItem.fromMap(itemDetail);
-          introSlideItems.add(slide);
+    // switch events
+    if (event is IntroSwitchEvent) {
+      state = IntroState(type: event.switchTo);
+
+      // get intro slides
+      if (event.switchTo == IntroTabType.Slider) {
+        await mongodb
+            .find(database: 'cms', collection: 'introSlider')
+            .then((list) {
+          List slideDetail = list;
+          introSlideItems = [];
+          slideDetail.forEach((itemDetail) {
+            IntroSlideItem slide = IntroSlideItem.fromMap(itemDetail);
+            introSlideItems.add(slide);
+          });
         });
+      }
+    }
+
+    // login event
+    if (event is IntroLoginEvent) {
+      await authService
+          .login(
+        identityType: 'email',
+        identity: event.email,
+        password: event.passwod,
+      )
+          .then((r) {
+        state = IntroLoginState(
+          isSuccess: true,
+          type: IntroTabType.Splash,
+        );
+      }).catchError((error) {
+        state = IntroLoginState(
+          isSuccess: false,
+          message: error,
+          type: IntroTabType.LoginForm,
+        );
       });
     }
 
@@ -62,14 +96,71 @@ class IntroBloc implements BlocInterface<IntroEvent, IntroState> {
   }
 }
 
-class IntroEvent {
-  IntroTabType switchTo;
+class IntroEvent {}
 
-  IntroEvent({this.switchTo});
+class IntroSwitchEvent extends IntroEvent {
+  IntroTabType switchTo;
+  IntroSwitchEvent({this.switchTo});
+}
+
+class IntroLoginEvent extends IntroEvent {
+  String email;
+  String passwod;
+
+  IntroLoginEvent({this.email, this.passwod});
+}
+
+class IntroRegisterSubmitIdEvent extends IntroEvent {
+  String email;
+
+  IntroRegisterSubmitIdEvent(this.email);
+}
+
+class IntroRegisterVarifyIdEvent extends IntroEvent {
+  int code;
+  IntroRegisterVarifyIdEvent(this.code);
+}
+
+class IntroRegisterSubmitPassword extends IntroEvent {
+  String password;
+  IntroRegisterSubmitPassword(this.password);
 }
 
 class IntroState {
   IntroTabType type;
-
   IntroState({this.type});
+}
+
+class IntroLoginState extends IntroState {
+  bool isSuccess;
+  String message;
+
+  IntroLoginState({this.isSuccess, this.message, IntroTabType type})
+      : super(type: type);
+}
+
+class IntroRegisterSubmitIdState extends IntroState {
+  bool isSuccess;
+  String message;
+
+  IntroRegisterSubmitIdState({this.isSuccess, this.message, IntroTabType type})
+      : super(type: type);
+}
+
+class IntroRegisterSubmitVarificationState extends IntroState {
+  bool isSuccess;
+  String message;
+
+  IntroRegisterSubmitVarificationState(
+      {this.isSuccess, this.message, IntroTabType type})
+      : super(type: type);
+}
+
+class IntroRegisterSubmitPasswordState extends IntroState {
+  bool isSuccess;
+  String message;
+
+  IntroRegisterSubmitPasswordState(
+      {this.isSuccess, this.message, IntroTabType type})
+      : super(type: type);
 }

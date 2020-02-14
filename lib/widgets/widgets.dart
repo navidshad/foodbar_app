@@ -14,6 +14,7 @@ export './time_slider.dart';
 export './custom_int_slider.dart';
 export './cart_button.dart';
 export './confirm_state_viewer.dart';
+export './text_field_with_icon.dart';
 
 export './card_day.dart';
 export './card_time.dart';

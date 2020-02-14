@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       title: AppProperties.title,
       theme: AppTheme.getData(),
       routes: AppRoutes.getRoutes(),
-      initialRoute: 'intro',
+      initialRoute: '/intro',
     );
   }
 }

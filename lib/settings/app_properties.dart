@@ -15,13 +15,14 @@ class AppProperties {
 
   static int splashDelayInSeconds = 5;
 
-  static Color mainColor = Colors.green;
+  static Color mainColor = Colors.lightGreen;
   static Color secondColor = Colors.blue;
   static Color disabledColor = Colors.grey[100];
   static Color backLightColor = Color.fromRGBO(255, 240, 225, 1);
   
   static Color textOnMainColor = Colors.white;
   static Color textOnDisabled  = Colors.black;
+  static Color textOnBackLight  = Colors.black;
 
   static double cardSideMargin = 15;
   static double cardVerticalMargin = 5;

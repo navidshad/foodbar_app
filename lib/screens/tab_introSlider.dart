@@ -8,7 +8,6 @@ import 'package:intro_slider/slide_object.dart';
 import 'package:Food_Bar/bloc/bloc.dart';
 
 class SliderIntroTab extends StatelessWidget {
-
   Function onDone;
 
   SliderIntroTab({Key key, @required this.onDone}) : super(key: key);
@@ -21,13 +20,19 @@ class SliderIntroTab extends StatelessWidget {
 
     bloc.introSlideItems.forEach((item) {
       Slide slideObject = Slide(
-        title: item.title,
-        description: item.description,
-        backgroundColor: AppProperties.mainColor,
-        styleTitle: TextStyle(
-          color: AppProperties.textOnMainColor
-        )
-      );
+          title: item.title,
+          description: item.description,
+          backgroundColor: AppProperties.backLightColor,
+          marginDescription: EdgeInsets.only(left: 50, right: 50),
+          styleTitle: TextStyle(
+            color: AppProperties.mainColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 25
+          ),
+          styleDescription: TextStyle(
+            color: AppProperties.textOnBackLight,
+            fontSize: 18
+          ));
       slides.add(slideObject);
     });
 
@@ -37,6 +42,7 @@ class SliderIntroTab extends StatelessWidget {
       onSkipPress: onDone,
       isShowSkipBtn: false,
       isShowPrevBtn: false,
+      colorDoneBtn: AppProperties.mainColor,
     );
   }
 }

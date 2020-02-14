@@ -5,7 +5,6 @@ import 'package:Food_Bar/settings/app_properties.dart';
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     // load logo and setup it
     Image logo = Image.asset(
       AppProperties.imgPathLogoVertical,
@@ -29,14 +28,11 @@ class SplashScreen extends StatelessWidget {
     }
 
     // build splash screen
-    return Scaffold(
-      backgroundColor: AppProperties.backLightColor,
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: columnChilds,
-        ),
+    return Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: columnChilds,
       ),
     );
   }

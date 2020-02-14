@@ -2,6 +2,7 @@ export './screen_intro.dart';
 export './tab_splash.dart';
 export './tab_introSlider.dart';
 export './tab_loginForm.dart';
+export './tab_registerForm.dart';
 
 export './screen_appFrame.dart';
 export './tab_cart.dart';

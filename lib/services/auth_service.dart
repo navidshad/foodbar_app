@@ -7,12 +7,13 @@ import 'package:Food_Bar/interfaces/auth_interface.dart';
 import 'package:Food_Bar/models/user.dart';
 import 'package:Food_Bar/settings/static_vars.dart';
 import 'package:Food_Bar/settings/types.dart';
+import 'package:rxdart/rxdart.dart';
 
 class AuthService implements AuthInterface {
   AuthService._privateConstructor();
   static final instant = AuthService._privateConstructor();
 
-  final StreamController<bool> _loginController = StreamController<bool>();
+  final StreamController<bool> _loginController = BehaviorSubject<bool>();
 
   Client _http = Client();
   User _user;
@@ -64,6 +65,7 @@ class AuthService implements AuthInterface {
     );
 
     isLogedIn = true;
+    _loginController.add(isLogedIn);
   }
 
   Future<dynamic> loginAnonymous(
@@ -172,7 +174,11 @@ class AuthService implements AuthInterface {
     //print('== SC _analizeResult ${r.body}');
     dynamic body = _convert(r.body);
 
-    if (r.statusCode != 200) throw new StateError(body);
+    if (r.statusCode != 200) {
+      String error = body['error'] ?? body.toString();
+      throw error;
+    }
+    
     return body;
   }
 }
