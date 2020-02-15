@@ -29,7 +29,7 @@ class AppProperties {
   static Color textOnBackLight  = Colors.black;
 
   static double cardSideMargin = 15;
-  static double cardVerticalMargin = 5;
+  static double cardVerticalMargin = 2;
   
   // appframe
   static MenuType menuType = MenuType.TwoPage;

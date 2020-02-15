@@ -116,7 +116,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 ListTile(
                   title: Text(AppProperties.logoutTitle),
                   leading: Icon(AppProperties.logoutIcon),
-                  //onTap: () => switchTab(FrameTabType.Reserve),
+                  onTap: () {
+                    bloc.authService.logout();
+                    Navigator.pushReplacementNamed(context, '/intro');
+                  },
                 ),
               ],
             ),

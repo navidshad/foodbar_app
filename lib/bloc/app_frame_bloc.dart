@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:Food_Bar/interfaces/auth_interface.dart';
+import 'package:Food_Bar/services/auth_service.dart';
 import 'package:Food_Bar/settings/settings.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -20,6 +22,9 @@ class AppFrameEvent {
 }
 
 class AppFrameBloc implements BlocInterface<AppFrameEvent, AppFrameState> {
+
+  AuthInterface authService = AuthService.instant;
+
   // state stream
   final _stateController = BehaviorSubject<AppFrameState>();
   Stream<AppFrameState> get stateStream => _stateController.stream;
