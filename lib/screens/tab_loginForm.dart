@@ -52,7 +52,7 @@ class _LoginFormTabState extends State<LoginFormTab> {
           iconData: FoodBarIcons.password,
           hint: 'Password',
           obscureText: true,
-          onSubmitted: (value) => _password = value,
+          onSubmitted: (value) => _password = value.trim(),
         ),
 
         // error

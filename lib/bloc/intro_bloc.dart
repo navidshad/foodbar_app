@@ -36,11 +36,6 @@ class IntroBloc implements BlocInterface<IntroEvent, IntroState> {
     return IntroState(type: IntroTabType.Splash);
   }
 
-  // void onLoginEvent(bool isLogedin) {
-  //   IntroEvent state = IntroSwitchEvent(switchTo: IntroTabType.LoginForm);
-  //   handler(state);
-  // }
-
   @override
   void handler(IntroEvent event) async {
     IntroState state;
@@ -84,6 +79,7 @@ class IntroBloc implements BlocInterface<IntroEvent, IntroState> {
           type: IntroTabType.Splash,
         );
       }).catchError((error) {
+        print(error);
         state = IntroLoginState(
           isSuccess: false,
           message: error,
@@ -92,6 +88,77 @@ class IntroBloc implements BlocInterface<IntroEvent, IntroState> {
       });
     }
 
+    // wating on registration steps
+    else if (event is IntroRegisterWaitingEvent) {
+      state = IntroRegisterWaitingState(
+        type: IntroTabType.RegisterForm,
+      );
+    }
+
+    // submit id
+    else if (event is IntroRegisterSubmitIdEvent) {
+      await authService
+          .registerSubmitId(
+        identityType: 'email',
+        identity: event.email,
+      )
+          .then((r) {
+        state = IntroRegisterSubmitVarificationState(
+          isSuccess: true,
+          type: IntroTabType.RegisterForm,
+        );
+      }).catchError((error) {
+        print(error.toString());
+        state = IntroRegisterSubmitIdState(
+          isSuccess: false,
+          message: error.toString(),
+          type: IntroTabType.RegisterForm,
+        );
+      });
+    }
+
+    // varify id
+    else if (event is IntroRegisterVarifyIdEvent) {
+      await authService
+          .validateCode(code: event.code, id: event.id)
+          .then((r) {
+        state = IntroRegisterSubmitPasswordState(
+          isSuccess: true,
+          type: IntroTabType.RegisterForm,
+        );
+      }).catchError((error) {
+        print(error.toString());
+        state = IntroRegisterSubmitVarificationState(
+          isSuccess: false,
+          message: error.toString(),
+          type: IntroTabType.RegisterForm,
+        );
+      });
+    }
+
+    // submit password
+    else if (event is IntroRegisterSubmitPasswordEvent) {
+      await authService
+          .registerSubmitPass(
+        serial: event.code,
+        identity: event.id,
+        password: event.password,
+      )
+          .then((r) {
+        state = IntroRegisterSuccessState(
+          type: IntroTabType.RegisterForm,
+        );
+      }).catchError((error) {
+        print(error.toString());
+        state = IntroRegisterSubmitPasswordState(
+          isSuccess: false,
+          message: error.toString(),
+          type: IntroTabType.RegisterForm,
+        );
+      });
+    }
+
+    // submit password
     _stateController.add(state);
   }
 }
@@ -118,13 +185,18 @@ class IntroRegisterSubmitIdEvent extends IntroEvent {
 
 class IntroRegisterVarifyIdEvent extends IntroEvent {
   int code;
-  IntroRegisterVarifyIdEvent(this.code);
+  String id;
+  IntroRegisterVarifyIdEvent({this.code, this.id});
 }
 
-class IntroRegisterSubmitPassword extends IntroEvent {
+class IntroRegisterSubmitPasswordEvent extends IntroEvent {
   String password;
-  IntroRegisterSubmitPassword(this.password);
+  String id;
+  int code;
+  IntroRegisterSubmitPasswordEvent({this.password, this.id, this.code});
 }
+
+class IntroRegisterWaitingEvent extends IntroEvent {}
 
 class IntroState {
   IntroTabType type;
@@ -135,7 +207,7 @@ class IntroLoginState extends IntroState {
   bool isSuccess;
   String message;
 
-  IntroLoginState({this.isSuccess, this.message, IntroTabType type})
+  IntroLoginState({this.isSuccess = false, this.message = '', IntroTabType type})
       : super(type: type);
 }
 
@@ -143,7 +215,7 @@ class IntroRegisterSubmitIdState extends IntroState {
   bool isSuccess;
   String message;
 
-  IntroRegisterSubmitIdState({this.isSuccess, this.message, IntroTabType type})
+  IntroRegisterSubmitIdState({this.isSuccess = false, this.message = '', IntroTabType type})
       : super(type: type);
 }
 
@@ -152,7 +224,7 @@ class IntroRegisterSubmitVarificationState extends IntroState {
   String message;
 
   IntroRegisterSubmitVarificationState(
-      {this.isSuccess, this.message, IntroTabType type})
+      {this.isSuccess = false, this.message = '', IntroTabType type})
       : super(type: type);
 }
 
@@ -161,6 +233,14 @@ class IntroRegisterSubmitPasswordState extends IntroState {
   String message;
 
   IntroRegisterSubmitPasswordState(
-      {this.isSuccess, this.message, IntroTabType type})
+      {this.isSuccess = false, this.message = '', IntroTabType type})
       : super(type: type);
+}
+
+class IntroRegisterSuccessState extends IntroState {
+  IntroRegisterSuccessState({IntroTabType type}) : super(type: type);
+}
+
+class IntroRegisterWaitingState extends IntroState {
+  IntroRegisterWaitingState({IntroTabType type}) : super(type: type);
 }

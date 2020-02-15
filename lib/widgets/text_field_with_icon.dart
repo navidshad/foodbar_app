@@ -39,6 +39,7 @@ class TextfieldWithIcon extends StatelessWidget {
                 style: TextStyle(fontSize: 18),
                 onChanged: onSubmitted,
                 obscureText: obscureText,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   hintText: hint,
                   border: InputBorder.none,

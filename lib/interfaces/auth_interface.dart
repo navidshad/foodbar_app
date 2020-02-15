@@ -25,7 +25,7 @@ abstract class AuthInterface {
 
   Future<dynamic> getPermission(String permissionId);
 
-  Future<bool> validateSMSCode({String id, int code});
+  Future<bool> validateCode({String id, int code});
 
   void logout();
 

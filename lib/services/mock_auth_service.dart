@@ -60,7 +60,7 @@ class MockAuthService implements AuthInterface{
   User get user => null;
 
   @override
-  Future<bool> validateSMSCode({String id, int code}) {
+  Future<bool> validateCode({String id, int code}) {
     // TODO: implement validateSMSCode
     return null;
   }

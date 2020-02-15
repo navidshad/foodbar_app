@@ -140,8 +140,8 @@ class AuthService implements AuthInterface {
         .then((result) => result['permission']);
   }
 
-  Future<bool> validateSMSCode({String id, int code}) {
-    String url = Vars.host + '/user/validateSMSCode';
+  Future<bool> validateCode({String id, int code}) {
+    String url = Vars.host + '/user/validateCode';
 
     Map body = {'id': id, 'serial': code};
 
