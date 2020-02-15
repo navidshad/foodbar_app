@@ -92,10 +92,31 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 ListTile(
                   title: Text(AppProperties.reservationTitle),
                   leading: Icon(AppProperties.reservationIcon),
-                  onTap: () => switchTab(FrameTabType.Reserve),
+                  onTap: () => switchTab(FrameTabType.RESERVATION),
                 ),
                 Divider(
                   height: 0,
+                ),
+                ListTile(
+                  title: Text(AppProperties.oldReservedTitle),
+                  leading: Icon(AppProperties.oldReservedIcon),
+                  onTap: () => switchTab(FrameTabType.RESERVED),
+                ),
+                Divider(
+                  height: 0,
+                ),
+                ListTile(
+                  title: Text(AppProperties.myOrdersTitle),
+                  leading: Icon(AppProperties.myOrdersIcon),
+                  onTap: () => switchTab(FrameTabType.ORDERS),
+                ),
+                Divider(
+                  height: 0,
+                ),
+                ListTile(
+                  title: Text(AppProperties.logoutTitle),
+                  leading: Icon(AppProperties.logoutIcon),
+                  //onTap: () => switchTab(FrameTabType.Reserve),
                 ),
               ],
             ),

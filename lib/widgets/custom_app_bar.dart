@@ -39,27 +39,14 @@ class _CustomAppBarState extends State<CustomAppBar> {
     Widget actionBtn;
     currentTab = type;
 
-    // setup title and action button according to tabType
     if (type == FrameTabType.MENU) {
-      // actionBtn = FlatButton(
-      //   child: Icon(FoodBarIcons.shopping_bag),
-      //   onPressed: onAppBarActionButtonPressed,
-      // );
       actionBtn = CartButton(
         onTap: onAppBarActionButtonPressed,
       );
-    } else if (type == FrameTabType.CART) {
+    } else {
       actionBtn = FlatButton(
         child: Icon(FoodBarIcons.spoon_and_fork),
         onPressed: onAppBarActionButtonPressed,
-      );
-    } else if (type == FrameTabType.Reserve) {
-      // actionBtn = FlatButton(
-      //   child: Icon(FoodBarIcons.shopping_bag),
-      //   onPressed: onAppBarActionButtonPressed,
-      // );
-      actionBtn = CartButton(
-        onTap: onAppBarActionButtonPressed,
       );
     }
 
@@ -72,7 +59,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   }
 
   void onAppBarActionButtonPressed() {
-    AppFrameEvent event = AppFrameEvent(switchFrom: currentTab);
+    AppFrameEvent event = AppFrameEvent(switchTo: FrameTabType.MENU);
     bloc.eventSink.add(event);
   }
 

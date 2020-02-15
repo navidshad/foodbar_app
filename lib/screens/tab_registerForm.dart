@@ -31,15 +31,11 @@ class RegisterTab extends StatelessWidget {
       children: <Widget>[
         logo,
         TextfieldWithIcon(
-          iconData: Icons.email,
-          hint: 'Full Name',
-        ),
-        TextfieldWithIcon(
-          iconData: Icons.email,
+          iconData: FoodBarIcons.email,
           hint: 'Email',
         ),
         TextfieldWithIcon(
-          iconData: Icons.lock,
+          iconData: FoodBarIcons.password,
           hint: 'Password',
           obscureText: true,
         ),

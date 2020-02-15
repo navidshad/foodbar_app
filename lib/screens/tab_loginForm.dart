@@ -44,12 +44,12 @@ class _LoginFormTabState extends State<LoginFormTab> {
       children: <Widget>[
         logo,
         TextfieldWithIcon(
-          iconData: Icons.email,
+          iconData: FoodBarIcons.email,
           hint: 'Email',
-          onSubmitted: (value) => _email = value,
+          onSubmitted: (value) => _email = value.trim(),
         ),
         TextfieldWithIcon(
-          iconData: Icons.lock,
+          iconData: FoodBarIcons.password,
           hint: 'Password',
           obscureText: true,
           onSubmitted: (value) => _password = value,

@@ -12,6 +12,10 @@ class AppProperties {
   static String menuTitle = 'Menu';
   static String cartTitle = 'My Cart';
   static String reservationTitle = 'Table Reservation';
+  static String myOrdersTitle = 'My Orders';
+  static String oldReservedTitle = 'Old Reserved';
+  static String logoutTitle = 'Logout';
+
 
   static int splashDelayInSeconds = 5;
 
@@ -34,6 +38,9 @@ class AppProperties {
   static IconData cartIcon = FoodBarIcons.shopping_bag_not_empty;
   static IconData cartIconEmpty = FoodBarIcons.shopping_bag;
   static IconData reservationIcon = FoodBarIcons.reservation02;
+  static IconData oldReservedIcon = FoodBarIcons.reserved01;
+  static IconData logoutIcon = Icons.exit_to_app;
+  static IconData myOrdersIcon = FoodBarIcons.orders;
 
   // payment
   static double deliveryCharges = 30;

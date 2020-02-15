@@ -47,10 +47,22 @@ class AppFrameBloc implements BlocInterface<AppFrameEvent, AppFrameState> {
     }
 
     // define title
-    switch(type) {
-      case FrameTabType.CART: title = AppProperties.cartTitle; break;
-      case FrameTabType.MENU: title = AppProperties.menuTitle; break;
-      case FrameTabType.Reserve: title = AppProperties.reservationTitle; break;
+    switch (type) {
+      case FrameTabType.CART:
+        title = AppProperties.cartTitle;
+        break;
+      case FrameTabType.MENU:
+        title = AppProperties.menuTitle;
+        break;
+      case FrameTabType.RESERVATION:
+        title = AppProperties.reservationTitle;
+        break;
+      case FrameTabType.ORDERS:
+        title = AppProperties.myOrdersTitle;
+        break;
+      case FrameTabType.RESERVED:
+        title = AppProperties.oldReservedTitle;
+        break;
     }
 
     AppFrameBloc.currentType = type;

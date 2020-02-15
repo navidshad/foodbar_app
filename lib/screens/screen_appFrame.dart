@@ -20,7 +20,7 @@ class _AppFrameState extends State<AppFrame>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: 3);
+    _tabController = TabController(vsync: this, length: 5);
     _tabController.addListener(onTabViewChanged);
   }
 
@@ -32,8 +32,6 @@ class _AppFrameState extends State<AppFrame>
 
   @override
   Widget build(BuildContext context) {
-    print('build appframe');
-
     return Scaffold(
       appBar: CustomAppBar(),
       drawer: CustomDrawer(),
@@ -59,6 +57,10 @@ class _AppFrameState extends State<AppFrame>
               CartTab(),
 
               ReservationTab(),
+
+              OldReserved(),
+
+              OrdersTab()
             ],
           );
         },
@@ -71,8 +73,12 @@ class _AppFrameState extends State<AppFrame>
       return 0;
     else if (type == FrameTabType.CART)
       return 1;
-    else if (type == FrameTabType.Reserve)
+    else if (type == FrameTabType.RESERVATION)
       return 2;
+    else if (type == FrameTabType.RESERVED)
+      return 3;
+    else if (type == FrameTabType.ORDERS)
+      return 4;
     else
       return 0;
   }
