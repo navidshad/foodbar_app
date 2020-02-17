@@ -28,6 +28,17 @@ class Permission {
     );
   }
 
+  Map getAsDocument() {
+    return {
+      '_id': id,
+      'customer_access': customerAccess,
+      'anonymous_access': anonymousAccess,
+      'user_manager': userManager,
+      'advanced_settings': advancedSettings,
+      'content_sroducer': contentProducer,
+    };
+  }
+
   // compare two permission class
   bool isEqualeTo(Permission per) {
     bool isEquale = true;

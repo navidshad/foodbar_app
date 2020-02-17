@@ -22,6 +22,15 @@ class User {
     _permission = permission;
   }
 
+  Map getAsDocument() {
+    return {
+      'refId': id,
+      'email': email,
+      'fullname': fullname,
+      'permission': _permission.getAsDocument()
+    };
+  }
+
   factory User.fromMap(Map detail, Map permissionDetail) {
     
     Permission permission = Permission.fromMap(permissionDetail);

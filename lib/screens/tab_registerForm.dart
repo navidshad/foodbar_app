@@ -95,6 +95,7 @@ class _RegisterTabState extends State<RegisterTab> {
         iconData: FoodBarIcons.email,
         hint: 'Email',
         onSubmitted: (value) => _email = value.trim(),
+        keyboardType: TextInputType.emailAddress,
       ),
       CardButton(
         title: 'Submit Your Email',
@@ -120,6 +121,7 @@ class _RegisterTabState extends State<RegisterTab> {
       TextfieldWithIcon(
         iconData: Icons.confirmation_number,
         hint: 'Code',
+        keyboardType: TextInputType.number,
         onSubmitted: (value) {
           _varificationCode = int.tryParse(value);
         },
@@ -147,6 +149,7 @@ class _RegisterTabState extends State<RegisterTab> {
       TextfieldWithIcon(
         iconData: FoodBarIcons.password,
         hint: 'Password',
+        obscureText: true,
         onSubmitted: (value) => _password = value.trim(),
       ),
       CardButton(

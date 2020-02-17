@@ -6,13 +6,15 @@ class TextfieldWithIcon extends StatelessWidget {
   final String hint;
   final bool obscureText;
   final Function(String value) onSubmitted;
+  final TextInputType keyboardType;
 
   TextfieldWithIcon({
     Key key,
     @required this.iconData,
     @required this.onSubmitted,
     this.hint,
-    this.obscureText = false
+    this.obscureText = false,
+    this.keyboardType = TextInputType.text
   }) : super(key: key);
 
   @override
@@ -39,7 +41,7 @@ class TextfieldWithIcon extends StatelessWidget {
                 style: TextStyle(fontSize: 18),
                 onChanged: onSubmitted,
                 obscureText: obscureText,
-                keyboardType: TextInputType.number,
+                keyboardType: keyboardType,
                 decoration: InputDecoration(
                   hintText: hint,
                   border: InputBorder.none,

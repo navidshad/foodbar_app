@@ -41,6 +41,10 @@ class IntroBloc implements BlocInterface<IntroEvent, IntroState> {
     IntroState state;
 
     // check that is ther any Auth token
+    if (!authService.isLogedIn) {
+      await authService.loginWithLastSession();
+    }
+    
     // get a token if dosent exist
     if (!authService.isLogedIn) {
       await authService.loginAnonymous();
@@ -119,9 +123,7 @@ class IntroBloc implements BlocInterface<IntroEvent, IntroState> {
 
     // varify id
     else if (event is IntroRegisterVarifyIdEvent) {
-      await authService
-          .validateCode(code: event.code, id: event.id)
-          .then((r) {
+      await authService.validateCode(code: event.code, id: event.id).then((r) {
         state = IntroRegisterSubmitPasswordState(
           isSuccess: true,
           type: IntroTabType.RegisterForm,
@@ -207,7 +209,8 @@ class IntroLoginState extends IntroState {
   bool isSuccess;
   String message;
 
-  IntroLoginState({this.isSuccess = false, this.message = '', IntroTabType type})
+  IntroLoginState(
+      {this.isSuccess = false, this.message = '', IntroTabType type})
       : super(type: type);
 }
 
@@ -215,7 +218,8 @@ class IntroRegisterSubmitIdState extends IntroState {
   bool isSuccess;
   String message;
 
-  IntroRegisterSubmitIdState({this.isSuccess = false, this.message = '', IntroTabType type})
+  IntroRegisterSubmitIdState(
+      {this.isSuccess = false, this.message = '', IntroTabType type})
       : super(type: type);
 }
 

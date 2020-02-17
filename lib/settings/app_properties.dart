@@ -17,7 +17,7 @@ class AppProperties {
   static String logoutTitle = 'Logout';
 
 
-  static int splashDelayInSeconds = 5;
+  static int splashDelayInSeconds = 1;
 
   static Color mainColor = Colors.lightGreen;
   static Color secondColor = Colors.blue;
@@ -49,4 +49,9 @@ class AppProperties {
   static String imgPathLogoWide = 'assets/images/logo_wide.png';
   static String imgPathLogoVertical = 'assets/images/logo_vertical.png';
   static bool logoHasTitleAndSlagon = true;
+
+  // local db
+  static String collectionAuth = 'auth';
+  static String collectionToken = 'token';
+
 }

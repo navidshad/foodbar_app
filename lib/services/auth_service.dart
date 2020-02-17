@@ -1,11 +1,13 @@
+import 'package:Food_Bar/interfaces/local_storage_interface.dart';
 import 'package:Food_Bar/models/permission.dart';
+import 'package:Food_Bar/services/shared_preferences_service.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'dart:async';
 
 import 'package:Food_Bar/interfaces/auth_interface.dart';
 import 'package:Food_Bar/models/user.dart';
-import 'package:Food_Bar/settings/static_vars.dart';
+import 'package:Food_Bar/settings/settings.dart';
 import 'package:Food_Bar/settings/types.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -65,7 +67,11 @@ class AuthService implements AuthInterface {
     );
 
     isLogedIn = true;
+
+    // broadcast login event
     _loginController.add(isLogedIn);
+    // store this session
+    saveSession();
   }
 
   Future<dynamic> loginAnonymous(
@@ -152,9 +158,19 @@ class AuthService implements AuthInterface {
   }
 
   @override
-  Future loginWithLastSession() {
-    // TODO: implement loginWithLastSession
-    return null;
+  Future<bool> loginWithLastSession() async {
+    LocalStorageInterface storage = SharedPreferencesService.instace;
+
+    Map doc = await storage.findOne(AppProperties.collectionToken);
+    if (doc == null) return false;
+
+    // varify last token
+    return varifyToken(doc['token'])
+        // load user detail
+        .then(_loadUserFromPayload)
+        // result
+        .then((r) => true)
+        .catchError((onError) => false);
   }
 
   @override
@@ -162,10 +178,21 @@ class AuthService implements AuthInterface {
     loginAnonymous();
     isLogedIn = false;
     _loginController.add(isLogedIn);
+    saveSession();
   }
 
   void close() {
     _loginController.close();
+  }
+
+  @override
+  Future<void> saveSession() {
+    LocalStorageInterface storage = SharedPreferencesService.instace;
+
+    Map<String, dynamic> session = {'token': token};
+
+    return storage.insert(AppProperties.collectionToken, '1', session,
+        allowReplace: true);
   }
 
   dynamic _convert(String jsonString) => jsonDecode(jsonString);
@@ -178,7 +205,7 @@ class AuthService implements AuthInterface {
       String error = body['error'] ?? body.toString();
       throw error;
     }
-    
+
     return body;
   }
 }

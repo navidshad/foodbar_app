@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:Food_Bar/models/user.dart';
 
 abstract class AuthInterface {
-  
   Stream<bool> get loginEvent;
 
   User _user;
@@ -11,15 +10,20 @@ abstract class AuthInterface {
   String token;
   bool isLogedIn;
 
-  Future<dynamic> login({String identity, String identityType, String password});
+  Future<bool> loginWithLastSession();
 
-  Future<dynamic> loginAnonymous({String identity, String identityType, String password});
+  Future<dynamic> login(
+      {String identity, String identityType, String password});
+
+  Future<dynamic> loginAnonymous(
+      {String identity, String identityType, String password});
 
   Future<dynamic> varifyToken(String token);
 
   Future<dynamic> registerSubmitId({String identity, String identityType});
 
-  Future<dynamic> registerSubmitPass({String identity, String password, int serial});
+  Future<dynamic> registerSubmitPass(
+      {String identity, String password, int serial});
 
   Future<dynamic> changePass({String identity, String password, int serial});
 
@@ -27,7 +31,7 @@ abstract class AuthInterface {
 
   Future<bool> validateCode({String id, int code});
 
-  void logout();
+  Future<void> saveSession();
 
-  Future<dynamic> loginWithLastSession();
+  void logout();
 }

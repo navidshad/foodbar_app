@@ -47,6 +47,7 @@ class _LoginFormTabState extends State<LoginFormTab> {
           iconData: FoodBarIcons.email,
           hint: 'Email',
           onSubmitted: (value) => _email = value.trim(),
+          keyboardType: TextInputType.emailAddress,
         ),
         TextfieldWithIcon(
           iconData: FoodBarIcons.password,
