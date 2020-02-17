@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:Food_Bar/bloc/bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:Food_Bar/interfaces/bloc_interface.dart';
@@ -32,7 +31,7 @@ class ReservationBloc
   final StreamController<List<CustomTable>> _tableController =
       BehaviorSubject();
 
-  ReservationScheduleProvider _service = MockScheduleService();
+  ReservationProviderInterface _service = ReservationService.instance;
 
   //
   // streams -------------------------------------------------
@@ -96,7 +95,9 @@ class ReservationBloc
       // get and stream allowed total person to reserve
     } else if (event is GetTotalPerson) {
       //GetTotalPerson eventDetail = event;
-      _service.getTotalPerson(event.date, event.table).then((int totalPerson) {
+      _service
+          .getRemainPersons(event.date, event.table)
+          .then((int totalPerson) {
         _personController.add(PersonPickerOptions(
           divisions: totalPerson,
           min: 0,
@@ -107,12 +108,12 @@ class ReservationBloc
       //
       // get and stream reserved time per day
     } else if (event is GetReservedTimes) {
-      _service.getReservedDailyTime(event.date).then((times) {
+      _service.getReservedTimes(event.date).then((times) {
         _reservedTimeController.add(times);
       });
 
       //
-      // request to reserve a table and 
+      // request to reserve a table and
       // stream its result state
     } else if (event is ReserveTable) {
       ConfirmState state = ConfirmState(waitingForResult: true);

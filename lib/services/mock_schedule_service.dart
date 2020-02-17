@@ -5,9 +5,9 @@ import 'package:Food_Bar/models/models.dart';
 import 'package:Food_Bar/models/reservation_schedule_option.dart';
 import 'package:Food_Bar/models/table.dart';
 
-class MockScheduleService implements ReservationScheduleProvider {
+class MockScheduleService implements ReservationProviderInterface {
   @override
-  Future<List<DateTime>> getReservedDailyTime(DateTime day) {
+  Future<List<DateTime>> getReservedTimes(DateTime day) {
     return Future.delayed(Duration(seconds: 1)).then((r) {
       return [
         DateTime(day.year, day.month, day.day, 14, 00),
@@ -39,7 +39,7 @@ class MockScheduleService implements ReservationScheduleProvider {
   }
 
   @override
-  Future<int> getTotalPerson(DateTime date, CustomTable table) {
+  Future<int> getRemainPersons(DateTime date, CustomTable table) {
     return Future.delayed(Duration(seconds: 1)).then((r) {
       if (table is RollBandTable)
         return table.persons;

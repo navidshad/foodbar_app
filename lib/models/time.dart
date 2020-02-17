@@ -3,6 +3,10 @@ class Time {
   int minutes;
 
   Time({this.houre = 0, this.minutes = 0});
+
+  factory Time.fromMap(Map detail) {
+    return Time(houre: detail['houre'], minutes: detail['minutes']);
+  }
 }
 
 class Period {
@@ -12,6 +16,13 @@ class Period {
   int dividedPerMinutes;
 
   Period({this.from, this.to, this.dividedPerMinutes = 30});
+
+  factory Period.fromMap(Map detail) {
+    return Period(
+      from: Time.fromMap(detail['from']),
+      to: Time.fromMap(detail['to']),
+    );
+  }
 
   List<DateTime> getDividedTimes(DateTime date) {
     DateTime dateStartTime = DateTime.utc(

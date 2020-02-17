@@ -1,8 +1,31 @@
 class CustomTable {
+  String id;
   String title;
   String imageUrl;
 
-  CustomTable({this.title, this.imageUrl});
+  CustomTable({this.id, this.title, this.imageUrl});
+
+  factory CustomTable.fromMap(Map detail) {
+    CustomTable table;
+
+    if (detail['type'] == 'Board') {
+      table = BoardTable(
+          id: detail['_id'],
+          count: detail['count'],
+          imageUrl: detail['imageUrl'],
+          persons: detail['persons'],
+          title: detail['title']);
+    } else if (detail['type'] == 'RollBand') {
+      table = RollBandTable(
+        id: detail['_id'],
+        imageUrl: detail['imageUrl'],
+        persons: detail['persons'],
+        title: detail['title'],
+      );
+    }
+
+    return table;
+  }
 }
 
 class BoardTable extends CustomTable {
@@ -14,7 +37,8 @@ class BoardTable extends CustomTable {
     this.count,
     String title,
     String imageUrl,
-  }) : super(title: title, imageUrl: imageUrl);
+    String id,
+  }) : super(id: id, title: title, imageUrl: imageUrl);
 }
 
 class RollBandTable extends CustomTable {
@@ -24,5 +48,6 @@ class RollBandTable extends CustomTable {
     this.persons,
     String title,
     String imageUrl,
-  }) : super(title: title, imageUrl: imageUrl);
+    String id,
+  }) : super(id: id, title: title, imageUrl: imageUrl);
 }

@@ -42,12 +42,17 @@ class IntroBloc implements BlocInterface<IntroEvent, IntroState> {
 
     // check that is ther any Auth token
     if (!authService.isLogedIn) {
-      await authService.loginWithLastSession();
+      await authService.loginWithLastSession().catchError((e) {
+        print('loginWithLastSession has not been done.');
+      });
     }
     
     // get a token if dosent exist
     if (!authService.isLogedIn) {
-      await authService.loginAnonymous();
+      await authService.loginAnonymous().catchError((e) {
+        print('loginAnonymous has not been done.');
+        print(e.toString());
+      });
     }
 
     // switch events
@@ -83,7 +88,7 @@ class IntroBloc implements BlocInterface<IntroEvent, IntroState> {
           type: IntroTabType.Splash,
         );
       }).catchError((error) {
-        print(error);
+        print(error.toString());
         state = IntroLoginState(
           isSuccess: false,
           message: error,

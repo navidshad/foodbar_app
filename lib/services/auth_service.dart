@@ -164,8 +164,10 @@ class AuthService implements AuthInterface {
     Map doc = await storage.findOne(AppProperties.collectionToken);
     if (doc == null) return false;
 
+    token = doc['token'];
+
     // varify last token
-    return varifyToken(doc['token'])
+    return varifyToken(token)
         // load user detail
         .then(_loadUserFromPayload)
         // result
@@ -195,11 +197,14 @@ class AuthService implements AuthInterface {
         allowReplace: true);
   }
 
-  dynamic _convert(String jsonString) => jsonDecode(jsonString);
-
   dynamic _analizeResult(Response r) {
-    //print('== SC _analizeResult ${r.body}');
-    dynamic body = _convert(r.body);
+    dynamic body;
+
+    try {
+      body = jsonDecode(r.body);
+    } catch (e) {
+      throw e;
+    }
 
     if (r.statusCode != 200) {
       String error = body['error'] ?? body.toString();
