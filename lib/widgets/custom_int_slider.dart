@@ -33,6 +33,7 @@ class _CustomIntSliderState extends State<CustomIntSlider> {
 
     // slider
     Slider slider = Slider(
+      key: widget.key,
       divisions: widget.divisions,
       value: currentValue,
       max: widget.max,

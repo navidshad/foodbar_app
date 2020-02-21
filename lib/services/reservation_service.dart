@@ -39,11 +39,15 @@ class ReservationService implements ReservationProviderInterface {
         .then(_analizeResult)
         .then((result) {
       List list = result['times'];
-      list.forEach((timeString) {
-        DateTime tempTime = DateTime.parse(timeString);
+      //print('getReservedTimes $list');
+      list.forEach((reserved) {
+        Map reservedDetail = reserved;
+        DateTime tempTime = DateTime.parse(reservedDetail['from']);
         times.add(tempTime);
       });
-    }).catchError((onError) => print(onError.toString()));
+    }).catchError((onError) {
+      print('getReservedTimes ${onError.toString()}');
+    });
 
     return times;
   }
@@ -85,7 +89,7 @@ class ReservationService implements ReservationProviderInterface {
 
   @override
   Future<int> getRemainPersons(DateTime date, CustomTable table) async {
-    String url = Vars.host + '/reservation/getTotalPerson';
+    String url = Vars.host + '/reservation/getRemainPersons';
 
     Map body = {
       'isoDate': date.toUtc().toIso8601String(),
@@ -99,7 +103,9 @@ class ReservationService implements ReservationProviderInterface {
         .then(_analizeResult)
         .then((result) {
       remain = result['remain'];
-    }).catchError((onError) => print(onError.toString()));
+    }).catchError((onError) {
+      print(onError.toString());
+    });
 
     return remain;
   }
@@ -107,7 +113,7 @@ class ReservationService implements ReservationProviderInterface {
   @override
   Future<ReserveConfirmationResult> reserve(
       {int persons, CustomTable table, DateTime date}) async {
-    String url = Vars.host + '/reservation/getTotalPerson';
+    String url = Vars.host + '/reservation/reserveTable';
 
     Map body = {
       'isoDate': date.toUtc().toIso8601String(),

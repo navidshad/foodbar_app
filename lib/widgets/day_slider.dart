@@ -29,6 +29,7 @@ class _CustomDaySliderState extends State<CustomDaySlider> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
+      key: widget.key,
       builder: (context, constraints) {
         List<Widget> bodyColumnWidgets = [];
 
@@ -48,7 +49,7 @@ class _CustomDaySliderState extends State<CustomDaySlider> {
             textColor: AppProperties.textOnMainColor,
             disableColor: AppProperties.disabledColor,
             disableTextColor: AppProperties.textOnDisabled,
-            isActive: (selectedDayIndex == i),
+            isActive: (selectedDate.compareTo(date) == 0),
             onPressed: (DateTime d) {
               selectedDayIndex = i;
               setState(() {});

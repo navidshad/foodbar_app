@@ -80,7 +80,14 @@ class ReservationBloc
     //
     // get and stream Schedule options
     if (event is GetScheduleOptions) {
-      _service.getScheduleOptions().then(((options) {
+      _service.getScheduleOptions().then(((options) async {
+        //
+        // get reserved time and put it into schedule option for the fost time
+        await _service
+            .getReservedTimes(options.from)
+            .then((times) => options.reservedTimes = times)
+            .catchError((onError) => print('getReservedTimes ${onError.toString()}'));
+
         _stateController.add(ScheduleState(options: options));
       }));
 

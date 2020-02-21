@@ -19,6 +19,8 @@ class _ReservationTabState extends State<ReservationTab> {
   int selectedPersons = 0;
   CustomTable selectedTable;
   DateTime selectedDate;
+  Key personSliderKey;
+  List<DateTime> reservedTimes = [];
 
   @override
   void didChangeDependencies() {
@@ -164,21 +166,33 @@ class _ReservationTabState extends State<ReservationTab> {
   Widget buildPersonPicker(context, snapshot) {
     PersonPickerOptions options = snapshot.data;
     Widget personPicker;
-    selectedPersons = 0;
 
-    if (options.max == 0)
-      personPicker = buildCircularProgressBar();
-    else {
+    // if (options.max == 0)
+    //   personPicker = buildCircularProgressBar();
+    // else {
+
+      // this is a phase for halde the key of slider
+      // the key must hadle in a custome way.
+      // becuase when this (selectedPersons > options.max) will be happened
+      // slider must be reseted.
+      if (personSliderKey == null)
+        personSliderKey = Key(options.hashCode.toString());
+      if (selectedPersons > options.max) {
+        personSliderKey = Key(options.hashCode.toString());
+        selectedPersons = options.max.toInt();
+      }
+
       personPicker = CustomIntSlider(
         title: 'Number of persons',
-        divisions: options.divisions,
+        key: personSliderKey,
+        divisions: options.divisions ?? 0,
         min: options.min,
         max: options.max,
         onChanged: (int value) => setState(() {
           selectedPersons = value;
         }),
       );
-    }
+    // }
 
     return personPicker;
   }
@@ -190,19 +204,31 @@ class _ReservationTabState extends State<ReservationTab> {
       datePickerWidget = buildCircularProgressBar();
       getShceduleOptions();
     } else {
+
+      // schedule option contains reservedTimes
+      // add it
+      if (state.options.reservedTimes.length > 0)
+        reservedTimes = state.options.reservedTimes;
+
       datePickerWidget = StreamBuilder<List<DateTime>>(
         stream: bloc.reservedTimeStream,
-        initialData: [],
+        initialData: reservedTimes,
         builder: (context, timesSnapShot) {
+          reservedTimes = timesSnapShot.data;
+
+          //print('reservedTimes ${reservedTimes.length}');
+
           return CustomDatePicker(
             dateTitle: 'Pick a date',
             timeTitle: 'Pick a time',
             from: state.options.from,
             totalDays: state.options.totalDays,
             periods: state.options.periods,
-            reservedTimes: timesSnapShot.data,
+            reservedTimes: reservedTimes,
             onPickedDate: (picked) {
-              getReservedTimes(picked);
+              setState(() {
+                getReservedTimes(picked);
+              });
             },
             onPickedTime: (picked) {
               setState(() {

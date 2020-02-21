@@ -50,6 +50,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
         setState(() {
           selected = value;
           widget.onPickedDate(value);
+          widget.onPickedTime(null);
         });
       },
     );
@@ -58,12 +59,12 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
 
     // time picker ----------
     Widget timeSlider = CustomTimeSlider(
+      key: Key(selected.toIso8601String()),
       title: widget.timeTitle,
       date: selected,
       periods: widget.periods,
       reservedTimes: widget.reservedTimes,
       onDayPicked: (DateTime value) {
-        print(value.toIso8601String());
         widget.onPickedTime(value);
       },
     );
