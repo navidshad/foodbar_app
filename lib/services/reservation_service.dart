@@ -25,11 +25,12 @@ class ReservationService implements ReservationProviderInterface {
   }
 
   @override
-  Future<List<DateTime>> getReservedTimes(DateTime day) async {
+  Future<List<DateTime>> getReservedTimes(DateTime day, String tableId) async {
     String url = Vars.host + '/reservation/getReservedTimes';
 
     Map body = {
       'isoDate': day.toUtc().toIso8601String(),
+      'tableId': tableId,
     };
 
     List<DateTime> times = [];
@@ -38,11 +39,11 @@ class ReservationService implements ReservationProviderInterface {
         .post(url, headers: headers, body: json.encode(body))
         .then(_analizeResult)
         .then((result) {
-      List list = result['times'];
+      List list = result['times'] as List;
       //print('getReservedTimes $list');
-      list.forEach((reserved) {
-        Map reservedDetail = reserved;
-        DateTime tempTime = DateTime.parse(reservedDetail['from']);
+      list.forEach((time) {
+        //Map reservedDetail = reserved;
+        DateTime tempTime = DateTime.parse(time);
         times.add(tempTime);
       });
     }).catchError((onError) {

@@ -41,12 +41,18 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
     if (type == FrameTabType.MENU) {
       actionBtn = CartButton(
-        onTap: onAppBarActionButtonPressed,
+        onTap: () {
+          AppFrameEvent event = AppFrameEvent(switchTo: FrameTabType.CART);
+          bloc.eventSink.add(event);
+        },
       );
     } else {
       actionBtn = FlatButton(
         child: Icon(FoodBarIcons.spoon_and_fork),
-        onPressed: onAppBarActionButtonPressed,
+        onPressed: () {
+          AppFrameEvent event = AppFrameEvent(switchTo: FrameTabType.MENU);
+          bloc.eventSink.add(event);
+        },
       );
     }
 
@@ -56,11 +62,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
       actions: <Widget>[actionBtn],
       elevation: 4,
     );
-  }
-
-  void onAppBarActionButtonPressed() {
-    AppFrameEvent event = AppFrameEvent(switchTo: FrameTabType.MENU);
-    bloc.eventSink.add(event);
   }
 
   @override

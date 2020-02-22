@@ -7,7 +7,7 @@ abstract class ReservationProviderInterface {
 
   Future<ReservationScheduleOption> getScheduleOptions();
 
-  Future<List<DateTime>> getReservedTimes(DateTime day);
+  Future<List<DateTime>> getReservedTimes(DateTime day, String tableId);
 
   Future<int> getRemainPersons(DateTime date, CustomTable table);
   

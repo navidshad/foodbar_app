@@ -58,8 +58,8 @@ class ReservationBloc
 
   PersonPickerOptions getPersonPickerIntialState() {
     return PersonPickerOptions(
-      divisions: 0,
-      max: 0,
+      divisions: 1,
+      max: 1,
       min: 0,
     );
   }
@@ -83,10 +83,11 @@ class ReservationBloc
       _service.getScheduleOptions().then(((options) async {
         //
         // get reserved time and put it into schedule option for the fost time
-        await _service
-            .getReservedTimes(options.from)
-            .then((times) => options.reservedTimes = times)
-            .catchError((onError) => print('getReservedTimes ${onError.toString()}'));
+        // await _service
+        //     .getReservedTimes(options.from, options.)
+        //     .then((times) => options.reservedTimes = times)
+        //     .catchError(
+        //         (onError) => print('getReservedTimes ${onError.toString()}'));
 
         _stateController.add(ScheduleState(options: options));
       }));
@@ -105,17 +106,19 @@ class ReservationBloc
       _service
           .getRemainPersons(event.date, event.table)
           .then((int totalPerson) {
-        _personController.add(PersonPickerOptions(
+        PersonPickerOptions options = PersonPickerOptions(
           divisions: totalPerson,
           min: 0,
           max: totalPerson.toDouble(),
-        ));
+        );
+
+        _personController.add(options);
       });
 
       //
       // get and stream reserved time per day
     } else if (event is GetReservedTimes) {
-      _service.getReservedTimes(event.date).then((times) {
+      _service.getReservedTimes(event.date, event.tableId).then((times) {
         _reservedTimeController.add(times);
       });
 
@@ -132,8 +135,10 @@ class ReservationBloc
           .then((result) {
         state = ConfirmState(result: result);
         _stateController.add(state);
-        // return error state
-      }).catchError((ReserveConfirmationResult result) {
+        
+      })
+      // return error state
+      .catchError((ReserveConfirmationResult result) {
         state = ConfirmState(result: result);
         _stateController.add(state);
       });
@@ -149,7 +154,8 @@ class GetTables extends ReservationEvent {}
 
 class GetReservedTimes extends ReservationEvent {
   DateTime date;
-  GetReservedTimes(this.date);
+  String tableId;
+  GetReservedTimes(this.date, this.tableId);
 }
 
 class GetTotalPerson extends ReservationEvent {
