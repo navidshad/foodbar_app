@@ -41,6 +41,21 @@ class ContentService implements ContentProvider {
 
   @override
   Future<List<Order>> getOrders() {
-    
+    Map query = {'refId': _mongodb.user.id};
+
+    return _mongodb
+        .find(database: 'user', collection: 'order', query: query)
+        .then((list) {
+      List orderList = list as List;
+
+      List<Order> parsedList = [];
+
+      orderList.forEach((detail) {
+        Order parsed = Order.fromMap(detail);
+        parsedList.add(parsed);
+      });
+
+      return parsedList;
+    });
   }
 }

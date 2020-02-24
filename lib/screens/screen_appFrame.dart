@@ -60,10 +60,13 @@ class _AppFrameState extends State<AppFrame>
 
               BlocProvider(
                 bloc: ReservedBloc(),
-                child: OldReserved()
+                child: OldReserved(),
               ),
 
-              OrdersTab()
+              BlocProvider(
+                bloc: OrderBloc(),
+                child: OrdersTab(),
+              )
             ],
           );
         },

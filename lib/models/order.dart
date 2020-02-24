@@ -5,4 +5,8 @@ class Order extends Cart {
 
   Order({double deliveryCharges, List<OrderedFood> foods, this.date})
       : super(deliveryCharges: deliveryCharges, foods: foods);
+
+  factory Order.fromMap(Map detail) {
+    
+  }
 }
