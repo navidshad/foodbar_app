@@ -20,13 +20,9 @@ class _OldReservedState extends State<OldReserved> {
   }
 
   @override
-  void didUpdateWidget(oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    bloc.eventSink.add(GetOldReservedTables());
-  }
-
-  @override
   Widget build(BuildContext context) {
+    bloc.eventSink.add(GetOldReservedTables());
+
     return StreamBuilder<ReservedState>(
       stream: bloc.stateStream,
       initialData: bloc.getInitialState(),

@@ -4,13 +4,13 @@ import 'package:Food_Bar/settings/app_properties.dart';
 import 'package:Food_Bar/utilities/food_bar_icons.dart';
 
 class ConfirmStateViewer extends StatelessWidget {
-  const ConfirmStateViewer(
-      {Key key, this.isSucceed, this.subtitle = '', this.reservationId})
+  ConfirmStateViewer(
+      {Key key, this.isSucceed, this.subtitle = '', this.processID})
       : super(key: key);
 
   final bool isSucceed;
   final String subtitle;
-  final int reservationId;
+  final int processID;
 
   @override
   Widget build(BuildContext context) {
@@ -45,28 +45,24 @@ class ConfirmStateViewer extends StatelessWidget {
         subtitle ?? '',
         textAlign: TextAlign.center,
       ),
-      Container(
-        margin: EdgeInsets.all(20),
-        child: Text(
-          reservationId.toString(),
-          textScaleFactor: 3,
-          style: TextStyle(
-            color: Colors.white,
-            decorationStyle: TextDecorationStyle.wavy,
-            letterSpacing: 5,
-            shadows: [
-              Shadow(
-                color: Colors.black,
-                blurRadius: 80
-              )
-            ]
+      
+      if (processID != null)
+        Container(
+          margin: EdgeInsets.all(20),
+          child: Text(
+            processID.toString(),
+            textScaleFactor: 3,
+            style: TextStyle(
+                color: Colors.white,
+                decorationStyle: TextDecorationStyle.wavy,
+                letterSpacing: 5,
+                shadows: [Shadow(color: Colors.black, blurRadius: 80)]),
           ),
-        ),
-      )
+        )
     ];
 
     return Container(
-      height: 380,
+      //height: 380,
       padding: EdgeInsets.only(left: 30, right: 30),
       color: AppProperties.backLightColor,
       child: Column(

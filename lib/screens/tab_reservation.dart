@@ -61,7 +61,7 @@ class _ReservationTabState extends State<ReservationTab> {
           ConfirmStateViewer(
             isSucceed: confirmState?.result?.succeed,
             subtitle: confirmState?.result?.message,
-            reservationId: confirmState?.result?.reservationId,
+            processID: confirmState?.result?.reservationId,
           ),
           Container(
             margin: EdgeInsets.only(left: 20, right: 20, top: 20),
