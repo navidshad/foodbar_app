@@ -58,7 +58,10 @@ class _AppFrameState extends State<AppFrame>
 
               ReservationTab(),
 
-              OldReserved(),
+              BlocProvider(
+                bloc: ReservedBloc(),
+                child: OldReserved()
+              ),
 
               OrdersTab()
             ],

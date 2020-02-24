@@ -1,7 +1,7 @@
 import 'package:Food_Bar/models/models.dart';
 
 class Cart {
-  List<OrderedFood> foods = [];
+  List<OrderedFood> foods;
 
   double deliveryCharges;
 
@@ -16,5 +16,7 @@ class Cart {
     return (itemTotal > 0) ? totalPrice : 0;
   }
 
-  Cart({this.deliveryCharges=0});
+  Cart({this.deliveryCharges=0, this.foods}) {
+    if(foods == null) foods = [];
+  }
 }

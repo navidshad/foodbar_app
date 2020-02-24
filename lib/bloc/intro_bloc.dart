@@ -9,7 +9,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:Food_Bar/settings/types.dart';
 
 class IntroBloc implements BlocInterface<IntroEvent, IntroState> {
-  final MongoDBService mongodb = MongoDBService();
+  final MongoDBService mongodb = MongoDBService.instance;
   final AuthInterface authService = AuthService.instant;
 
   final StreamController<IntroEvent> _eventController = BehaviorSubject();

@@ -5,6 +5,8 @@ export './cart.dart';
 export './table.dart';
 export './time.dart';
 export './table.dart';
+export './reserved_table.dart';
+export './order.dart';
 
 export './reservation_schedule_option.dart';
 export './person_picker_options.dart';

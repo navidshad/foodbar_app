@@ -36,6 +36,18 @@ class MockContentService implements ContentProvider {
 
     return Future.delayed(Duration(seconds: _delay)).then((r) => list);
   }
+
+  @override
+  Future<List<Order>> getOrders() {
+    // TODO: implement getOrders
+    return null;
+  }
+
+  @override
+  Future<List<ReservedTable>> getReservedTables() {
+    // TODO: implement getReservedTables
+    return null;
+  }
 }
 
 String catDesc = 'this is a mock destipction for items.';

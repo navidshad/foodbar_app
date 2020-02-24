@@ -1,10 +1,9 @@
-
 import 'package:flutter/material.dart';
 
 import 'package:Food_Bar/bloc/bloc.dart';
-//import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Food_Bar/widgets/widgets.dart';
 import 'package:Food_Bar/settings/app_properties.dart';
+import 'package:Food_Bar/models/models.dart';
 
 class OldReserved extends StatefulWidget {
   @override
@@ -12,25 +11,41 @@ class OldReserved extends StatefulWidget {
 }
 
 class _OldReservedState extends State<OldReserved> {
-  CartBloc bloc;
+  ReservedBloc bloc;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    bloc = BlocProvider.of<CartBloc>(context);
+    bloc = BlocProvider.of<ReservedBloc>(context);
+  }
+
+  @override
+  void didUpdateWidget(oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    bloc.eventSink.add(GetOldReservedTables());
   }
 
   @override
   Widget build(BuildContext context) {
-
-    return StreamBuilder (
+    return StreamBuilder<ReservedState>(
       stream: bloc.stateStream,
       initialData: bloc.getInitialState(),
       builder: (streamContext, AsyncSnapshot snapshot) {
+        ReservedState state = snapshot.data;
 
-        var state = snapshot.data;
-        return Center(
-          child: Text('Old Reserved')
+        return GestureDetector(
+          child: ListView(
+            children: <Widget>[
+              for (ReservedTable rTable in state.reservedList)
+                Text(rTable.from.toString())
+            ],
+          ),
+          // onVerticalDragEnd: (dragEndDetail) {
+          //   print('onVerticalDragEnd');
+          // },
+          // onPanEnd: (dragEndDetail) {
+          //   print('onPanEnd');
+          // },
         );
       },
     );

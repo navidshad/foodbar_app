@@ -6,13 +6,16 @@ import 'dart:async';
 
 import 'package:Food_Bar/settings/static_vars.dart';
 import 'package:Food_Bar/services/services.dart';
+import 'package:Food_Bar/models/user.dart';
 export 'package:Food_Bar/mongodb/mongodb.dart';
 
 class MongoDBService {
   Client _http = Client();
   AuthInterface _userService = AuthService.instant;
+  User get user => _userService.user;
 
-  MongoDBService();
+  MongoDBService.privateConstructor();
+  static MongoDBService instance = MongoDBService.privateConstructor();
 
   Future<Map<String, String>> _getHeaders([isLive = true]) async {
     await Future.doWhile(() async {
