@@ -1,3 +1,4 @@
+import 'package:Food_Bar/settings/app_properties.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Food_Bar/models/models.dart';
@@ -62,8 +63,8 @@ class CategoryCard extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(5)),
               child: cardBody,
             ),
-            margin: EdgeInsets.only(bottom: 15),
-            elevation: 100,
+            margin: EdgeInsets.only(bottom: AppProperties.cardVerticalMargin),
+            elevation: AppProperties.cardElevation,
           ),
           onTap: onCardTab,
         );

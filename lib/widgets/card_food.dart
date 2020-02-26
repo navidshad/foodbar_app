@@ -103,7 +103,8 @@ class FoodCard extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(5)),
               child: widget,
             ),
-            elevation: 20,
+            margin: EdgeInsets.only(bottom: AppProperties.cardVerticalMargin),
+            elevation: AppProperties.cardElevation,
           ),
         );
       },

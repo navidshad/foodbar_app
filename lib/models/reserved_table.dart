@@ -1,3 +1,6 @@
+import 'dart:math' as Math;
+
+
 class ReservedTable {
   String id;
   String refId;
@@ -17,6 +20,11 @@ class ReservedTable {
       this.persons,
       this.totalPersonOnTable,
       this.reservedId});
+
+  int get totalTable {
+    int tables = (totalPersonOnTable / persons).floor();
+    return tables == totalPersonOnTable ? 1 : tables;
+  }
 
   factory ReservedTable.fromMap(Map detail) {
     return ReservedTable(

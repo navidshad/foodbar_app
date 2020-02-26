@@ -31,9 +31,14 @@ class _OldReservedState extends State<OldReserved> {
 
         return GestureDetector(
           child: ListView(
+            padding: EdgeInsets.only(
+              top: AppProperties.cardVerticalMargin,
+              left: AppProperties.cardSideMargin,
+              right: AppProperties.cardSideMargin,
+            ),
             children: <Widget>[
               for (ReservedTable rTable in state.reservedList)
-                Text(rTable.from.toString())
+                CardReservedDetail(reservedTable: rTable)
             ],
           ),
           // onVerticalDragEnd: (dragEndDetail) {

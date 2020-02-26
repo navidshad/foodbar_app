@@ -28,8 +28,9 @@ class AppProperties {
   static Color textOnDisabled  = Colors.black;
   static Color textOnBackLight  = Colors.black;
 
-  static double cardSideMargin = 15;
-  static double cardVerticalMargin = 2;
+  static double cardSideMargin = 20;
+  static double cardVerticalMargin = 15;
+  static double cardElevation = 30;
   
   // appframe
   static MenuType menuType = MenuType.TwoPage;
