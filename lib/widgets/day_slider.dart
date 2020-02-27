@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:foodbar_user/widgets/widgets.dart';
 import 'package:foodbar_user/settings/app_properties.dart';
-import 'package:foodbar_user/utilities/date_util.dart';
+import 'package:foodbar_flutter_core/utilities/date_util\.dart';
 
 class CustomDaySlider extends StatefulWidget {
   CustomDaySlider({

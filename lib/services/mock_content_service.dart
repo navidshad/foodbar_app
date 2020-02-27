@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:foodbar_user/models/models.dart';
+import 'package:foodbar_flutter_core/models/models.dart';
 import 'package:foodbar_user/interfaces/content_provider.dart';
 
 class MockContentService implements ContentProvider {

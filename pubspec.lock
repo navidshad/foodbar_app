@@ -96,11 +96,9 @@ packages:
   foodbar_flutter_core:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: d84a6d2cbef27c43717e5ee5bae9bfa646725c0d
-      url: "https://github.com/navidshad/foodbar_flutter_core.git"
-    source: git
+      path: "..\\foodbar_flutter_core"
+      relative: true
+    source: path
     version: "0.0.1"
   http:
     dependency: "direct main"

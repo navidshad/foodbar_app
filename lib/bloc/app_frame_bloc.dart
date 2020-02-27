@@ -1,11 +1,10 @@
 import 'dart:async';
-import 'package:foodbar_user/interfaces/auth_interface.dart';
-import 'package:foodbar_user/services/auth_service.dart';
+import 'package:foodbar_flutter_core/interfaces/auth_interface.dart';
 import 'package:foodbar_user/services/services.dart';
 import 'package:foodbar_user/settings/settings.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'package:foodbar_user/interfaces/bloc_interface.dart';
+import 'package:foodbar_flutter_core/interfaces/bloc_interface.dart';
 import 'package:foodbar_user/settings/types.dart';
 
 class AppFrameState {

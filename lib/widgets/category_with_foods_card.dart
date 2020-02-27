@@ -3,7 +3,7 @@ import 'dart:ui' as prefix0;
 import 'package:foodbar_user/settings/settings.dart';
 import 'package:flutter/material.dart';
 
-import 'package:foodbar_user/models/models.dart';
+import 'package:foodbar_flutter_core/models/models.dart';
 import 'package:foodbar_user/widgets/widgets.dart';
 
 class CategoryWithFoodsCard extends StatelessWidget {

@@ -2,13 +2,19 @@ import 'package:flutter/material.dart';
 
 import 'package:foodbar_user/settings/settings.dart';
 import 'package:foodbar_user/services/options_service.dart';
+import 'package:foodbar_flutter_core/services/services.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  AuthService.setOptions(
+      host: Vars.host, tokenCollection: AppProperties.collectionToken);
+  MongoDBService.setOptions(host: Vars.host);
+
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  
-  OptionsService options = OptionsService.instance;
-  
+  final OptionsService options = OptionsService.instance;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

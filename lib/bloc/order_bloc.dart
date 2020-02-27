@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:foodbar_user/models/order.dart';
+import 'package:foodbar_flutter_core/models/order.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'package:foodbar_user/interfaces/bloc_interface.dart';
+import 'package:foodbar_flutter_core/interfaces/bloc_interface.dart';
 import 'package:foodbar_user/interfaces/content_provider.dart';
 import 'package:foodbar_user/services/services.dart';
 

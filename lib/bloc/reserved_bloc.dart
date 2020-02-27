@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:foodbar_user/models/reserved_table.dart';
+import 'package:foodbar_flutter_core/models/reserved_table.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'package:foodbar_user/interfaces/bloc_interface.dart';
+import 'package:foodbar_flutter_core/interfaces/bloc_interface.dart';
 import 'package:foodbar_user/interfaces/content_provider.dart';
 import 'package:foodbar_user/services/services.dart';
 

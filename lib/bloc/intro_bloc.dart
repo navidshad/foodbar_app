@@ -1,9 +1,7 @@
 import 'dart:async';
 
-import 'package:foodbar_user/interfaces/auth_interface.dart';
-import 'package:foodbar_user/interfaces/bloc_interface.dart';
-import 'package:foodbar_user/models/intro_slide_item.dart';
-import 'package:foodbar_user/services/auth_service.dart';
+import 'package:foodbar_flutter_core/interfaces/interfaces.dart';
+import 'package:foodbar_flutter_core/models/intro_slide_item.dart';
 import 'package:foodbar_user/services/services.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:foodbar_user/settings/types.dart';

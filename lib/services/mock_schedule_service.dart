@@ -1,9 +1,9 @@
 import 'dart:math';
 
 import 'package:foodbar_user/interfaces/reservation_schedule_provider.dart';
-import 'package:foodbar_user/models/models.dart';
-import 'package:foodbar_user/models/reservation_schedule_option.dart';
-import 'package:foodbar_user/models/table.dart';
+import 'package:foodbar_flutter_core/models/models.dart';
+import 'package:foodbar_flutter_core/models/reservation_schedule_option.dart';
+import 'package:foodbar_flutter_core/models/table.dart';
 
 class MockScheduleService implements ReservationProviderInterface {
   @override

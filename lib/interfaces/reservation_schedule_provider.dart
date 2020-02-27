@@ -1,5 +1,5 @@
 
-import 'package:foodbar_user/models/models.dart';
+import 'package:foodbar_flutter_core/models/models.dart';
 
 abstract class ReservationProviderInterface {
 

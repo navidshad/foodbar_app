@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'package:foodbar_user/utilities/date_util.dart';
+import 'package:foodbar_flutter_core/utilities/date_util\.dart';
 
 class CardTime extends StatelessWidget {
   CardTime(

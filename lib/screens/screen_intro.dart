@@ -1,6 +1,7 @@
 import 'package:foodbar_user/bloc/intro_bloc.dart';
 import 'package:foodbar_user/settings/app_properties.dart';
 import 'package:foodbar_user/settings/types.dart';
+import 'package:foodbar_flutter_core/settings/types.dart';
 import 'package:flutter/material.dart';
 
 import 'package:foodbar_user/screens/screens.dart';
@@ -89,7 +90,7 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
     }
   }
 
-  Function goToLoginForm() {
+  void goToLoginForm() {
     IntroEvent event;
     event = IntroSwitchEvent(switchTo: IntroTabType.LoginForm);
 
@@ -99,7 +100,7 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
   void onLogedIn(bool isLogedIn) {
     if(!isLogedIn) return;
 
-    if(bloc.authService.user.type == UserType.user)
+    if(bloc.authService.user.type.index == UserType.user.index)
       Navigator.pushReplacementNamed(context, '/home');
   }
 }

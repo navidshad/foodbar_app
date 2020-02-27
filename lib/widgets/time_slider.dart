@@ -1,4 +1,4 @@
-import 'package:foodbar_user/models/time.dart';
+import 'package:foodbar_flutter_core/models/time.dart';
 import 'package:flutter/material.dart';
 
 import 'package:foodbar_user/widgets/widgets.dart';
