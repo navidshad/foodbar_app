@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:Food_Bar/bloc/bloc.dart';
 import 'package:Food_Bar/screens/screens.dart';
-import 'package:Food_Bar/settings/app_properties.dart';
 import 'package:Food_Bar/settings/types.dart';
+import 'package:Food_Bar/services/options_service.dart';
 
 class MenuTab extends StatefulWidget {
   @override
@@ -12,6 +12,7 @@ class MenuTab extends StatefulWidget {
 
 class _MenuTabState extends State<MenuTab> {
   MenuBloc bloc;
+  OptionsService options = OptionsService.instance;
 
   @override
   void didChangeDependencies() {
@@ -43,7 +44,7 @@ class _MenuTabState extends State<MenuTab> {
   }
 
   void loadMenu() {
-    MenuEvent event = MenuEvent(AppProperties.menuType);
+    MenuEvent event = MenuEvent(options.properties.menuType);
     bloc.eventSink.add(event);
   }
 }

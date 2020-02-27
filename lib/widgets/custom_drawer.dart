@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:Food_Bar/settings/types.dart';
 import 'package:Food_Bar/settings/app_properties.dart';
 import 'package:Food_Bar/bloc/bloc.dart';
+import 'package:Food_Bar/services/options_service.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({Key key}) : super(key: key);
@@ -13,6 +14,7 @@ class CustomDrawer extends StatefulWidget {
 
 class _CustomDrawerState extends State<CustomDrawer> {
   AppFrameBloc bloc;
+  OptionsService options = OptionsService.instance;
 
   @override
   void didChangeDependencies() {
@@ -25,18 +27,18 @@ class _CustomDrawerState extends State<CustomDrawer> {
     double lohoHeight = 70;
 
     Image logo = Image.asset(
-      AppProperties.imgPathLogoWide,
+      options.properties.imgPathLogoWide,
       height: lohoHeight,
     );
 
     List<Widget> titles = [];
-    if (AppProperties.logoHasTitleAndSlagon) {
+    if (options.properties.logoHasTitleAndSlagon) {
       titles = [
         Text(
-          AppProperties.title,
+          options.properties.title,
           textScaleFactor: 1.6,
         ),
-        Text(AppProperties.slagon)
+        Text(options.properties.slagon)
       ];
     }
 
@@ -74,7 +76,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   ),
                 ),
                 ListTile(
-                  title: Text(AppProperties.menuTitle),
+                  title: Text(options.properties.menuTitle),
                   leading: Icon(AppProperties.menuIcon),
                   onTap: () => switchTab(FrameTabType.MENU),
                 ),
@@ -82,7 +84,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   height: 0,
                 ),
                 ListTile(
-                  title: Text(AppProperties.cartTitle),
+                  title: Text(options.properties.cartTitle),
                   leading: Icon(AppProperties.cartIcon),
                   onTap: () => switchTab(FrameTabType.CART),
                 ),
@@ -90,7 +92,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   height: 0,
                 ),
                 ListTile(
-                  title: Text(AppProperties.reservationTitle),
+                  title: Text(options.properties.reservationTitle),
                   leading: Icon(AppProperties.reservationIcon),
                   onTap: () => switchTab(FrameTabType.RESERVATION),
                 ),
@@ -98,7 +100,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   height: 0,
                 ),
                 ListTile(
-                  title: Text(AppProperties.oldReservedTitle),
+                  title: Text(options.properties.oldReservedTitle),
                   leading: Icon(AppProperties.oldReservedIcon),
                   onTap: () => switchTab(FrameTabType.RESERVED),
                 ),
@@ -106,7 +108,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   height: 0,
                 ),
                 ListTile(
-                  title: Text(AppProperties.myOrdersTitle),
+                  title: Text(options.properties.myOrdersTitle),
                   leading: Icon(AppProperties.myOrdersIcon),
                   onTap: () => switchTab(FrameTabType.ORDERS),
                 ),
@@ -114,7 +116,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   height: 0,
                 ),
                 ListTile(
-                  title: Text(AppProperties.logoutTitle),
+                  title: Text(options.properties.logoutTitle),
                   leading: Icon(AppProperties.logoutIcon),
                   onTap: () {
                     bloc.authService.logout();

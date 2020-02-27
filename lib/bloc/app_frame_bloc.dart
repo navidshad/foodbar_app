@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:Food_Bar/interfaces/auth_interface.dart';
 import 'package:Food_Bar/services/auth_service.dart';
+import 'package:Food_Bar/services/services.dart';
 import 'package:Food_Bar/settings/settings.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -24,6 +25,7 @@ class AppFrameEvent {
 class AppFrameBloc implements BlocInterface<AppFrameEvent, AppFrameState> {
 
   AuthInterface authService = AuthService.instant;
+  OptionsService options = OptionsService.instance;
 
   // state stream
   final _stateController = BehaviorSubject<AppFrameState>();
@@ -34,9 +36,10 @@ class AppFrameBloc implements BlocInterface<AppFrameEvent, AppFrameState> {
   StreamSink<AppFrameEvent> get eventSink => _eventController.sink;
 
   static FrameTabType currentType = FrameTabType.MENU;
-  static String title = AppProperties.menuTitle;
+  static String title;
 
   AppFrameBloc() {
+    AppFrameBloc.title = options.properties.menuTitle;
     _eventController.stream.listen(handler);
   }
 
@@ -54,19 +57,19 @@ class AppFrameBloc implements BlocInterface<AppFrameEvent, AppFrameState> {
     // define title
     switch (type) {
       case FrameTabType.CART:
-        title = AppProperties.cartTitle;
+        title = options.properties.cartTitle;
         break;
       case FrameTabType.MENU:
-        title = AppProperties.menuTitle;
+        title = options.properties.menuTitle;
         break;
       case FrameTabType.RESERVATION:
-        title = AppProperties.reservationTitle;
+        title = options.properties.reservationTitle;
         break;
       case FrameTabType.ORDERS:
-        title = AppProperties.myOrdersTitle;
+        title = options.properties.myOrdersTitle;
         break;
       case FrameTabType.RESERVED:
-        title = AppProperties.oldReservedTitle;
+        title = options.properties.oldReservedTitle;
         break;
     }
 

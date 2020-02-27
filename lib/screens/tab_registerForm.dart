@@ -1,11 +1,11 @@
 import 'package:Food_Bar/bloc/intro_bloc.dart';
 import 'package:flutter/material.dart';
 
-import 'package:Food_Bar/settings/app_properties.dart';
 import 'package:Food_Bar/widgets/widgets.dart';
 import 'package:Food_Bar/utilities/food_bar_icons.dart';
 import 'package:Food_Bar/bloc/bloc.dart';
 import 'package:Food_Bar/settings/types.dart';
+import 'package:Food_Bar/services/options_service.dart';
 
 class RegisterTab extends StatefulWidget {
   RegisterTab({Key key}) : super(key: key);
@@ -15,6 +15,9 @@ class RegisterTab extends StatefulWidget {
 }
 
 class _RegisterTabState extends State<RegisterTab> {
+
+  OptionsService options = OptionsService.instance;
+
   IntroBloc bloc;
   String _email = '';
   String _password = '';
@@ -34,7 +37,7 @@ class _RegisterTabState extends State<RegisterTab> {
     Widget logo = Container(
       padding: EdgeInsets.only(top: 60, bottom: 40),
       child: Image.asset(
-        AppProperties.imgPathLogoWide,
+        options.properties.imgPathLogoWide,
         height: 120,
       ),
     );

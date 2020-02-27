@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
-import 'package:Food_Bar/settings/app_properties.dart';
+import 'package:Food_Bar/services/options_service.dart';
 
 class SplashScreen extends StatelessWidget {
+
+  OptionsService options = OptionsService.instance;
+
   @override
   Widget build(BuildContext context) {
     // load logo and setup it
     Image logo = Image.asset(
-      AppProperties.imgPathLogoVertical,
+      options.properties.imgPathLogoVertical,
       height: 230,
     );
 
@@ -15,13 +18,13 @@ class SplashScreen extends StatelessWidget {
 
     // if logo doesnt has Title ans slagon
     // add Title & slagon by text
-    if (!AppProperties.logoHasTitleAndSlagon) {
+    if (!options.properties.logoHasTitleAndSlagon) {
       columnChilds.add(Container(
         margin: EdgeInsets.only(top: 30),
         child: Column(
           children: <Widget>[
-            Text(AppProperties.title, textScaleFactor: 2),
-            Text(AppProperties.slagon, textScaleFactor: 1),
+            Text(options.properties.title, textScaleFactor: 2),
+            Text(options.properties.slagon, textScaleFactor: 1),
           ],
         ),
       ));
