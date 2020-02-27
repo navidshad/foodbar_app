@@ -1,11 +1,11 @@
-import 'package:Foodbar_user/bloc/intro_bloc.dart';
-import 'package:Foodbar_user/settings/settings.dart';
+import 'package:foodbar_user/bloc/intro_bloc.dart';
+import 'package:foodbar_user/settings/settings.dart';
 import 'package:flutter/material.dart';
 
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
 
-import 'package:Foodbar_user/bloc/bloc.dart';
+import 'package:foodbar_user/bloc/bloc.dart';
 
 class SliderIntroTab extends StatelessWidget {
   Function onDone;

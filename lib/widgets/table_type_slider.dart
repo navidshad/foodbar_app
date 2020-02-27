@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:Foodbar_user/widgets/widgets.dart';
-import 'package:Foodbar_user/models/models.dart';
-import 'package:Foodbar_user/settings/app_properties.dart';
+import 'package:foodbar_user/widgets/widgets.dart';
+import 'package:foodbar_user/models/models.dart';
+import 'package:foodbar_user/settings/app_properties.dart';
 
 class TableSlider extends StatefulWidget {
   TableSlider(

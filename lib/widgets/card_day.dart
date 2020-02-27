@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:Foodbar_user/utilities/date_util.dart';
+import 'package:foodbar_user/utilities/date_util.dart';
 
 class CardDay extends StatelessWidget {
   CardDay(

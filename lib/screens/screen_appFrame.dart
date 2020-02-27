@@ -1,10 +1,10 @@
-import 'package:Foodbar_user/screens/screens.dart';
+import 'package:foodbar_user/screens/screens.dart';
 import 'package:flutter/material.dart';
 
-import 'package:Foodbar_user/bloc/bloc.dart';
-import 'package:Foodbar_user/settings/settings.dart';
-import 'package:Foodbar_user/widgets/widgets.dart';
-import 'package:Foodbar_user/screens/tab_menu.dart';
+import 'package:foodbar_user/bloc/bloc.dart';
+import 'package:foodbar_user/settings/settings.dart';
+import 'package:foodbar_user/widgets/widgets.dart';
+import 'package:foodbar_user/screens/tab_menu.dart';
 
 class AppFrame extends StatefulWidget {
   @override

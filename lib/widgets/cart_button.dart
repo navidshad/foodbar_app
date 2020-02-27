@@ -1,7 +1,7 @@
-import 'package:Foodbar_user/settings/settings.dart';
+import 'package:foodbar_user/settings/settings.dart';
 import 'package:flutter/material.dart';
 
-import 'package:Foodbar_user/bloc/bloc.dart';
+import 'package:foodbar_user/bloc/bloc.dart';
 
 class CartButton extends StatefulWidget {
   final Function onTap;

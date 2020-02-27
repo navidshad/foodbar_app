@@ -1,4 +1,4 @@
-import 'package:Foodbar_user/settings/settings.dart';
+import 'package:foodbar_user/settings/settings.dart';
 import 'package:flutter/material.dart';
 
 class CustomIntSlider extends StatefulWidget {

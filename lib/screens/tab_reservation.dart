@@ -1,11 +1,11 @@
-import 'package:Foodbar_user/settings/settings.dart';
-import 'package:Foodbar_user/widgets/table_type_slider.dart';
+import 'package:foodbar_user/settings/settings.dart';
+import 'package:foodbar_user/widgets/table_type_slider.dart';
 import 'package:flutter/material.dart';
 
-import 'package:Foodbar_user/bloc/bloc.dart';
-import 'package:Foodbar_user/models/models.dart';
-import 'package:Foodbar_user/widgets/widgets.dart';
-import 'package:Foodbar_user/settings/app_properties.dart';
+import 'package:foodbar_user/bloc/bloc.dart';
+import 'package:foodbar_user/models/models.dart';
+import 'package:foodbar_user/widgets/widgets.dart';
+import 'package:foodbar_user/settings/app_properties.dart';
 
 class ReservationTab extends StatefulWidget {
   ReservationTab({Key key}) : super(key: key);

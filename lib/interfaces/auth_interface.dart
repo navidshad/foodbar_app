@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:Foodbar_user/models/user.dart';
+import 'package:foodbar_user/models/user.dart';
 
 abstract class AuthInterface {
   Stream<bool> get loginEvent;

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:Foodbar_user/interfaces/local_storage_interface.dart';
+import 'package:foodbar_user/interfaces/local_storage_interface.dart';
 
 class SharedPreferencesService implements LocalStorageInterface {
   SharedPreferencesService.privateContructor();

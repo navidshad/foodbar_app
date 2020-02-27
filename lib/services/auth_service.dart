@@ -1,14 +1,14 @@
-import 'package:Foodbar_user/interfaces/local_storage_interface.dart';
-import 'package:Foodbar_user/models/permission.dart';
-import 'package:Foodbar_user/services/shared_preferences_service.dart';
+import 'package:foodbar_user/interfaces/local_storage_interface.dart';
+import 'package:foodbar_user/models/permission.dart';
+import 'package:foodbar_user/services/shared_preferences_service.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'dart:async';
 
-import 'package:Foodbar_user/interfaces/auth_interface.dart';
-import 'package:Foodbar_user/models/user.dart';
-import 'package:Foodbar_user/settings/settings.dart';
-import 'package:Foodbar_user/settings/types.dart';
+import 'package:foodbar_user/interfaces/auth_interface.dart';
+import 'package:foodbar_user/models/user.dart';
+import 'package:foodbar_user/settings/settings.dart';
+import 'package:foodbar_user/settings/types.dart';
 import 'package:rxdart/rxdart.dart';
 
 class AuthService implements AuthInterface {

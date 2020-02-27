@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:Foodbar_user/bloc/bloc.dart';
-import 'package:Foodbar_user/screens/screens.dart';
-import 'package:Foodbar_user/settings/types.dart';
-import 'package:Foodbar_user/services/options_service.dart';
+import 'package:foodbar_user/bloc/bloc.dart';
+import 'package:foodbar_user/screens/screens.dart';
+import 'package:foodbar_user/settings/types.dart';
+import 'package:foodbar_user/services/options_service.dart';
 
 class MenuTab extends StatefulWidget {
   @override

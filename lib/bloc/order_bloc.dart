@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'package:Foodbar_user/models/order.dart';
+import 'package:foodbar_user/models/order.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'package:Foodbar_user/interfaces/bloc_interface.dart';
-import 'package:Foodbar_user/interfaces/content_provider.dart';
-import 'package:Foodbar_user/services/services.dart';
+import 'package:foodbar_user/interfaces/bloc_interface.dart';
+import 'package:foodbar_user/interfaces/content_provider.dart';
+import 'package:foodbar_user/services/services.dart';
 
 class OrderBloc implements BlocInterface<OrderEvent, OrderState> {
   StreamController<OrderState> _stateController = BehaviorSubject();

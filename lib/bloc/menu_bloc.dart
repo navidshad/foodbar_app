@@ -2,11 +2,11 @@ import 'package:rxdart/rxdart.dart';
 import 'dart:async';
 import 'package:meta/meta.dart';
 
-import 'package:Foodbar_user/interfaces/bloc_interface.dart';
-import 'package:Foodbar_user/models/models.dart';
-import 'package:Foodbar_user/settings/types.dart';
-import 'package:Foodbar_user/services/services.dart';
-import 'package:Foodbar_user/interfaces/content_provider.dart';
+import 'package:foodbar_user/interfaces/bloc_interface.dart';
+import 'package:foodbar_user/models/models.dart';
+import 'package:foodbar_user/settings/types.dart';
+import 'package:foodbar_user/services/services.dart';
+import 'package:foodbar_user/interfaces/content_provider.dart';
 
 class MenuEvent {
   MenuType type;

@@ -1,10 +1,10 @@
-import 'package:Foodbar_user/widgets/cart_button.dart';
+import 'package:foodbar_user/widgets/cart_button.dart';
 import 'package:flutter/material.dart';
 
-import 'package:Foodbar_user/bloc/bloc.dart';
-import 'package:Foodbar_user/settings/settings.dart';
-import 'package:Foodbar_user/utilities/food_bar_icons.dart';
-import 'package:Foodbar_user/widgets/widgets.dart';
+import 'package:foodbar_user/bloc/bloc.dart';
+import 'package:foodbar_user/settings/settings.dart';
+import 'package:foodbar_user/utilities/food_bar_icons.dart';
+import 'package:foodbar_user/widgets/widgets.dart';
 
 class CustomAppBar extends StatefulWidget with PreferredSizeWidget {
   @override

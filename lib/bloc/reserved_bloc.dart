@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'package:Foodbar_user/models/reserved_table.dart';
+import 'package:foodbar_user/models/reserved_table.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'package:Foodbar_user/interfaces/bloc_interface.dart';
-import 'package:Foodbar_user/interfaces/content_provider.dart';
-import 'package:Foodbar_user/services/services.dart';
+import 'package:foodbar_user/interfaces/bloc_interface.dart';
+import 'package:foodbar_user/interfaces/content_provider.dart';
+import 'package:foodbar_user/services/services.dart';
 
 class ReservedBloc implements BlocInterface<ReservedEvent, ReservedState> {
   StreamController<ReservedState> _stateController = BehaviorSubject();

@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 
-import 'package:Foodbar_user/interfaces/bloc_interface.dart';
-import 'package:Foodbar_user/models/models.dart';
-import 'package:Foodbar_user/services/services.dart';
+import 'package:foodbar_user/interfaces/bloc_interface.dart';
+import 'package:foodbar_user/models/models.dart';
+import 'package:foodbar_user/services/services.dart';
 
 class CartEvent {
   OrderedFood add;

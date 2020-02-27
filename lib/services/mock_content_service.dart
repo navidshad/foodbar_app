@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:Foodbar_user/models/models.dart';
-import 'package:Foodbar_user/interfaces/content_provider.dart';
+import 'package:foodbar_user/models/models.dart';
+import 'package:foodbar_user/interfaces/content_provider.dart';
 
 class MockContentService implements ContentProvider {
   int _delay = 1;

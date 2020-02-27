@@ -1,4 +1,4 @@
-import 'package:Foodbar_user/models/permission.dart';
+import 'package:foodbar_user/models/permission.dart';
 import 'package:meta/meta.dart';
 
 import 'time.dart';

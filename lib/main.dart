@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:Foodbar_user/settings/settings.dart';
-import 'package:Foodbar_user/services/options_service.dart';
+import 'package:foodbar_user/settings/settings.dart';
+import 'package:foodbar_user/services/options_service.dart';
 
 void main() => runApp(MyApp());
 

@@ -1,13 +1,13 @@
-import 'package:Foodbar_user/bloc/intro_bloc.dart';
-import 'package:Foodbar_user/services/options_service.dart';
+import 'package:foodbar_user/bloc/intro_bloc.dart';
+import 'package:foodbar_user/services/options_service.dart';
 import 'package:flutter/material.dart';
 
-import 'package:Foodbar_user/settings/app_properties.dart';
-import 'package:Foodbar_user/widgets/widgets.dart';
-import 'package:Foodbar_user/utilities/food_bar_icons.dart';
-import 'package:Foodbar_user/bloc/bloc.dart';
-import 'package:Foodbar_user/settings/types.dart';
-import 'package:Foodbar_user/settings/app_properties.dart';
+import 'package:foodbar_user/settings/app_properties.dart';
+import 'package:foodbar_user/widgets/widgets.dart';
+import 'package:foodbar_user/utilities/food_bar_icons.dart';
+import 'package:foodbar_user/bloc/bloc.dart';
+import 'package:foodbar_user/settings/types.dart';
+import 'package:foodbar_user/settings/app_properties.dart';
 
 
 class LoginFormTab extends StatefulWidget {
