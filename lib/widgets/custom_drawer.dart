@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:Food_Bar/settings/types.dart';
-import 'package:Food_Bar/settings/app_properties.dart';
-import 'package:Food_Bar/bloc/bloc.dart';
-import 'package:Food_Bar/services/options_service.dart';
+import 'package:Foodbar_user/settings/types.dart';
+import 'package:Foodbar_user/settings/app_properties.dart';
+import 'package:Foodbar_user/bloc/bloc.dart';
+import 'package:Foodbar_user/services/options_service.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({Key key}) : super(key: key);

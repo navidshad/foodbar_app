@@ -1,8 +1,8 @@
-import 'package:Food_Bar/bloc/intro_bloc.dart';
+import 'package:Foodbar_user/bloc/intro_bloc.dart';
 import 'package:flutter/material.dart';
 
-import 'package:Food_Bar/bloc/bloc.dart';
-import 'package:Food_Bar/screens/screens.dart';
+import 'package:Foodbar_user/bloc/bloc.dart';
+import 'package:Foodbar_user/screens/screens.dart';
 
 class AppRoutes {
   static Map<String, WidgetBuilder> getRoutes() {

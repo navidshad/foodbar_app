@@ -1,4 +1,4 @@
-import 'package:Food_Bar/models/models.dart';
+import 'package:Foodbar_user/models/models.dart';
 
 class Cart {
   List<OrderedFood> foods;

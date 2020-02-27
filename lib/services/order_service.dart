@@ -1,5 +1,5 @@
-import 'package:Food_Bar/models/models.dart';
-import 'package:Food_Bar/settings/app_properties.dart';
+import 'package:Foodbar_user/models/models.dart';
+import 'package:Foodbar_user/settings/app_properties.dart';
 
 class OrderService {
 

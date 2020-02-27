@@ -1,6 +1,6 @@
-import 'package:Food_Bar/models/models.dart';
-import 'package:Food_Bar/interfaces/content_provider.dart';
-import 'package:Food_Bar/services/services.dart';
+import 'package:Foodbar_user/models/models.dart';
+import 'package:Foodbar_user/interfaces/content_provider.dart';
+import 'package:Foodbar_user/services/services.dart';
 
 class ContentService implements ContentProvider {
   ContentService._privateConstructor();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:Food_Bar/widgets/widgets.dart';
-import 'package:Food_Bar/utilities/text_util.dart';
+import 'package:Foodbar_user/widgets/widgets.dart';
+import 'package:Foodbar_user/utilities/text_util.dart';
 
 class CustomSilverappBar extends StatelessWidget {
   

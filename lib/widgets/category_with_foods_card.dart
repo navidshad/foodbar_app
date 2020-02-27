@@ -1,10 +1,10 @@
 import 'dart:ui' as prefix0;
 
-import 'package:Food_Bar/settings/settings.dart';
+import 'package:Foodbar_user/settings/settings.dart';
 import 'package:flutter/material.dart';
 
-import 'package:Food_Bar/models/models.dart';
-import 'package:Food_Bar/widgets/widgets.dart';
+import 'package:Foodbar_user/models/models.dart';
+import 'package:Foodbar_user/widgets/widgets.dart';
 
 class CategoryWithFoodsCard extends StatelessWidget {
   final CategoryWithFoods category;

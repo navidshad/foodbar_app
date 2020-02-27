@@ -1,12 +1,12 @@
 import 'dart:async';
-import 'package:Food_Bar/interfaces/auth_interface.dart';
-import 'package:Food_Bar/services/auth_service.dart';
-import 'package:Food_Bar/services/services.dart';
-import 'package:Food_Bar/settings/settings.dart';
+import 'package:Foodbar_user/interfaces/auth_interface.dart';
+import 'package:Foodbar_user/services/auth_service.dart';
+import 'package:Foodbar_user/services/services.dart';
+import 'package:Foodbar_user/settings/settings.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'package:Food_Bar/interfaces/bloc_interface.dart';
-import 'package:Food_Bar/settings/types.dart';
+import 'package:Foodbar_user/interfaces/bloc_interface.dart';
+import 'package:Foodbar_user/settings/types.dart';
 
 class AppFrameState {
   FrameTabType type;

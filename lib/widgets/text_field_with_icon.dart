@@ -1,4 +1,4 @@
-import 'package:Food_Bar/settings/settings.dart';
+import 'package:Foodbar_user/settings/settings.dart';
 import 'package:flutter/material.dart';
 
 class TextfieldWithIcon extends StatelessWidget {

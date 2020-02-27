@@ -1,13 +1,13 @@
-import 'package:Food_Bar/interfaces/auth_interface.dart';
-import 'package:Food_Bar/services/auth_service.dart';
+import 'package:Foodbar_user/interfaces/auth_interface.dart';
+import 'package:Foodbar_user/services/auth_service.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'dart:async';
 
-import 'package:Food_Bar/settings/static_vars.dart';
-import 'package:Food_Bar/services/services.dart';
-import 'package:Food_Bar/models/user.dart';
-export 'package:Food_Bar/mongodb/mongodb.dart';
+import 'package:Foodbar_user/settings/static_vars.dart';
+import 'package:Foodbar_user/services/services.dart';
+import 'package:Foodbar_user/models/user.dart';
+export 'package:Foodbar_user/mongodb/mongodb.dart';
 
 class MongoDBService {
   Client _http = Client();

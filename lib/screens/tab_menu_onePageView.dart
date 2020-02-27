@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:Food_Bar/models/models.dart';
-import 'package:Food_Bar/widgets/widgets.dart';
+import 'package:Foodbar_user/models/models.dart';
+import 'package:Foodbar_user/widgets/widgets.dart';
 
 class MenuTabOnePageView extends StatelessWidget {
 

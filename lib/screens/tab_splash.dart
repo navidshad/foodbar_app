@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:Food_Bar/services/options_service.dart';
+import 'package:Foodbar_user/services/options_service.dart';
 
 class SplashScreen extends StatelessWidget {
 

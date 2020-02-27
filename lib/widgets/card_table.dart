@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:Food_Bar/models/models.dart';
+import 'package:Foodbar_user/models/models.dart';
 
 class CardTable extends StatelessWidget {
   CardTable(

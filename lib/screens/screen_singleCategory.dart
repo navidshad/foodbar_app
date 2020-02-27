@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:Food_Bar/models/models.dart';
-import 'package:Food_Bar/widgets/widgets.dart';
-import 'package:Food_Bar/bloc/bloc.dart';
-import 'package:Food_Bar/utilities/text_util.dart';
-import 'package:Food_Bar/settings/app_properties.dart';
+import 'package:Foodbar_user/models/models.dart';
+import 'package:Foodbar_user/widgets/widgets.dart';
+import 'package:Foodbar_user/bloc/bloc.dart';
+import 'package:Foodbar_user/utilities/text_util.dart';
+import 'package:Foodbar_user/settings/app_properties.dart';
 
 class SingleCategory extends StatelessWidget {
   CategoryBloc bloc;

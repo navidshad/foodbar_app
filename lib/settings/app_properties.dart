@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:Food_Bar/settings/types.dart';
-import 'package:Food_Bar/utilities/food_bar_icons.dart';
+import 'package:Foodbar_user/settings/types.dart';
+import 'package:Foodbar_user/utilities/food_bar_icons.dart';
 
 /// All default values are here, texts, colorsand etc
 class AppProperties {

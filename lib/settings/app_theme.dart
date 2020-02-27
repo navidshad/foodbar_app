@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:Food_Bar/settings/app_properties.dart';
+import 'package:Foodbar_user/settings/app_properties.dart';
 
 class AppTheme {
   static ThemeData getData(){

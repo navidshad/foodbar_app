@@ -1,5 +1,5 @@
 import './permission.dart';
-import 'package:Food_Bar/settings/types.dart';
+import 'package:Foodbar_user/settings/types.dart';
 
 class User {
   Permission _permission;

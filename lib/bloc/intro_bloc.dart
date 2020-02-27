@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:Food_Bar/interfaces/auth_interface.dart';
-import 'package:Food_Bar/interfaces/bloc_interface.dart';
-import 'package:Food_Bar/models/intro_slide_item.dart';
-import 'package:Food_Bar/services/auth_service.dart';
-import 'package:Food_Bar/services/services.dart';
+import 'package:Foodbar_user/interfaces/auth_interface.dart';
+import 'package:Foodbar_user/interfaces/bloc_interface.dart';
+import 'package:Foodbar_user/models/intro_slide_item.dart';
+import 'package:Foodbar_user/services/auth_service.dart';
+import 'package:Foodbar_user/services/services.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:Food_Bar/settings/types.dart';
+import 'package:Foodbar_user/settings/types.dart';
 
 class IntroBloc implements BlocInterface<IntroEvent, IntroState> {
   final MongoDBService mongodb = MongoDBService.instance;

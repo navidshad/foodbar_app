@@ -1,10 +1,10 @@
-import 'package:Food_Bar/bloc/intro_bloc.dart';
-import 'package:Food_Bar/settings/app_properties.dart';
-import 'package:Food_Bar/settings/types.dart';
+import 'package:Foodbar_user/bloc/intro_bloc.dart';
+import 'package:Foodbar_user/settings/app_properties.dart';
+import 'package:Foodbar_user/settings/types.dart';
 import 'package:flutter/material.dart';
 
-import 'package:Food_Bar/screens/screens.dart';
-import 'package:Food_Bar/bloc/bloc.dart';
+import 'package:Foodbar_user/screens/screens.dart';
+import 'package:Foodbar_user/bloc/bloc.dart';
 
 class Intro extends StatefulWidget {
   Intro({Key key}) : super(key: key);

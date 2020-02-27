@@ -1,14 +1,14 @@
 import 'package:http/http.dart';
 import 'dart:convert';
 
-import 'package:Food_Bar/interfaces/reservation_schedule_provider.dart';
-import 'package:Food_Bar/models/reservation_schedule_option.dart';
-import 'package:Food_Bar/models/reserve_confirmation_result.dart';
-import 'package:Food_Bar/models/table.dart';
+import 'package:Foodbar_user/interfaces/reservation_schedule_provider.dart';
+import 'package:Foodbar_user/models/reservation_schedule_option.dart';
+import 'package:Foodbar_user/models/reserve_confirmation_result.dart';
+import 'package:Foodbar_user/models/table.dart';
 
-import 'package:Food_Bar/interfaces/auth_interface.dart';
-import 'package:Food_Bar/services/services.dart';
-import 'package:Food_Bar/settings/static_vars.dart';
+import 'package:Foodbar_user/interfaces/auth_interface.dart';
+import 'package:Foodbar_user/services/services.dart';
+import 'package:Foodbar_user/settings/static_vars.dart';
 
 class ReservationService implements ReservationProviderInterface {
   ReservationService.privateContructor();
