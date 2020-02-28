@@ -1,4 +1,4 @@
-package com.foodbar.foodbar;
+package com.foodbar.app;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

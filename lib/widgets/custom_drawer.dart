@@ -32,7 +32,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
     );
 
     List<Widget> titles = [];
-    if (options.properties.logoHasTitleAndSlagon) {
+    if (!options.properties.logoHasTitleAndSlagon) {
       titles = [
         Text(
           options.properties.title,
