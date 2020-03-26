@@ -3,8 +3,8 @@ import 'package:foodbar_flutter_core/models/order.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:foodbar_flutter_core/interfaces/bloc_interface.dart';
-import 'package:foodbar_user/interfaces/content_provider.dart';
-import 'package:foodbar_user/services/services.dart';
+import 'package:foodbar_flutter_core/interfaces/content_provider.dart';
+import 'package:foodbar_flutter_core/services/services.dart';
 
 class OrderBloc implements BlocInterface<OrderEvent, OrderState> {
   StreamController<OrderState> _stateController = BehaviorSubject();

@@ -19,6 +19,15 @@ class SliderIntroTab extends StatelessWidget {
     List<Slide> slides = [];
 
     bloc.introSlideItems.forEach((item) {
+      Widget imageWidget;
+
+      if(item.image.isAbsolute) {
+        imageWidget = Container(
+          margin: EdgeInsets.only(bottom: 50),
+          child: Image.network(item.image.getUrl()),
+        );
+      }
+
       Slide slideObject = Slide(
           title: item.title,
           description: item.description,
@@ -29,6 +38,7 @@ class SliderIntroTab extends StatelessWidget {
             fontWeight: FontWeight.bold,
             fontSize: 25
           ),
+          centerWidget: imageWidget,
           styleDescription: TextStyle(
             color: AppProperties.textOnBackLight,
             fontSize: 18

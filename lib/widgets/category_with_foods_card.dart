@@ -14,8 +14,8 @@ class CategoryWithFoodsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // define a colore for category lable
-    Color color = (category.imageUrl != null) ? Colors.white : Colors.black;
-    Image imageCat = Image.asset(category.imageUrl);
+    Color color = (category.image.isAbsolute) ? Colors.white : Colors.black;
+    Image imageCat = Image.network(category.image.getUrl());
 
     List<Widget> wigitList = [
       // header

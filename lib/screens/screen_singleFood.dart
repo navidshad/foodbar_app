@@ -26,7 +26,7 @@ class SingleFood extends StatelessWidget {
             CustomSilverappBar(
               title: food.title,
               heroTag: food.getCombinedTag(),
-              backGroundImage: food.imageUrl,
+              backGroundImage: food.image.getUrl(),
             )
           ];
         },

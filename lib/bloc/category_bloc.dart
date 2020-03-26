@@ -2,9 +2,9 @@ import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:foodbar_flutter_core/interfaces/bloc_interface.dart';
-import 'package:foodbar_user/interfaces/content_provider.dart';
+import 'package:foodbar_flutter_core/interfaces/content_provider.dart';
 import 'package:foodbar_flutter_core/models/models.dart';
-import 'package:foodbar_user/services/services.dart';
+import 'package:foodbar_flutter_core/services/services.dart';
 
 class CategoryEvent {
   String id;
@@ -14,14 +14,13 @@ class CategoryEvent {
 class CategoryState {
   bool isInitial;
   List<Food> foods;
-  CategoryState({this.foods, this.isInitial=false});
+  CategoryState({this.foods = const [], this.isInitial = false});
 }
 
 class CategoryBloc implements BlocInterface<CategoryEvent, CategoryState> {
-  
   final _eventController = BehaviorSubject<CategoryEvent>();
   final _stateController = BehaviorSubject<CategoryState>();
-  final ContentProvider _contentProvider = MockContentService();
+  final ContentProvider _contentProvider = ContentService.instance;
 
   @override
   StreamSink<CategoryEvent> get eventSink => _eventController.sink;
@@ -34,11 +33,10 @@ class CategoryBloc implements BlocInterface<CategoryEvent, CategoryState> {
   }
 
   void handler(CategoryEvent event) async {
-      CategoryState state = CategoryState(
-        foods : await _contentProvider.getFoods(event.id)
-      );
-      
-      _stateController.add(state);
+    List<Food> foods = await _contentProvider.getFoods(event.id);
+    CategoryState state = CategoryState(foods: foods);
+
+    _stateController.add(state);
   }
 
   @override
@@ -50,5 +48,5 @@ class CategoryBloc implements BlocInterface<CategoryEvent, CategoryState> {
   void dispose() {
     _eventController.close();
     _stateController.close();
-  }  
+  }
 }

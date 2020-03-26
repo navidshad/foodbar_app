@@ -38,8 +38,8 @@ class FoodCard extends StatelessWidget {
                 child: Container(
                   width: one4th,
                   height: one4th,
-                  child: Image.asset(
-                    food.imageUrl,
+                  child: Image.network(
+                    food.image.getUrl(),
                     fit: BoxFit.cover,
                   ),
                 ),

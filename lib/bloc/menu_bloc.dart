@@ -5,8 +5,8 @@ import 'package:meta/meta.dart';
 import 'package:foodbar_flutter_core/interfaces/bloc_interface.dart';
 import 'package:foodbar_flutter_core/models/models.dart';
 import 'package:foodbar_user/settings/types.dart';
-import 'package:foodbar_user/services/services.dart';
-import 'package:foodbar_user/interfaces/content_provider.dart';
+import 'package:foodbar_flutter_core/services/services.dart';
+import 'package:foodbar_flutter_core/interfaces/content_provider.dart';
 
 class MenuEvent {
   MenuType type;
@@ -20,14 +20,18 @@ class MenuState {
   List<Category> categories;
   List<CategoryWithFoods> categoriesWithFoods;
 
-  MenuState({this.isInitState = false, @required this.type, this.categories, this.categoriesWithFoods});
+  MenuState(
+      {this.isInitState = false,
+      @required this.type,
+      this.categories,
+      this.categoriesWithFoods});
 }
 
 class MenuBloc implements BlocInterface<MenuEvent, MenuState> {
   final _eventController = BehaviorSubject<MenuEvent>();
   final _stateController = BehaviorSubject<MenuState>();
 
-  final ContentProvider _contentProvider = MockContentService();
+  final ContentProvider _contentProvider = ContentService.instance;
 
   @override
   StreamSink<MenuEvent> get eventSink => _eventController.sink;
@@ -48,9 +52,12 @@ class MenuBloc implements BlocInterface<MenuEvent, MenuState> {
         categoriesWithFoods: await _contentProvider.getCategoriesWithFoods(),
       );
     } else {
+      if (_contentProvider.categories.length == 0)
+        await _contentProvider.updateCategories();
+
       state = MenuState(
         type: event.type,
-        categories: await _contentProvider.getCategories(),
+        categories: _contentProvider.categories,
       );
     }
 

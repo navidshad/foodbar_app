@@ -40,7 +40,7 @@ class CustomSilverappBar extends StatelessWidget {
           ),
           background: Hero(
             tag: heroTag,
-            child: Image.asset(backGroundImage, fit: BoxFit.cover),
+            child: Image.network(backGroundImage, fit: BoxFit.cover),
           ),
         ));
   }

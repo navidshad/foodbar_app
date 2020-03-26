@@ -1,3 +1,4 @@
+import 'package:foodbar_flutter_core/interfaces/auth_interface.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 
@@ -6,13 +7,12 @@ import 'package:foodbar_flutter_core/models/reservation_schedule_option.dart';
 import 'package:foodbar_flutter_core/models/reserve_confirmation_result.dart';
 import 'package:foodbar_flutter_core/models/table.dart';
 
-import 'package:foodbar_flutter_core/interfaces/auth_interface.dart';
 import 'package:foodbar_user/services/services.dart';
 import 'package:foodbar_user/settings/static_vars.dart';
 
 class ReservationService implements ReservationProviderInterface {
-  ReservationService.privateContructor();
-  static ReservationService instance = ReservationService.privateContructor();
+  ReservationService.privateConstructor();
+  static ReservationService instance = ReservationService.privateConstructor();
 
   AuthInterface _authService = AuthService.instant;
   Client _http = Client();

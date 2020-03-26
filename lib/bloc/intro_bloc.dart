@@ -20,7 +20,6 @@ class IntroBloc implements BlocInterface<IntroEvent, IntroState> {
 
   IntroBloc() {
     _eventController.stream.listen(handler);
-    //authService.loginEvent.listen(onLoginEvent);
   }
 
   @override
@@ -65,7 +64,7 @@ class IntroBloc implements BlocInterface<IntroEvent, IntroState> {
           List slideDetail = list;
           introSlideItems = [];
           slideDetail.forEach((itemDetail) {
-            IntroSlideItem slide = IntroSlideItem.fromMap(itemDetail);
+            IntroSlideItem slide = IntroSlideItem.fromMap(itemDetail, host: MongoDBService.host);
             introSlideItems.add(slide);
           });
         });

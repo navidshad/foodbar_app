@@ -21,7 +21,7 @@ class SingleCategory extends StatelessWidget {
             CustomSilverappBar(
               title: category.title,
               heroTag: category.getCombinedTag(),
-              backGroundImage: category.imageUrl,
+              backGroundImage: category.image.getUrl(),
             )
           ];
         },
