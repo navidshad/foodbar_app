@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 
 import 'package:foodbar_flutter_core/interfaces/bloc_interface.dart';
 import 'package:foodbar_flutter_core/models/models.dart';
-import 'package:foodbar_user/settings/types.dart';
+import 'package:foodbar_flutter_core/settings/types.dart';
 import 'package:foodbar_flutter_core/services/services.dart';
 import 'package:foodbar_flutter_core/interfaces/content_provider.dart';
 

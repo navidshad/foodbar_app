@@ -11,7 +11,7 @@ class CustomAppBar extends StatefulWidget with PreferredSizeWidget {
   _CustomAppBarState createState() => _CustomAppBarState();
 
   @override
-  Size get preferredSize => new Size.fromHeight(55);
+  Size get preferredSize => new Size.fromHeight(100);
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
@@ -35,7 +35,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
     );
   }
 
-  AppBar buildAppBar(String title, FrameTabType type) {
+  Widget buildAppBar(String title, FrameTabType type) {
     Widget actionBtn;
     currentTab = type;
 
@@ -57,10 +57,24 @@ class _CustomAppBarState extends State<CustomAppBar> {
     }
 
     // build appbar
-    return AppBar(
-      title: Text(title),
-      actions: <Widget>[actionBtn],
-      elevation: 4,
+    return Container(
+      height: 100,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          AppBar(
+            title: Text(
+              title,
+              style: TextStyle(
+                fontSize: AppProperties.h4,
+              ),
+            ),
+            actions: <Widget>[actionBtn],
+            elevation: 1,
+          )
+        ],
+      ),
     );
   }
 

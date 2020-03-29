@@ -31,21 +31,29 @@ class SingleFood extends StatelessWidget {
           ];
         },
         body: ListView(
-          padding: EdgeInsets.all(AppProperties.cardSideMargin),
+          padding: EdgeInsets.all(50),
           children: <Widget>[
+
+            Container(
+              padding: EdgeInsets.all(cardPadding),
+              child: Text(
+                food.subTitle,
+                //textAlign: TextAlign.center,
+                style: TextStyle(fontSize: AppProperties.h3),
+              ),
+            ),
+
             // description
-            Card(
-              elevation: elevation,
-              child: Container(
-                padding: EdgeInsets.all(cardPadding),
-                child: Text(food.description),
+            Container(
+              padding: EdgeInsets.all(cardPadding),
+              child: Text(
+                food.description,
+                style: TextStyle(fontSize: AppProperties.h4),
               ),
             ),
 
             // amount options
-            Card(
-              elevation: elevation,
-              child: Container(
+            Container(
                 padding: EdgeInsets.all(cardPadding),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -60,14 +68,19 @@ class SingleFood extends StatelessWidget {
                   ],
                 ),
               ),
+            
+            // empty space
+            Container(
+              width: 10,
+              height: 50,
             ),
-
             // order single food
             CardButton(
               elevation: elevation,
               title: 'Order Now',
               height: 50,
               //onTap: (){},
+              isOutline: true,
               margin: EdgeInsets.only(bottom: 15),
             ),
 
@@ -76,7 +89,7 @@ class SingleFood extends StatelessWidget {
               elevation: elevation,
               title: 'Add To Cart',
               height: 50,
-              isOutline: true,
+              isOutline: false,
               onTap: addToCart,
             )
           ],

@@ -50,18 +50,30 @@ class SingleCategory extends StatelessWidget {
   }
 
   Widget buildFoodList(List<Food> foods) {
-    return ListView.builder(
-      itemCount: foods.length,
-      padding: EdgeInsets.all(AppProperties.cardSideMargin),
-      itemBuilder: (itemContext, int i) {
-        Food food = foods[i];
-        return Column(
-          children: <Widget>[
-            FoodCard(food),
-            //Divider(height: 0,)
-          ],
-        );
-      },
-    );
+    List<Widget> cards = [];
+
+    for (var i = 0; i < foods.length; i++) {
+      var food = foods[i];
+      cards.add(FoodCard(food));
+    }
+
+    Widget content;
+
+    if (foods.length == 0) {
+      content = Center(
+        child: Text(
+          'There isn\'t any food yet.',
+          style: TextStyle(fontSize: 18),
+          textAlign: TextAlign.center,
+        ),
+      );
+    } else {
+      content = ListView(
+        padding: EdgeInsets.all(AppProperties.cardSideMargin),
+        children: cards,
+      );
+    }
+
+    return content;
   }
 }

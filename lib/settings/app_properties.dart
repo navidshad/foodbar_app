@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:foodbar_user/settings/types.dart';
+import 'package:foodbar_flutter_core/settings/types.dart';
 import 'package:foodbar_user/utilities/food_bar_icons.dart';
 
 /// All default values are here, texts, colorsand etc
 class AppProperties {
-
   // general
   String title = 'Food Bar';
   String slagon = 'Eat Your Taste';
-  
+
   String menuTitle = 'Menu';
   String cartTitle = 'My Cart';
   String reservationTitle = 'Table Reservation';
@@ -16,22 +15,27 @@ class AppProperties {
   String oldReservedTitle = 'Old Reserved';
   String logoutTitle = 'Logout';
 
-
   static int splashDelayInSeconds = 1;
 
   static Color mainColor = Colors.lightGreen;
   static Color secondColor = Colors.blue;
   static Color disabledColor = Colors.grey[100];
   static Color backLightColor = Color.fromRGBO(255, 240, 225, 1);
-  
+
   static Color textOnMainColor = Colors.white;
-  static Color textOnDisabled  = Colors.black;
-  static Color textOnBackLight  = Colors.black;
+  static Color textOnDisabled = Colors.black;
+  static Color textOnBackLight = Colors.black;
 
   static double cardSideMargin = 20;
   static double cardVerticalMargin = 15;
   static double cardElevation = 30;
-  
+
+  static double h1 = 30;
+  static double h2 = 25;
+  static double h3 = 20;
+  static double h4 = 16;
+  static double p = 14;
+
   // appframe
   MenuType menuType = MenuType.TwoPage;
 

@@ -24,7 +24,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    double lohoHeight = 70;
+    double lohoHeight = 150;
 
     Image logo = Image.asset(
       options.properties.imgPathLogoWide,
@@ -47,30 +47,30 @@ class _CustomDrawerState extends State<CustomDrawer> {
       initialData: bloc.getInitialState(),
       builder: (context, constrants) {
         return Container(
-          margin: EdgeInsets.only(top: 81),
+          margin: EdgeInsets.only(top: 95),
           child: Drawer(
             elevation: 40,
             child: ListView(
               padding: EdgeInsets.zero,
               children: <Widget>[
                 Container(
-                  height: 120,
+                  height: 200,
                   child: DrawerHeader(
                     margin: EdgeInsets.all(0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         logo,
-                        Container(
-                          margin: EdgeInsets.only(left: 15),
-                          height: lohoHeight,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: titles,
-                          ),
-                        )
+                        // Container(
+                        //   //margin: EdgeInsets.only(left: 15),
+                        //   height: lohoHeight,
+                        //   child: Column(
+                        //     mainAxisAlignment: MainAxisAlignment.end,
+                        //     crossAxisAlignment: CrossAxisAlignment.start,
+                        //     children: titles,
+                        //   ),
+                        // )
                       ],
                     ),
                   ),

@@ -5,7 +5,7 @@ import 'package:foodbar_user/settings/settings.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:foodbar_flutter_core/interfaces/bloc_interface.dart';
-import 'package:foodbar_user/settings/types.dart';
+import 'package:foodbar_flutter_core/settings/types.dart';
 
 class AppFrameState {
   FrameTabType type;

@@ -1,7 +1,7 @@
 import 'package:foodbar_user/bloc/intro_bloc.dart';
 import 'package:foodbar_user/settings/app_properties.dart';
-import 'package:foodbar_user/settings/types.dart';
 import 'package:foodbar_flutter_core/settings/types.dart';
+import 'package:foodbar_user/settings/types.dart';
 import 'package:flutter/material.dart';
 
 import 'package:foodbar_user/screens/screens.dart';

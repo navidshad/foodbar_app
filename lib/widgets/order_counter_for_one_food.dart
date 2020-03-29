@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodbar_user/settings/app_properties.dart';
 
 class OrderCounterForOneFood extends StatefulWidget {
   final int count;
@@ -6,7 +7,7 @@ class OrderCounterForOneFood extends StatefulWidget {
   final String title;
   final min;
 
-  OrderCounterForOneFood({this.count, this.onChange, this.title, this.min=1});
+  OrderCounterForOneFood({this.count, this.onChange, this.title, this.min = 1});
 
   @override
   _OrderCounterForOneFoodState createState() =>
@@ -24,8 +25,8 @@ class _OrderCounterForOneFoodState extends State<OrderCounterForOneFood> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (layoutContext, boxConstraints) {
-        double borderThikness = 0.1;
-        double defaultWidth = 80;
+        double borderThikness = 0.2;
+        double defaultWidth = 150;
         double width;
 
         if (boxConstraints.biggest.width > defaultWidth)
@@ -46,11 +47,17 @@ class _OrderCounterForOneFoodState extends State<OrderCounterForOneFood> {
               Container(
                 width: oneThird,
                 height: oneThird,
-                child: OutlineButton(
+                child: FlatButton(
+                  //borderSide: BorderSide(width: 1),
+                  color: AppProperties.mainColor,
                   child: Center(
                     child: Text(
                       '+',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        color: AppProperties.textOnMainColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: AppProperties.h3,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -60,14 +67,17 @@ class _OrderCounterForOneFoodState extends State<OrderCounterForOneFood> {
                 ),
               ),
 
-              // plus counter
+              // current number
               Container(
                 width: oneThird,
                 height: oneThird,
                 child: Center(
                   child: Text(
                     counter.toString(),
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: AppProperties.h3,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -77,11 +87,17 @@ class _OrderCounterForOneFoodState extends State<OrderCounterForOneFood> {
               Container(
                 width: oneThird,
                 height: oneThird,
-                child: OutlineButton(
+                child: FlatButton(
+                  //borderSide: BorderSide(width: 1),
+                  color: AppProperties.mainColor,
                   child: Center(
                     child: Text(
                       '-',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        color: AppProperties.textOnMainColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: AppProperties.h3,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -99,8 +115,11 @@ class _OrderCounterForOneFoodState extends State<OrderCounterForOneFood> {
         if (title != null) {
           bodyElements.add(Text(
             title,
-            textScaleFactor: 0.9,
-            style: TextStyle(fontWeight: FontWeight.bold),
+            //textScaleFactor: 0.9,
+            style: TextStyle(
+              fontSize: AppProperties.h3,
+              //fontWeight: FontWeight.bold,
+            ),
           ));
           bodyElements.add(Divider(
             thickness: 0,

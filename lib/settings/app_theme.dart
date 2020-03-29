@@ -5,7 +5,7 @@ import 'package:foodbar_user/settings/app_properties.dart';
 class AppTheme {
   static ThemeData getData(){
     return ThemeData(
-        primarySwatch: Colors.pink,
+        primarySwatch: Colors.green,
         appBarTheme: AppBarTheme(
           color: AppProperties.backLightColor,
           iconTheme: IconThemeData(

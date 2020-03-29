@@ -16,7 +16,7 @@ class MenuTabTwoPageCategoriesView extends StatelessWidget {
       itemCount: list.length,
       itemBuilder: (itemContext, int i) {
         Category detail = list[i];
-        return CategoryCard(detail);
+        return CardCategory(detail);
       },
     );
   }

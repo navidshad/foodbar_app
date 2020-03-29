@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:foodbar_flutter_core/models/models.dart';
 import 'package:foodbar_flutter_core/utilities/text_util.dart';
 
-class CategoryCard extends StatelessWidget {
+class CardCategory extends StatelessWidget {
   final Category category;
   BuildContext _context;
 
-  CategoryCard(this.category);
+  CardCategory(this.category);
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +44,21 @@ class CategoryCard extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     TextUtil.toUperCaseForLable(category.title),
-                    textScaleFactor: 1.4,
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    //textScaleFactor: 1.4,
+                    style: TextStyle(
+                      fontSize: AppProperties.h2,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  Text(
-                    TextUtil.toCapital(category.description),
-                    textScaleFactor: 0.9,
+                  Container(
+                    margin: EdgeInsets.only(top: 15),
+                    child: Text(
+                      TextUtil.toCapital(category.description),
+                      //textScaleFactor: 0.9,
+                      style: TextStyle(
+                        fontSize: AppProperties.h4,
+                      ),
+                    ),
                   ),
                 ],
               ),
