@@ -57,14 +57,16 @@ class ReservationService implements ReservationProviderInterface {
   Future<ReservationScheduleOption> getScheduleOptions() async {
     String url = Vars.host + '/reservation/getScheduleOptions';
 
-    return _http.get(url, headers: headers).then(_analizeResult).then((result) {
+    ReservationScheduleOption options;
+
+    await _http.get(url, headers: headers).then(_analizeResult).then((result) {
       Map optionDetail = result['options'];
-
-      ReservationScheduleOption options =
-          ReservationScheduleOption.fromMap(optionDetail);
-
-      return options;
+      options = ReservationScheduleOption.fromMap(optionDetail);
+    }).catchError((onError) {
+      print('getScheduleOptions error ${onError.toString()}');
     });
+
+    return options;
   }
 
   @override
