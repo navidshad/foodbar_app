@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:foodbar_flutter_core/models/models.dart';
 import 'package:foodbar_flutter_core/utilities/text_util.dart';
+import 'package:foodbar_user/widgets/widgets.dart';
 
 class CardCategory extends StatelessWidget {
   final Category category;
@@ -16,47 +17,48 @@ class CardCategory extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (layoutContext, constraints) {
-        double one3 = constraints.biggest.width / 3;
-        double two3 = constraints.biggest.width / 3 * 2;
+        double one3 = constraints.minWidth / 3;
+        double rest = constraints.minWidth - one3;
+        double cardHieght = 140;
 
         Widget cardBody = Row(
           children: <Widget>[
             // thumbnail
             Hero(
               tag: category.getCombinedTag(),
-              child: Container(
+              child: SquareCover(
+                boxFit: BoxFit.fitHeight,
+                url: category.image.getUrl(),
                 width: one3,
-                height: one3,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: Image.network(category.image.getUrl()).image,
-                )),
+                height: cardHieght,
               ),
             ),
 
             // title & description
             Container(
-              width: two3,
+              width: rest,
               padding: EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     TextUtil.toUperCaseForLable(category.title),
-                    //textScaleFactor: 1.4,
                     style: TextStyle(
-                      fontSize: AppProperties.h2,
+                      fontSize: AppProperties.h3,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 15),
                     child: Text(
-                      TextUtil.toCapital(category.description),
-                      //textScaleFactor: 0.9,
+                      TextUtil.toCapital(
+                        TextUtil.makeShort(
+                          category.description,
+                          AppProperties.descriptionLength,
+                        ),
+                      ),
                       style: TextStyle(
-                        fontSize: AppProperties.h4,
+                        fontSize: AppProperties.p,
                       ),
                     ),
                   ),
@@ -69,11 +71,17 @@ class CardCategory extends StatelessWidget {
         return InkWell(
           child: Card(
             child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(5)),
-              child: cardBody,
+              borderRadius:
+                  BorderRadius.all(Radius.circular(AppProperties.cardRadius)),
+              child: Container(
+                child: cardBody,
+                color: Colors.white,
+                height: cardHieght,
+              ),
             ),
             margin: EdgeInsets.only(bottom: AppProperties.cardVerticalMargin),
             elevation: AppProperties.cardElevation,
+            color: Colors.transparent,
           ),
           onTap: onCardTab,
         );

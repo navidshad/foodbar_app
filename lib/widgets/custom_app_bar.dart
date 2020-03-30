@@ -11,7 +11,7 @@ class CustomAppBar extends StatefulWidget with PreferredSizeWidget {
   _CustomAppBarState createState() => _CustomAppBarState();
 
   @override
-  Size get preferredSize => new Size.fromHeight(100);
+  Size get preferredSize => new Size.fromHeight(60);
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
@@ -57,24 +57,15 @@ class _CustomAppBarState extends State<CustomAppBar> {
     }
 
     // build appbar
-    return Container(
-      height: 100,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          AppBar(
-            title: Text(
-              title,
-              style: TextStyle(
-                fontSize: AppProperties.h4,
-              ),
-            ),
-            actions: <Widget>[actionBtn],
-            elevation: 1,
-          )
-        ],
+    return AppBar(
+      title: Text(
+        title,
+        style: TextStyle(
+          fontSize: AppProperties.h4,
+        ),
       ),
+      actions: <Widget>[actionBtn],
+      elevation: 1,
     );
   }
 

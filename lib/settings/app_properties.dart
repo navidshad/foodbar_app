@@ -29,11 +29,16 @@ class AppProperties {
   static double cardSideMargin = 20;
   static double cardVerticalMargin = 15;
   static double cardElevation = 30;
+  static double cardRadius = 10;
+
+  static int subTitleLength = 70;
+  static int descriptionLength = 80;
 
   static double h1 = 30;
   static double h2 = 25;
   static double h3 = 20;
   static double h4 = 16;
+  static double h5 = 15;
   static double p = 14;
 
   // appframe

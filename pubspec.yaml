@@ -59,19 +59,6 @@ flutter:
    - assets/images/logo.png
    - assets/images/logo_wide.png
    - assets/images/logo_vertical.png
-   - assets/mock_images/food01.jpg
-   - assets/mock_images/food02.png
-   - assets/mock_images/food03.png
-   - assets/mock_images/food04.png
-   - assets/mock_images/header01.jpg
-   - assets/mock_images/header02.jpg
-   - assets/mock_images/header03.jpg
-   
-   - assets/mock_images/sashimi.jpg
-   - assets/mock_images/spesial_rulle.jpg
-   - assets/mock_images/sushi.png
-   - assets/mock_images/yakiniku.jpg
-   - assets/mock_images/yakitori.jpg
 
    
   # An image asset can refer to one or more resolution-specific "variants", see
