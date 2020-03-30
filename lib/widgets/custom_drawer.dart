@@ -47,7 +47,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
       initialData: bloc.getInitialState(),
       builder: (context, constrants) {
         return Container(
-          margin: EdgeInsets.only(top: 95),
+          margin: EdgeInsets.only(top: 86),
           child: Drawer(
             elevation: 40,
             child: ListView(

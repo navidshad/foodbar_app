@@ -31,7 +31,7 @@ class SingleFood extends StatelessWidget {
           ];
         },
         body: ListView(
-          padding: EdgeInsets.all(50),
+          padding: EdgeInsets.all(20),
           children: <Widget>[
 
             Container(
@@ -39,7 +39,7 @@ class SingleFood extends StatelessWidget {
               child: Text(
                 food.subTitle,
                 //textAlign: TextAlign.center,
-                style: TextStyle(fontSize: AppProperties.h3),
+                style: TextStyle(fontSize: AppProperties.h5),
               ),
             ),
 
@@ -48,7 +48,7 @@ class SingleFood extends StatelessWidget {
               padding: EdgeInsets.all(cardPadding),
               child: Text(
                 food.description,
-                style: TextStyle(fontSize: AppProperties.h4),
+                style: TextStyle(fontSize: AppProperties.p),
               ),
             ),
 

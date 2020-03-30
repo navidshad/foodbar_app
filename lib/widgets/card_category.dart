@@ -15,77 +15,40 @@ class CardCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     _context = context;
 
-    return LayoutBuilder(
-      builder: (layoutContext, constraints) {
-        double one3 = constraints.minWidth / 3;
-        double rest = constraints.minWidth - one3;
-        double cardHieght = 140;
-
-        Widget cardBody = Row(
-          children: <Widget>[
-            // thumbnail
-            Hero(
-              tag: category.getCombinedTag(),
-              child: SquareCover(
-                boxFit: BoxFit.fitHeight,
-                url: category.image.getUrl(),
-                width: one3,
-                height: cardHieght,
-              ),
-            ),
-
-            // title & description
-            Container(
-              width: rest,
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    TextUtil.toUperCaseForLable(category.title),
-                    style: TextStyle(
-                      fontSize: AppProperties.h3,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 15),
-                    child: Text(
-                      TextUtil.toCapital(
-                        TextUtil.makeShort(
-                          category.description,
-                          AppProperties.descriptionLength,
-                        ),
-                      ),
-                      style: TextStyle(
-                        fontSize: AppProperties.p,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        );
-
-        return InkWell(
-          child: Card(
-            child: ClipRRect(
-              borderRadius:
-                  BorderRadius.all(Radius.circular(AppProperties.cardRadius)),
-              child: Container(
-                child: cardBody,
-                color: Colors.white,
-                height: cardHieght,
-              ),
-            ),
-            margin: EdgeInsets.only(bottom: AppProperties.cardVerticalMargin),
-            elevation: AppProperties.cardElevation,
-            color: Colors.transparent,
+    return CardWithCover(
+      coverWithbyPersent: 30,
+      heroTag: category.getCombinedTag(),
+      imageUrl: category.image.getUrl(),
+      onCardTap: onCardTab,
+      contentPadding: EdgeInsets.only(
+        top: 10,
+        bottom: 10,
+        left: 15,
+        right: 15
+      ),
+      detailwidgets: <Widget>[
+        Text(
+          TextUtil.toUperCaseForLable(category.title),
+          style: TextStyle(
+            fontSize: AppProperties.h3,
+            fontWeight: FontWeight.bold,
           ),
-          onTap: onCardTab,
-        );
-      },
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 15),
+          child: Text(
+            TextUtil.toCapital(
+              TextUtil.makeShort(
+                category.description,
+                AppProperties.descriptionLength,
+              ),
+            ),
+            style: TextStyle(
+              fontSize: AppProperties.p,
+            ),
+          ),
+        )
+      ],
     );
   }
 

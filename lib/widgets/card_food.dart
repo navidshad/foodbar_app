@@ -19,102 +19,58 @@ class FoodCard extends StatelessWidget {
     _context = context;
     bloc = BlocProvider.of<CartBloc>(context);
 
-    return LayoutBuilder(
-      builder: (con, constraints) {
-        // widget elements will use these size
-        double coverWith = constraints.biggest.width / 3.5;
-        double restWith = constraints.biggest.width - coverWith;
-        double cardHeight = 160;
-
-        var detailSection = Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text(
-              TextUtil.toUperCaseForLable(food.title),
-              style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: AppProperties.h4),
-            ),
-            Text(
-              TextUtil.toCapital(TextUtil.makeShort(
-                food.subTitle,
-                AppProperties.subTitleLength,
-              )),
-              style: TextStyle(fontSize: AppProperties.h5),
-            ),
-            
-            Container(
-              margin: EdgeInsets.only(top:20),
-              child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(right: 20),
-                  child: Text(
-                    '\$25',
-                    style: TextStyle(
-                        color: AppProperties.mainColor,
-                        fontSize: AppProperties.h4),
-                  ),
+    return CardWithCover(
+      coverWithbyPersent: 30,
+      heroTag: food.getCombinedTag(),
+      imageUrl: food.image.getUrl(),
+      onCardTap: onCardTab,
+      contentPadding: EdgeInsets.only(
+        top: 0,
+        bottom: 0,
+        left: 10,
+        right: 15,
+      ),
+      detailwidgets: <Widget>[
+        Text(
+          TextUtil.toUperCaseForLable(food.title),
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: AppProperties.h5),
+        ),
+        Text(
+          TextUtil.toCapital(TextUtil.makeShort(
+            food.subTitle,
+            AppProperties.subTitleLength,
+          )),
+          style: TextStyle(fontSize: AppProperties.p),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(right: 20),
+                child: Text(
+                  '\$25',
+                  style: TextStyle(
+                      color: AppProperties.mainColor,
+                      fontSize: AppProperties.h5),
                 ),
-                OutlineButton(
-                  child: Text(
-                    '+ADD',
-                    style: TextStyle(
-                        color: AppProperties.mainColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: AppProperties.p),
-                  ),
-                  onPressed: addToCart,
-                )
-              ],
-            ),
-            )
-          ],
-        );
-
-        Widget widget = Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            // thumbnial
-            Hero(
-              tag: food.getCombinedTag(),
-              child: SquareCover(
-                width: coverWith,
-                height: cardHeight,
-                boxFit: BoxFit.cover,
-                url: food.image.getUrl(),
               ),
-            ),
-
-            Container(
-              padding:
-                  EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-              width: restWith,
-              child: detailSection,
-            ),
-          ],
-        );
-
-        //return widget;
-        return InkWell(
-          onTap: onCardTab,
-          child: Card(
-            child: ClipRRect(
-              borderRadius:
-                  BorderRadius.all(Radius.circular(AppProperties.cardRadius)),
-              child: Container(
-                color: Colors.white,
-                height: cardHeight,
-                child: widget,
-              ),
-            ),
-            color: Colors.transparent,
-            margin: EdgeInsets.only(bottom: AppProperties.cardVerticalMargin),
-            elevation: AppProperties.cardElevation,
+              OutlineButton(
+                child: Text(
+                  '+ADD',
+                  style: TextStyle(
+                      color: AppProperties.mainColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: AppProperties.p),
+                ),
+                onPressed: addToCart,
+              )
+            ],
           ),
-        );
-      },
+        )
+      ],
     );
   }
 
@@ -125,17 +81,4 @@ class FoodCard extends StatelessWidget {
   void onCardTab() {
     Navigator.pushNamed(_context, '/food', arguments: food);
   }
-
-  // void showBottomSlider(BuildContext context) {
-  //   showModalBottomSheet(
-  //       context: context,
-  //       builder: (con) {
-  //         return Container(
-  //           height: 200,
-  //         );
-  //       },
-  //       backgroundColor: Colors.green,
-  //       isScrollControlled: false
-  //       );
-  // }
 }

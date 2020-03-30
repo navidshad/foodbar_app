@@ -34,12 +34,12 @@ class AppProperties {
   static int subTitleLength = 70;
   static int descriptionLength = 80;
 
-  static double h1 = 30;
-  static double h2 = 25;
-  static double h3 = 20;
-  static double h4 = 16;
-  static double h5 = 15;
-  static double p = 14;
+  static double h1 = 25;
+  static double h2 = 22;
+  static double h3 = 18;
+  static double h4 = 15;
+  static double h5 = 14;
+  static double p = 12;
 
   // appframe
   MenuType menuType = MenuType.TwoPage;

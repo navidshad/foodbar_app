@@ -7,7 +7,7 @@ class AppTheme {
     return ThemeData(
         primarySwatch: Colors.green,
         appBarTheme: AppBarTheme(
-          color: AppProperties.backLightColor,
+          color: Colors.white,
           iconTheme: IconThemeData(
             color: Colors.black
             ),
