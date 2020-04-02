@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:foodbar_flutter_core/models/models.dart';
 import 'package:foodbar_user/widgets/widgets.dart';
@@ -15,16 +16,16 @@ class SingleCategory extends StatelessWidget {
     bloc = BlocProvider.of<CategoryBloc>(context);
 
     return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (headerContext, bool innerBoxIsScrolled) {
-          return <Widget>[
-            CustomSilverappBar(
-              title: category.title,
-              heroTag: category.getCombinedTag(),
-              backGroundImage: category.image.getUrl(),
-            )
-          ];
-        },
+      body: PageWithScalableHeader(
+        headerTitle: category.title,
+        headerDescription: category.description,
+        headerColor: Colors.blueAccent,
+        headerBackImageUrl: category.image.getUrl(),
+        //paddingBodyFromTop: 100,
+        actionButtons: <Widget>[
+          Icon(FontAwesomeIcons.square, color: Colors.white,)
+        ],
+
         body: StreamBuilder<CategoryState>(
           stream: bloc.stateStream,
           initialData: bloc.getInitialState(),
@@ -42,6 +43,33 @@ class SingleCategory extends StatelessWidget {
           },
         ),
       ),
+      // body: NestedScrollView(
+      //   headerSliverBuilder: (headerContext, bool innerBoxIsScrolled) {
+      //     return <Widget>[
+      //       CustomSilverappBar(
+      //         title: category.title,
+      //         heroTag: category.getCombinedTag(),
+      //         backGroundImage: category.image.getUrl(),
+      //       )
+      //     ];
+      //   },
+      //   body: StreamBuilder<CategoryState>(
+      //     stream: bloc.stateStream,
+      //     initialData: bloc.getInitialState(),
+      //     builder: (context, AsyncSnapshot snapshot) {
+      //       CategoryState state = snapshot.data;
+
+      //       if (state.isInitial) {
+      //         askFoodList();
+      //         return Center(
+      //           child: CircularProgressIndicator(),
+      //         );
+      //       } else {
+      //         return buildFoodList(state.foods);
+      //       }
+      //     },
+      //   ),
+      // ),
     );
   }
 
@@ -69,11 +97,17 @@ class SingleCategory extends StatelessWidget {
       );
     } else {
       content = ListView(
-        padding: EdgeInsets.all(AppProperties.cardSideMargin),
+        padding: EdgeInsets.only(
+          top: 40,
+          bottom: AppProperties.cardSideMargin,
+          left: AppProperties.cardSideMargin,
+          right: AppProperties.cardSideMargin
+        ),
         children: cards,
       );
     }
 
     return content;
   }
+
 }

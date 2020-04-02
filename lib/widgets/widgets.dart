@@ -16,6 +16,7 @@ export './cart_button.dart';
 export './confirm_state_viewer.dart';
 export './text_field_with_icon.dart';
 export './card_with_cover.dart';
+export './page_with_scalable_header.dart';
 
 export './card_day.dart';
 export './card_time.dart';
