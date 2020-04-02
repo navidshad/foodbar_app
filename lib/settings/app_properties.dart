@@ -29,7 +29,7 @@ class AppProperties {
   static double cardSideMargin = 20;
   static double cardVerticalMargin = 15;
   static double cardElevation = 30;
-  static double cardRadius = 10;
+  static double cardRadius = 20;
 
   static int subTitleLength = 70;
   static int descriptionLength = 80;
@@ -54,6 +54,7 @@ class AppProperties {
 
   // payment
   double deliveryCharges = 30;
+  String currency = '\$';
 
   // img
   String imgPathLogoWide = 'assets/images/logo_wide.png';

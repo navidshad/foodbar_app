@@ -21,11 +21,11 @@ class SingleCategory extends StatelessWidget {
         headerDescription: category.description,
         headerColor: Colors.blueAccent,
         headerBackImageUrl: category.image.getUrl(),
-        //paddingBodyFromTop: 100,
+        rightSideBorder: false,
+        borderRaduis: 60,
         actionButtons: <Widget>[
-          Icon(FontAwesomeIcons.square, color: Colors.white,)
+          CartButton(color: Colors.white),
         ],
-
         body: StreamBuilder<CategoryState>(
           stream: bloc.stateStream,
           initialData: bloc.getInitialState(),
@@ -98,16 +98,14 @@ class SingleCategory extends StatelessWidget {
     } else {
       content = ListView(
         padding: EdgeInsets.only(
-          top: 40,
-          bottom: AppProperties.cardSideMargin,
-          left: AppProperties.cardSideMargin,
-          right: AppProperties.cardSideMargin
-        ),
+            top: 40,
+            bottom: AppProperties.cardSideMargin,
+            left: AppProperties.cardSideMargin,
+            right: AppProperties.cardSideMargin),
         children: cards,
       );
     }
 
     return content;
   }
-
 }

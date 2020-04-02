@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 
 import 'package:foodbar_flutter_core/models/models.dart';
+import 'package:foodbar_user/services/options_service.dart';
 import 'package:foodbar_user/widgets/widgets.dart';
 import 'package:foodbar_user/bloc/bloc.dart';
-import 'package:foodbar_user/settings/app_properties.dart';
 
-class SingleFood extends StatelessWidget {
+class SingleFood extends StatefulWidget {
+  @override
+  _SingleFoodState createState() => _SingleFoodState();
+}
+
+class _SingleFoodState extends State<SingleFood> {
   CartBloc bloc;
 
   Food food;
+
   int total = 1;
 
   double elevation = 0;
+
   double cardPadding = 20;
 
   @override
@@ -19,61 +26,58 @@ class SingleFood extends StatelessWidget {
     food = ModalRoute.of(context).settings.arguments;
     bloc = BlocProvider.of<CartBloc>(context);
 
+    String currency = OptionsService.instance.properties.currency;
+    String price = currency + (total * food.price).toString();
+
     return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (headerContext, bool innerBoxIsScrolled) {
-          return <Widget>[
-            CustomSilverappBar(
-              title: food.title,
-              heroTag: food.getCombinedTag(),
-              backGroundImage: food.image.getUrl(),
-            )
-          ];
-        },
+      body: PageWithScalableHeader(
+        headerTitle: food.title,
+        headerDescription: food.subTitle,
+        headerColor: Colors.lightBlue,
+        headerBackImageUrl: food.image.getUrl(),
+        isFlexible: true,
+        isHeaderExtendWhenPageOpened: true,
+        maxHeaderHeight: 400,
+        actionButtons: <Widget>[
+          CartButton(color: Colors.white),
+        ],
         body: ListView(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.only(left: 60, right: 60, top: 35, bottom: 10),
           children: <Widget>[
-
-            Container(
-              padding: EdgeInsets.all(cardPadding),
-              child: Text(
-                food.subTitle,
-                //textAlign: TextAlign.center,
-                style: TextStyle(fontSize: AppProperties.h5),
-              ),
-            ),
-
             // description
             Container(
-              padding: EdgeInsets.all(cardPadding),
-              child: Text(
-                food.description,
-                style: TextStyle(fontSize: AppProperties.p),
-              ),
+              child: Text(food.description),
             ),
+
+            SizedBox(height: 40),
 
             // amount options
             Container(
-                padding: EdgeInsets.all(cardPadding),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    OrderCounterForOneFood(
-                      title: 'Quantity',
-                      count: total,
-                      onChange: (value) {
-                        total = value;
-                      },
-                    )
-                  ],
-                ),
+              //padding: EdgeInsets.all(cardPadding),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    child: Text(
+                      price,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  OrderCounterForOneFood(
+                    //title: 'Quantity',
+                    count: total,
+                    onChange: (value) {
+                      total = value;
+                      setState(() {});
+                    },
+                  )
+                ],
               ),
-            
-            // empty space
-            Container(
-              width: 10,
-              height: 50,
             ),
+
+            SizedBox(height: 40),
+
             // order single food
             CardButton(
               elevation: elevation,

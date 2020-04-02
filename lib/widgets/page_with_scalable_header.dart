@@ -8,9 +8,10 @@ import 'package:foodbar_user/settings/settings.dart';
 class PageWithScalableHeader extends StatefulWidget {
   PageWithScalableHeader({
     Key key,
-    this.headerColor,
+    this.headerColor = Colors.grey,
     this.headerDescription,
     this.headerTitle,
+    this.dontShowBigTitle = false,
     this.headerBackImageUrl,
     this.actionButtons = const [],
     this.borderRaduis = 40,
@@ -20,6 +21,8 @@ class PageWithScalableHeader extends StatefulWidget {
     this.bodyColor = Colors.white,
     this.body,
     this.paddingBodyFromTop,
+    this.isFlexible = true,
+    this.isHeaderExtendWhenPageOpened = true,
   }) : super(key: key);
 
   final String headerTitle;
@@ -35,6 +38,9 @@ class PageWithScalableHeader extends StatefulWidget {
   final double paddingBodyFromTop;
   final bool leftSideBorder;
   final bool rightSideBorder;
+  final bool dontShowBigTitle;
+  final bool isFlexible;
+  final bool isHeaderExtendWhenPageOpened;
 
   @override
   _PageWithScalableHeaderState createState() => _PageWithScalableHeaderState();
@@ -133,7 +139,9 @@ class _PageWithScalableHeaderState extends State<PageWithScalableHeader>
       curve: Curves.fastOutSlowIn,
     ));
 
-    headerFlexibleController.forward();
+    if (widget.isHeaderExtendWhenPageOpened) {
+      headerFlexibleController.forward();
+    }
   }
 
   void onLeadButtonTap() {
@@ -205,7 +213,7 @@ class _PageWithScalableHeaderState extends State<PageWithScalableHeader>
                                     position: buttonOffsetAnim,
                                     child: FadeTransition(
                                       opacity: buttonFadeAnim,
-                                      child: InkWell(
+                                      child: GestureDetector(
                                         child: Icon(
                                           FontAwesomeIcons.chevronLeft,
                                           color: Colors.white,
@@ -216,23 +224,24 @@ class _PageWithScalableHeaderState extends State<PageWithScalableHeader>
                                   ),
 
                                   // title
-                                  FadeTransition(
-                                    opacity: smallTitleFadeAnim,
-                                    child: Text(
-                                      widget.headerTitle,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          shadows: [
-                                            Shadow(
-                                                color: Colors.black,
-                                                blurRadius: 20),
-                                            Shadow(
-                                                color: Colors.black,
-                                                blurRadius: 5),
-                                          ]),
+                                  if (widget.headerTitle != null)
+                                    FadeTransition(
+                                      opacity: smallTitleFadeAnim,
+                                      child: Text(
+                                        widget.headerTitle,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            shadows: [
+                                              Shadow(
+                                                  color: Colors.black,
+                                                  blurRadius: 20),
+                                              Shadow(
+                                                  color: Colors.black,
+                                                  blurRadius: 5),
+                                            ]),
+                                      ),
                                     ),
-                                  ),
 
                                   // actions
                                   Row(
@@ -260,13 +269,37 @@ class _PageWithScalableHeaderState extends State<PageWithScalableHeader>
                                       child: Column(
                                         children: <Widget>[
                                           //big header
-                                          Container(
-                                            width: double.infinity,
-                                            child: Text(
-                                              widget.headerTitle,
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                  fontSize: AppProperties.h1,
+                                          if (!widget.dontShowBigTitle ??
+                                              widget.headerTitle != null)
+                                            Container(
+                                              width: double.infinity,
+                                              child: Text(
+                                                widget.headerTitle,
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                    fontSize: AppProperties.h1,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white,
+                                                    shadows: [
+                                                      Shadow(
+                                                          color: Colors.black,
+                                                          blurRadius: 20),
+                                                      Shadow(
+                                                          color: Colors.black,
+                                                          blurRadius: 10),
+                                                      //Shadow(color: Colors.black, blurRadius: 10),
+                                                    ]),
+                                              ),
+                                            ),
+                                          // description
+                                          if (widget.headerDescription != null)
+                                            Container(
+                                              width: double.infinity,
+                                              child: Text(
+                                                widget.headerDescription,
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                  fontSize: AppProperties.h5,
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.white,
                                                   shadows: [
@@ -277,31 +310,10 @@ class _PageWithScalableHeaderState extends State<PageWithScalableHeader>
                                                         color: Colors.black,
                                                         blurRadius: 10),
                                                     //Shadow(color: Colors.black, blurRadius: 10),
-                                                  ]),
-                                            ),
-                                          ),
-                                          // description
-                                          Container(
-                                            width: double.infinity,
-                                            child: Text(
-                                              widget.headerDescription,
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                fontSize: AppProperties.h5,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                                shadows: [
-                                                  Shadow(
-                                                      color: Colors.black,
-                                                      blurRadius: 20),
-                                                  Shadow(
-                                                      color: Colors.black,
-                                                      blurRadius: 10),
-                                                  //Shadow(color: Colors.black, blurRadius: 10),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                          ),
                                         ],
                                       ),
                                     ),
@@ -345,7 +357,7 @@ class _PageWithScalableHeaderState extends State<PageWithScalableHeader>
               height: double.infinity,
               child: widget.body,
             ),
-          )
+          ),
         ],
       ),
     );
@@ -360,6 +372,8 @@ class _PageWithScalableHeaderState extends State<PageWithScalableHeader>
       },
       onVerticalDragEnd: (drageEndDetail) {
         bool isDownDrag = (verticalDragStartPoint > verticalDragEndPoint);
+
+        if (!widget.isFlexible) return;
 
         if (isDownDrag) {
           headerFlexibleController.reverse();
