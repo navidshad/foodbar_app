@@ -7,20 +7,20 @@ class CardTable extends StatelessWidget {
       {Key key,
       this.table,
       this.margin,
-      this.backgroundColor,
-      this.textColor,
-      this.disableColor = Colors.grey,
-      this.disableTextColor = Colors.black,
+      // this.backgroundColor,
+      // this.textColor,
+      // this.disableColor = Colors.grey,
+      // this.disableTextColor = Colors.black,
       this.isActive = false,
       this.onPressed})
       : super(key: key);
 
   final CustomTable table;
   final EdgeInsets margin;
-  final Color backgroundColor;
-  final Color textColor;
-  final Color disableColor;
-  final Color disableTextColor;
+  Color backgroundColor;
+  Color textColor;
+  Color disableColor;
+  Color disableTextColor;
   final bool isActive;
   final Function(CustomTable table) onPressed;
 
@@ -28,6 +28,11 @@ class CardTable extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = 90;
     double height = 90;
+
+    backgroundColor = Theme.of(context).backgroundColor;
+    textColor = Theme.of(context).colorScheme.onBackground;
+    disableColor = Theme.of(context).colorScheme.error;
+    disableTextColor = Theme.of(context).colorScheme.onError;
 
     Color tempBackColor = (isActive) ? backgroundColor : disableColor;
     Color tempTextColor = (isActive) ? textColor : disableTextColor;

@@ -8,10 +8,10 @@ class CardTime extends StatelessWidget {
       {Key key,
       this.date,
       this.margin,
-      this.backgroundColor,
-      this.textColor,
-      this.disableColor = Colors.grey,
-      this.disableTextColor = Colors.black,
+      // this.backgroundColor,
+      // this.textColor,
+      // this.disableColor = Colors.grey,
+      // this.disableTextColor = Colors.black,
       this.isActive = false,
       this.isReserved = false,
       this.onPressed})
@@ -19,10 +19,10 @@ class CardTime extends StatelessWidget {
 
   final DateTime date;
   final EdgeInsets margin;
-  final Color backgroundColor;
-  final Color textColor;
-  final Color disableColor;
-  final Color disableTextColor;
+  Color backgroundColor;
+  Color textColor;
+  Color disableColor;
+  Color disableTextColor;
   final bool isActive;
   final bool isReserved;
   final Function(DateTime date) onPressed;
@@ -31,6 +31,11 @@ class CardTime extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = 75;
     double height = 90;
+
+    backgroundColor = Theme.of(context).backgroundColor;
+    textColor = Theme.of(context).colorScheme.onBackground;
+    disableColor = Theme.of(context).colorScheme.error;
+    disableTextColor = Theme.of(context).colorScheme.onError;
 
     Color tempBackColor = (isActive) ? backgroundColor : disableColor;
     Color tempTextColor = (isActive) ? textColor : disableTextColor;

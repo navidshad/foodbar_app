@@ -20,12 +20,12 @@ class ProceedToCheckout extends StatelessWidget {
       initialData: bloc.getInitialState(),
       builder: (context, snapshot) {
         CartState state = snapshot.data;
-        return buildCard(state.cart);
+        return buildCard(context, state.cart);
       },
     );
   }
 
-  Widget buildCard(Cart cart) {
+  Widget buildCard(BuildContext context, Cart cart) {
     return LayoutBuilder(
       builder: (con, constraints) {
         TextStyle bold = TextStyle(fontWeight: FontWeight.bold);
@@ -61,7 +61,7 @@ class ProceedToCheckout extends StatelessWidget {
                             child: Text('+ADD',
                                 textScaleFactor: 0.8,
                                 style: TextStyle(
-                                    color: AppProperties.mainColor,
+                                    //color: AppProperties.mainColor,
                                     fontWeight: FontWeight.bold)),
                             onPressed: onApplyCoupon,
                           ),
@@ -77,7 +77,7 @@ class ProceedToCheckout extends StatelessWidget {
                         Text('\$${cart.total}',
                             textScaleFactor: 1.3,
                             style: TextStyle(
-                                color: AppProperties.mainColor,
+                                //color: AppProperties.mainColor,
                                 fontWeight: FontWeight.bold))
                       ]),
                 ],
@@ -88,18 +88,17 @@ class ProceedToCheckout extends StatelessWidget {
               width: constraints.maxWidth,
               height: 50,
               child: FlatButton(
+                color: Theme.of(context).buttonColor,
+                disabledColor: Theme.of(context).disabledColor,
                 shape: Border.all(width: 0, color: Colors.transparent),
                 child: Text(
                   'Proceed to Checkout',
                   textScaleFactor: 1.2,
                   style: TextStyle(
-                    color: AppProperties.textOnMainColor,
+                    color: Theme.of(context).colorScheme.onSecondary,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                color: AppProperties.mainColor,
-                disabledColor: AppProperties.disabledColor,
-                disabledTextColor: AppProperties.textOnDisabled,
                 onPressed: (cart.total > 0) ? onProceedToCheckout : null,
               ),
             )

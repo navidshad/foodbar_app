@@ -29,7 +29,7 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppProperties.backLightColor,
+      //backgroundColor: AppProperties.backLightColor,
       body: StreamBuilder(
         initialData: bloc.getInitialState(),
         stream: bloc.stateStream,

@@ -126,7 +126,7 @@ class _ReservationTabState extends State<ReservationTab> {
             width: 150,
             child: OutlineButton(
               child: Text('Reserve'),
-              color: AppProperties.mainColor,
+              //color: AppProperties.mainColor,
               onPressed: (selectedPersons == 0) ? null : onConfirm,
             ),
           ),

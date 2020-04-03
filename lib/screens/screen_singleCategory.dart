@@ -17,12 +17,14 @@ class SingleCategory extends StatelessWidget {
 
     return Scaffold(
       body: PageWithScalableHeader(
+        heroTag: category.getCombinedTag(),
         headerTitle: category.title,
         headerDescription: category.description,
         headerColor: Colors.blueAccent,
         headerBackImageUrl: category.image.getUrl(),
         rightSideBorder: false,
         borderRaduis: 60,
+        bodyColor: Theme.of(context).backgroundColor,
         actionButtons: <Widget>[
           CartButton(color: Colors.white),
         ],

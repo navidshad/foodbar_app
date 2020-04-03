@@ -32,6 +32,7 @@ class CardCategory extends StatelessWidget {
           style: TextStyle(
             fontSize: AppProperties.h3,
             fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
         Container(
@@ -45,6 +46,7 @@ class CardCategory extends StatelessWidget {
             ),
             style: TextStyle(
               fontSize: AppProperties.p,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
         )

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:foodbar_user/settings/app_properties.dart';
 
 class OrderCounterForOneFood extends StatefulWidget {
@@ -39,8 +40,10 @@ class _OrderCounterForOneFoodState extends State<OrderCounterForOneFood> {
         Widget buttons = Container(
           width: width,
           decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              border: Border.all(width: borderThikness)),
+            shape: BoxShape.rectangle,
+            color: Theme.of(context).colorScheme.surface,
+            //border: Border.all(width: borderThikness)
+          ),
           child: Row(
             children: <Widget>[
               // plus counter
@@ -49,16 +52,11 @@ class _OrderCounterForOneFoodState extends State<OrderCounterForOneFood> {
                 height: oneThird,
                 child: FlatButton(
                   //borderSide: BorderSide(width: 1),
-                  color: AppProperties.mainColor,
+                  //color: AppProperties.mainColor,
                   child: Center(
-                    child: Text(
-                      '+',
-                      style: TextStyle(
-                        color: AppProperties.textOnMainColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: AppProperties.h3,
-                      ),
-                      textAlign: TextAlign.center,
+                    child: Icon(
+                      FontAwesomeIcons.plus,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
                   onPressed: () {
@@ -76,7 +74,8 @@ class _OrderCounterForOneFoodState extends State<OrderCounterForOneFood> {
                     counter.toString(),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: AppProperties.h3,
+                      fontSize: AppProperties.h2,
+                      color: Theme.of(context).accentColor,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -88,17 +87,10 @@ class _OrderCounterForOneFoodState extends State<OrderCounterForOneFood> {
                 width: oneThird,
                 height: oneThird,
                 child: FlatButton(
-                  //borderSide: BorderSide(width: 1),
-                  color: AppProperties.mainColor,
                   child: Center(
-                    child: Text(
-                      '-',
-                      style: TextStyle(
-                        color: AppProperties.textOnMainColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: AppProperties.h3,
-                      ),
-                      textAlign: TextAlign.center,
+                    child: Icon(
+                      FontAwesomeIcons.minus,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
                   onPressed: () {
@@ -106,7 +98,7 @@ class _OrderCounterForOneFoodState extends State<OrderCounterForOneFood> {
                   },
                 ),
               )
-            ],
+            ].reversed.toList(),
           ),
         );
 

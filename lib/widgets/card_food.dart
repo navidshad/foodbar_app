@@ -34,14 +34,20 @@ class FoodCard extends StatelessWidget {
         Text(
           TextUtil.toUperCaseForLable(food.title),
           style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: AppProperties.h5),
+            fontWeight: FontWeight.bold,
+            fontSize: AppProperties.h5,
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
         ),
         Text(
           TextUtil.toCapital(TextUtil.makeShort(
             food.subTitle,
             AppProperties.subTitleLength,
           )),
-          style: TextStyle(fontSize: AppProperties.p),
+          style: TextStyle(
+            fontSize: AppProperties.p,
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
         ),
         Container(
           margin: EdgeInsets.only(top: 10),
@@ -53,7 +59,7 @@ class FoodCard extends StatelessWidget {
                 child: Text(
                   '\$25',
                   style: TextStyle(
-                      color: AppProperties.mainColor,
+                      color: Theme.of(context).colorScheme.onSurface,
                       fontSize: AppProperties.h5),
                 ),
               ),
@@ -61,7 +67,7 @@ class FoodCard extends StatelessWidget {
                 child: Text(
                   '+ADD',
                   style: TextStyle(
-                      color: AppProperties.mainColor,
+                      // color: AppProperties.mainColor,
                       fontWeight: FontWeight.bold,
                       fontSize: AppProperties.p),
                 ),

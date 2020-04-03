@@ -73,7 +73,7 @@ class OrderedFoodCard extends StatelessWidget {
                   child: FittedBox(
                     child: Text(
                       food.totalPrice.toString(),
-                      style: TextStyle(color: AppProperties.mainColor),
+                      //style: TextStyle(color: AppProperties.mainColor),
                     ),
                   ),
                 ),

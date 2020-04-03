@@ -40,20 +40,31 @@ class _CartButtonState extends State<CartButton> {
           iconData = AppProperties.cartIconEmpty;
 
         // creat button
-        Icon icon = Icon(iconData, color: widget.color,);
+        Icon icon = Icon(
+          iconData,
+          color: widget.color,
+          size: AppProperties.appBarIconSize,
+        );
 
         // create counter
-        Widget counterWidget = Container(
-          width: 15,
-          height: 15,
-          decoration: BoxDecoration(
-              color: AppProperties.mainColor, shape: BoxShape.circle),
-          child: Center(
-            child: Text(
-              state.total.toString(),
-              textAlign: TextAlign.center,
-              textScaleFactor: 0.8,
-              style: TextStyle(color: AppProperties.textOnMainColor),
+        double counterSize = (AppProperties.appBarIconSize / 100) * 65;
+        Widget counterWidget = Positioned(
+          bottom: 0,
+          right: 0,
+          child: Container(
+            width: counterSize,
+            height: counterSize,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.error,
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: Text(
+                state.total.toString(),
+                textAlign: TextAlign.center,
+                textScaleFactor: 0.8,
+                style: TextStyle(color: Theme.of(context).colorScheme.onError),
+              ),
             ),
           ),
         );
@@ -61,7 +72,7 @@ class _CartButtonState extends State<CartButton> {
         List<Widget> stackList = [icon];
 
         // add counter widget to stack list
-        if(state.total > 0) stackList.add(counterWidget);
+        if (state.total > 0) stackList.add(counterWidget);
 
         Stack stack = Stack(
           alignment: AlignmentDirectional.bottomEnd,
@@ -69,14 +80,18 @@ class _CartButtonState extends State<CartButton> {
         );
 
         return FlatButton(
-          child: stack,
+          child: Container(
+            height: AppProperties.appBarIconSize + counterSize,
+            width: AppProperties.appBarIconSize + counterSize,
+            child: stack,
+          ),
           onPressed: widget.onTap ?? goToCartPage,
         );
       },
     );
   }
 
-  void goToCartPage () {
+  void goToCartPage() {
     Navigator.popUntil(context, (route) => (route.settings.name == '/home'));
     frameBloc.eventSink.add(AppFrameEvent(switchFrom: FrameTabType.MENU));
   }

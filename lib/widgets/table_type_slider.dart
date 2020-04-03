@@ -42,10 +42,10 @@ class _TableSliderState extends State<TableSlider> {
           cards.add(CardTable(
             table: table,
             margin: EdgeInsets.all(cardMargin),
-            backgroundColor: AppProperties.secondColor,
-            textColor: AppProperties.textOnMainColor,
-            disableColor: AppProperties.disabledColor,
-            disableTextColor: AppProperties.textOnDisabled,
+            // backgroundColor: AppProperties.secondColor,
+            // textColor: AppProperties.textOnMainColor,
+            // disableColor: AppProperties.disabledColor,
+            // disableTextColor: AppProperties.textOnDisabled,
             isActive: (selectedDayIndex == i),
             onPressed: (table) {
               selectedDayIndex = i;

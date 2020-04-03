@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:foodbar_flutter_core/models/models.dart';
 import 'package:foodbar_user/services/options_service.dart';
+import 'package:foodbar_user/settings/app_properties.dart';
 import 'package:foodbar_user/widgets/widgets.dart';
 import 'package:foodbar_user/bloc/bloc.dart';
 
@@ -31,13 +32,15 @@ class _SingleFoodState extends State<SingleFood> {
 
     return Scaffold(
       body: PageWithScalableHeader(
+        heroTag: food.getCombinedTag(),
         headerTitle: food.title,
         headerDescription: food.subTitle,
         headerColor: Colors.lightBlue,
         headerBackImageUrl: food.image.getUrl(),
         isFlexible: true,
         isHeaderExtendWhenPageOpened: true,
-        maxHeaderHeight: 400,
+        headerHeight: 300,
+        bodyColor: Theme.of(context).cardColor,
         actionButtons: <Widget>[
           CartButton(color: Colors.white),
         ],
@@ -46,7 +49,12 @@ class _SingleFoodState extends State<SingleFood> {
           children: <Widget>[
             // description
             Container(
-              child: Text(food.description),
+              child: Text(
+                food.description,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onBackground,
+                ),
+              ),
             ),
 
             SizedBox(height: 40),
@@ -61,7 +69,11 @@ class _SingleFoodState extends State<SingleFood> {
                   Container(
                     child: Text(
                       price,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: AppProperties.h2,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).accentColor,
+                      ),
                     ),
                   ),
                   OrderCounterForOneFood(

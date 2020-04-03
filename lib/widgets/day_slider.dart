@@ -45,10 +45,10 @@ class _CustomDaySliderState extends State<CustomDaySlider> {
           cardDays.add(CardDay(
             date: date,
             margin: EdgeInsets.all(cardMargin),
-            backgroundColor: AppProperties.secondColor,
-            textColor: AppProperties.textOnMainColor,
-            disableColor: AppProperties.disabledColor,
-            disableTextColor: AppProperties.textOnDisabled,
+            // backgroundColor: AppProperties.secondColor,
+            // textColor: AppProperties.textOnMainColor,
+            // disableColor: AppProperties.disabledColor,
+            // disableTextColor: AppProperties.textOnDisabled,
             isActive: (selectedDate.compareTo(date) == 0),
             onPressed: (DateTime d) {
               selectedDayIndex = i;
@@ -71,7 +71,7 @@ class _CustomDaySliderState extends State<CustomDaySlider> {
               ),
               Text(
                 DateUtil.getOnlyDate(selectedDate),
-                style: TextStyle(color: AppProperties.secondColor),
+                //style: TextStyle(color: AppProperties.secondColor),
               )
             ],
           ),

@@ -17,19 +17,12 @@ class AppProperties {
 
   static int splashDelayInSeconds = 1;
 
-  static Color mainColor = Colors.lightGreen;
-  static Color secondColor = Colors.blue;
-  static Color disabledColor = Colors.grey[100];
-  static Color backLightColor = Color.fromRGBO(255, 240, 225, 1);
-
-  static Color textOnMainColor = Colors.white;
-  static Color textOnDisabled = Colors.black;
-  static Color textOnBackLight = Colors.black;
-
   static double cardSideMargin = 20;
   static double cardVerticalMargin = 15;
   static double cardElevation = 30;
   static double cardRadius = 20;
+
+  static double appBarIconSize = 30;
 
   static int subTitleLength = 70;
   static int descriptionLength = 80;

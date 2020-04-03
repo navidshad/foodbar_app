@@ -29,28 +29,31 @@ class CardButton extends StatelessWidget {
         if (isOutline) {
           button = OutlineButton(
             onPressed: onTap,
-            borderSide: BorderSide(color: AppProperties.mainColor),
-            disabledBorderColor: AppProperties.disabledColor,
-            disabledTextColor: AppProperties.textOnDisabled,
+            borderSide: BorderSide(
+              color: Theme.of(context).buttonColor
+            ),
+            //disabledColor: Theme.of(context).disabledColor,
+            // disabledTextColor: AppProperties.textOnDisabled,
             child: Text(
               title,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: AppProperties.mainColor,
+                // color: AppProperties.mainColor,
               ),
             ),
           );
         } else {
           button = FlatButton(
             onPressed: onTap,
-            color: AppProperties.mainColor,
-            disabledColor: AppProperties.disabledColor,
-            disabledTextColor: AppProperties.textOnDisabled,
+            color: Theme.of(context).buttonColor,
+            disabledColor: Theme.of(context).disabledColor,
+            // disabledTextColor: AppProperties.textOnDisabled,
             child: Text(
               title,
               style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: AppProperties.textOnMainColor),
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
             ),
           );
         }

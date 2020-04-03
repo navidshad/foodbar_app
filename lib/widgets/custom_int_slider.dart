@@ -60,7 +60,7 @@ class _CustomIntSliderState extends State<CustomIntSlider> {
       ));
       headerChilds.add(Text(
         currentValue.toInt().toString(),
-        style: TextStyle(color: AppProperties.secondColor),
+        //style: TextStyle(color: AppProperties.secondColor),
       ));
     }
     Widget headerRow = Container(

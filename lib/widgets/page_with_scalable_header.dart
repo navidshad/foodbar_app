@@ -9,13 +9,14 @@ class PageWithScalableHeader extends StatefulWidget {
   PageWithScalableHeader({
     Key key,
     this.headerColor = Colors.grey,
+    this.heroTag,
     this.headerDescription,
     this.headerTitle,
     this.dontShowBigTitle = false,
     this.headerBackImageUrl,
     this.actionButtons = const [],
     this.borderRaduis = 40,
-    this.maxHeaderHeight = 300,
+    this.headerHeight = 300,
     this.leftSideBorder = true,
     this.rightSideBorder = true,
     this.bodyColor = Colors.white,
@@ -25,16 +26,17 @@ class PageWithScalableHeader extends StatefulWidget {
     this.isHeaderExtendWhenPageOpened = true,
   }) : super(key: key);
 
+  final String heroTag;
   final String headerTitle;
   final String headerDescription;
   final Color headerColor;
   final String headerBackImageUrl;
   final List<Widget> actionButtons;
 
-  final Color bodyColor;
+  Color bodyColor;
   final Widget body;
   final double borderRaduis;
-  final double maxHeaderHeight;
+  final double headerHeight;
   final double paddingBodyFromTop;
   final bool leftSideBorder;
   final bool rightSideBorder;
@@ -70,7 +72,7 @@ class _PageWithScalableHeaderState extends State<PageWithScalableHeader>
   @override
   void initState() {
     minHeaderHeight = 100 + widget.borderRaduis;
-    maxHeaderExtendedHeight = widget.maxHeaderHeight;
+    maxHeaderExtendedHeight = widget.headerHeight;
     headerExtendedHeight = maxHeaderExtendedHeight;
 
     bodyBorder = BorderRadius.only(
@@ -90,7 +92,6 @@ class _PageWithScalableHeaderState extends State<PageWithScalableHeader>
             parent: buttonsAnimController, curve: Curves.easeInQuad))
           ..addListener(() => setState(() {}))
           ..addStatusListener((status) {
-            print(status);
             if (status == AnimationStatus.dismissed)
               Navigator.of(context).pop();
           });
@@ -169,9 +170,12 @@ class _PageWithScalableHeaderState extends State<PageWithScalableHeader>
                       //background image
                       if (widget.headerBackImageUrl != null)
                         Positioned.fill(
-                          child: Image.network(
-                            widget.headerBackImageUrl,
-                            fit: BoxFit.cover,
+                          child: Hero(
+                            tag: widget.heroTag ?? '',
+                            child: Image.network(
+                              widget.headerBackImageUrl,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
 
@@ -217,6 +221,7 @@ class _PageWithScalableHeaderState extends State<PageWithScalableHeader>
                                         child: Icon(
                                           FontAwesomeIcons.chevronLeft,
                                           color: Colors.white,
+                                          size: AppProperties.appBarIconSize,
                                         ),
                                         onTap: onLeadButtonTap,
                                       ),
@@ -372,6 +377,9 @@ class _PageWithScalableHeaderState extends State<PageWithScalableHeader>
       },
       onVerticalDragEnd: (drageEndDetail) {
         bool isDownDrag = (verticalDragStartPoint > verticalDragEndPoint);
+
+        verticalDragStartPoint = 0;
+        verticalDragEndPoint = 0;
 
         if (!widget.isFlexible) return;
 

@@ -71,7 +71,7 @@ class _CardWithCoverState extends State<CardWithCover>
                   BorderRadius.all(Radius.circular(AppProperties.cardRadius)),
               child: Container(
                 child: cardBody,
-                color: Colors.white,
+                color: Theme.of(context).cardColor,
               ),
             ),
             margin: EdgeInsets.only(bottom: AppProperties.cardVerticalMargin),

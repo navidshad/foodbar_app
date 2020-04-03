@@ -54,10 +54,10 @@ class _CustomTimeSliderState extends State<CustomTimeSlider> {
             var card = CardTime(
               date: speratedTime,
               margin: EdgeInsets.all(cardMargin),
-              backgroundColor: AppProperties.secondColor,
-              textColor: AppProperties.textOnMainColor,
-              disableColor: AppProperties.disabledColor,
-              disableTextColor: AppProperties.textOnDisabled,
+              // backgroundColor: AppProperties.secondColor,
+              // textColor: AppProperties.textOnMainColor,
+              // disableColor: AppProperties.disabledColor,
+              // disableTextColor: AppProperties.textOnDisabled,
               isActive: (selectedDayIndex == currentCard),
               isReserved: isReserved(speratedTime),
               onPressed: (DateTime d) {

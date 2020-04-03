@@ -64,7 +64,7 @@ class ConfirmStateViewer extends StatelessWidget {
     return Container(
       //height: 380,
       padding: EdgeInsets.only(left: 30, right: 30),
-      color: AppProperties.backLightColor,
+      //color: AppProperties.backLightColor,
       child: Column(
         //crossAxisAlignment: CrossAxisAlignment.center,
         //mainAxisAlignment: MainAxisAlignment.center,

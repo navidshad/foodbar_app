@@ -31,16 +31,16 @@ class SliderIntroTab extends StatelessWidget {
       Slide slideObject = Slide(
           title: item.title,
           description: item.description,
-          backgroundColor: AppProperties.backLightColor,
+          backgroundColor: Theme.of(context).colorScheme.background,
           marginDescription: EdgeInsets.only(left: 50, right: 50),
           styleTitle: TextStyle(
-            color: AppProperties.mainColor,
+            color: Theme.of(context).colorScheme.onBackground,
             fontWeight: FontWeight.bold,
             fontSize: 25
           ),
           centerWidget: imageWidget,
           styleDescription: TextStyle(
-            color: AppProperties.textOnBackLight,
+            color: Theme.of(context).colorScheme.onBackground,
             fontSize: 18
           ));
       slides.add(slideObject);
@@ -52,7 +52,7 @@ class SliderIntroTab extends StatelessWidget {
       onSkipPress: onDone,
       isShowSkipBtn: false,
       isShowPrevBtn: false,
-      colorDoneBtn: AppProperties.mainColor,
+      colorDoneBtn: Theme.of(context).colorScheme.secondaryVariant,
     );
   }
 }
