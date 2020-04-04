@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:foodbar_flutter_core/models/models.dart';
 import 'package:foodbar_flutter_core/utilities/text_util.dart';
 import 'package:foodbar_user/bloc/bloc.dart';
 import 'package:foodbar_user/services/services.dart';
 import 'package:foodbar_user/settings/app_properties.dart';
+import 'package:foodbar_user/utilities/food_bar_icons.dart';
 import 'package:foodbar_user/widgets/widgets.dart';
 
 class OrderedFoodCard extends StatelessWidget {
   OrderedFood food;
   CartBloc bloc;
+  Function onRemove;
 
-  OrderedFoodCard(this.food);
+  OrderedFoodCard(this.food, {this.onRemove});
 
   @override
   Widget build(BuildContext context) {
@@ -23,21 +26,55 @@ class OrderedFoodCard extends StatelessWidget {
       imageUrl: food.image.getUrl(),
       coverWithbyPersent: 30,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      contentPadding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 5),
+      contentPadding: EdgeInsets.only(
+        left: 20,
+        right: onRemove != null ? 0 : 20,
+        top: onRemove != null ? 0 : 15,
+        bottom: 5,
+      ),
       detailwidgets: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            Text(
+              TextUtil.toUperCaseForLable(food.title),
+              textScaleFactor: 1,
+              style: TextStyle(
+                fontSize: AppProperties.h3,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            if (onRemove != null)
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(AppProperties.cardRadius)),
+                child: Material(
+                  color: Theme.of(context).errorColor,
+                  child: InkWell(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        top: 5,
+                        bottom: 5,
+                        left: 10,
+                        right: 10,
+                      ),
+                      child: Icon(
+                        FontAwesomeIcons.minus,
+                        color: Theme.of(context).colorScheme.onError,
+                      ),
+                    ),
+                    onTap: onRemove,
+                  ),
+                ),
+              )
+          ],
+        ),
         Container(
             margin: EdgeInsets.only(bottom: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  TextUtil.toUperCaseForLable(food.title),
-                  textScaleFactor: 1,
-                  style: TextStyle(
-                    fontSize: AppProperties.h3,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
                 Text(
                   TextUtil.toCapital(TextUtil.makeShort(
                     food.subTitle,
@@ -50,114 +87,43 @@ class OrderedFoodCard extends StatelessWidget {
                 )
               ],
             )),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            // counte
-            OrderCounterForOneFood(
-              count: food.total,
-              onChange: (value) {
-                food.total = value;
-                updateCart();
-              },
-            ),
+        Container(
+          padding: EdgeInsets.only(
+            right: onRemove != null ? 20 : 0,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              // counte
+              OrderCounterForOneFood(
+                count: food.total,
+                onChange: (value) {
+                  food.total = value;
+                  updateCart();
+                },
+              ),
 
-            // price
-            Container(
-              // width: one4th,
-              child: Center(
-                child: FittedBox(
-                  child: Text(
-                    currency + food.totalPrice.toString(),
-                    style: TextStyle(
-                      fontSize: AppProperties.h3,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).accentColor,
+              // price
+              Container(
+                // width: one4th,
+                child: Center(
+                  child: FittedBox(
+                    child: Text(
+                      currency + food.totalPrice.toString(),
+                      style: TextStyle(
+                        fontSize: AppProperties.h3,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).accentColor,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         )
       ],
     );
-
-    // return LayoutBuilder(
-    //   builder: (con, constraints) {
-    //     // divide the maxScreenSize into 2/4 & 1/4 vars
-    //     // widget elements will use these size
-    //     double textblocmargin = 8;
-    //     double one3th = constraints.biggest.width / 3.5;
-    //     //double two4th = constraints.biggest.width / 2;
-    //     double one4th = constraints.biggest.width / 4 - textblocmargin;
-
-    //     Widget widget = Container(
-    //       child: Row(
-    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //         children: <Widget>[
-    //           // thumbnial
-    //           Container(
-    //             width: one3th,
-    //             height: one3th,
-    //             child: Image.network(
-    //               food.image.getUrl(),
-    //               fit: BoxFit.cover,
-    //             ),
-    //           ),
-
-    //           // title, counte
-    //           Container(
-    //             width: one3th,
-    //             padding: EdgeInsets.all(textblocmargin),
-    //             child: Column(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: <Widget>[
-    //                 Container(
-    //                   margin: EdgeInsets.only(bottom: 10),
-    //                   child: Text(
-    //                     TextUtil.toUperCaseForLable(food.title),
-    //                     textScaleFactor: 1,
-    //                     style: TextStyle(fontWeight: FontWeight.bold),
-    //                   ),
-    //                 ),
-    //                 OrderCounterForOneFood(
-    //                   count: food.total,
-    //                   onChange: (value) {
-    //                     food.total = value;
-    //                     updateCart();
-    //                   },
-    //                 )
-    //               ],
-    //             ),
-    //           ),
-
-    //           // price
-    //           Container(
-    //             width: one4th,
-    //             child: Center(
-    //               child: FittedBox(
-    //                 child: Text(
-    //                   food.totalPrice.toString(),
-    //                   //style: TextStyle(color: AppProperties.mainColor),
-    //                 ),
-    //               ),
-    //             ),
-    //           )
-    //         ],
-    //       ),
-    //     );
-
-    //     //return widget;
-    //     return Card(
-    //       child: ClipRRect(
-    //         borderRadius: BorderRadius.all(Radius.circular(5)),
-    //         child: widget,
-    //       ),
-    //       elevation: 20,
-    //     );
-    //   },
-    // );
   }
 
   void removeFromCart() {
@@ -168,17 +134,4 @@ class OrderedFoodCard extends StatelessWidget {
     var event = CartEvent(update: food);
     bloc.eventSink.add(event);
   }
-
-  // void showBottomSlider(BuildContext context) {
-  //   showModalBottomSheet(
-  //       context: context,
-  //       builder: (con) {
-  //         return Container(
-  //           height: 200,
-  //         );
-  //       },
-  //       backgroundColor: Colors.green,
-  //       isScrollControlled: false
-  //       );
-  // }s
 }
