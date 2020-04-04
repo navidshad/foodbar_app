@@ -41,6 +41,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
     if (type == FrameTabType.MENU) {
       actionBtn = CartButton(
+        color: Theme.of(context).appBarTheme.actionsIconTheme.color,
+        size: Theme.of(context).appBarTheme.actionsIconTheme.size,
         onTap: () {
           AppFrameEvent event = AppFrameEvent(switchTo: FrameTabType.CART);
           bloc.eventSink.add(event);
@@ -48,7 +50,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
       );
     } else {
       actionBtn = FlatButton(
-        child: Icon(FoodBarIcons.spoon_and_fork),
+        child: Icon(
+          FoodBarIcons.spoon_and_fork,
+          color: Theme.of(context).appBarTheme.actionsIconTheme.color,
+          size: Theme.of(context).appBarTheme.actionsIconTheme.size,
+        ),
         onPressed: () {
           AppFrameEvent event = AppFrameEvent(switchTo: FrameTabType.MENU);
           bloc.eventSink.add(event);
@@ -58,6 +64,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
     // build appbar
     return AppBar(
+      actionsIconTheme: Theme.of(context).appBarTheme.actionsIconTheme,
       title: Text(
         title,
         style: TextStyle(

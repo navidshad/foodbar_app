@@ -19,10 +19,10 @@ class AppProperties {
 
   static double cardSideMargin = 20;
   static double cardVerticalMargin = 15;
-  static double cardElevation = 30;
+  static double cardElevation = 20;
   static double cardRadius = 20;
 
-  static double appBarIconSize = 30;
+  //static double appBarIconSize = 30;
 
   static int subTitleLength = 70;
   static int descriptionLength = 80;

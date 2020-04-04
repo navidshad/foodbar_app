@@ -27,7 +27,7 @@ class _OrderCounterForOneFoodState extends State<OrderCounterForOneFood> {
     return LayoutBuilder(
       builder: (layoutContext, boxConstraints) {
         double borderThikness = 0.2;
-        double defaultWidth = 150;
+        double defaultWidth = 120;
         double width;
 
         if (boxConstraints.biggest.width > defaultWidth)
@@ -47,21 +47,20 @@ class _OrderCounterForOneFoodState extends State<OrderCounterForOneFood> {
           child: Row(
             children: <Widget>[
               // plus counter
-              Container(
-                width: oneThird,
-                height: oneThird,
-                child: FlatButton(
-                  //borderSide: BorderSide(width: 1),
-                  //color: AppProperties.mainColor,
-                  child: Center(
-                    child: Icon(
-                      FontAwesomeIcons.plus,
-                      color: Theme.of(context).primaryColor,
-                    ),
+              ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(50)),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    child: Container(
+                        width: oneThird,
+                        height: oneThird,
+                        child: Icon(
+                          FontAwesomeIcons.plus,
+                          color: Theme.of(context).primaryColor,
+                        )),
+                    onTap: () => setState(increment),
                   ),
-                  onPressed: () {
-                    setState(increment);
-                  },
                 ),
               ),
 
@@ -83,19 +82,21 @@ class _OrderCounterForOneFoodState extends State<OrderCounterForOneFood> {
               ),
 
               // mine counter
-              Container(
-                width: oneThird,
-                height: oneThird,
-                child: FlatButton(
-                  child: Center(
-                    child: Icon(
-                      FontAwesomeIcons.minus,
-                      color: Theme.of(context).primaryColor,
+              ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(50)),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    child: Container(
+                      width: oneThird,
+                      height: oneThird,
+                      child: Icon(
+                        FontAwesomeIcons.minus,
+                        color: Theme.of(context).primaryColor,
+                      ),
                     ),
+                    onTap: () => setState(decrement),
                   ),
-                  onPressed: () {
-                    setState(decrement);
-                  },
                 ),
               )
             ].reversed.toList(),

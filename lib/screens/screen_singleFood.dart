@@ -66,6 +66,14 @@ class _SingleFoodState extends State<SingleFood> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
+                  OrderCounterForOneFood(
+                    //title: 'Quantity',
+                    count: total,
+                    onChange: (value) {
+                      total = value;
+                      setState(() {});
+                    },
+                  ),
                   Container(
                     child: Text(
                       price,
@@ -76,14 +84,6 @@ class _SingleFoodState extends State<SingleFood> {
                       ),
                     ),
                   ),
-                  OrderCounterForOneFood(
-                    //title: 'Quantity',
-                    count: total,
-                    onChange: (value) {
-                      total = value;
-                      setState(() {});
-                    },
-                  )
                 ],
               ),
             ),

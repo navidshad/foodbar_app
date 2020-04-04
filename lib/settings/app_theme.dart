@@ -23,12 +23,30 @@ class AppTheme {
 
     theme = theme.copyWith(
       buttonColor: theme.colorScheme.secondary,
+      splashColor: theme.colorScheme.secondaryVariant,
       buttonTheme: ButtonThemeData(
         buttonColor: theme.colorScheme.secondary,
         shape: RoundedRectangleBorder(),
         splashColor: theme.colorScheme.secondaryVariant,
         textTheme: ButtonTextTheme.normal,
         disabledColor: theme.disabledColor
+      ),
+      appBarTheme: AppBarTheme(
+        textTheme: TextTheme(
+          title: TextStyle(
+            color: theme.colorScheme.onPrimary,
+            fontWeight: FontWeight.bold,
+            fontSize: 25,
+          )
+        ),
+        actionsIconTheme: IconThemeData(
+          color: theme.colorScheme.onPrimary,
+          size: 25,
+        ),
+        iconTheme: IconThemeData(
+          color: theme.colorScheme.onPrimary,
+          size: 25,
+        ),
       )
     );
 

@@ -15,6 +15,7 @@ class PageWithScalableHeader extends StatefulWidget {
     this.dontShowBigTitle = false,
     this.headerBackImageUrl,
     this.actionButtons = const [],
+    this.headerButtonSize = 25,
     this.borderRaduis = 40,
     this.headerHeight = 300,
     this.leftSideBorder = true,
@@ -32,6 +33,7 @@ class PageWithScalableHeader extends StatefulWidget {
   final Color headerColor;
   final String headerBackImageUrl;
   final List<Widget> actionButtons;
+  final double headerButtonSize;
 
   Color bodyColor;
   final Widget body;
@@ -221,7 +223,7 @@ class _PageWithScalableHeaderState extends State<PageWithScalableHeader>
                                         child: Icon(
                                           FontAwesomeIcons.chevronLeft,
                                           color: Colors.white,
-                                          size: AppProperties.appBarIconSize,
+                                          size: widget.headerButtonSize,
                                         ),
                                         onTap: onLeadButtonTap,
                                       ),

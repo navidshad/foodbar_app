@@ -20,6 +20,7 @@ class CardCategory extends StatelessWidget {
       heroTag: category.getCombinedTag(),
       imageUrl: category.image.getUrl(),
       onCardTap: onCardTab,
+      mainAxisAlignment: MainAxisAlignment.center,
       contentPadding: EdgeInsets.only(
         top: 10,
         bottom: 10,

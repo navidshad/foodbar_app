@@ -107,9 +107,14 @@ class ProceedToCheckout extends StatelessWidget {
 
         return Card(
           elevation: 20,
+          color: Colors.transparent,
           child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-            child: cartBody,
+            borderRadius:
+                BorderRadius.all(Radius.circular(AppProperties.cardRadius)),
+            child: Container(
+              child: cartBody,
+              color: Theme.of(context).cardColor,
+            ),
           ),
         );
       },

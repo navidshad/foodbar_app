@@ -11,6 +11,8 @@ class CardWithCover extends StatefulWidget {
       this.heroTag,
       this.onCardTap,
       this.contentPadding,
+      this.crossAxisAlignment = CrossAxisAlignment.start,
+      this.mainAxisAlignment = MainAxisAlignment.start,
       })
       : super(key: key);
 
@@ -20,6 +22,8 @@ class CardWithCover extends StatefulWidget {
   final String heroTag;
   final Function onCardTap;
   EdgeInsetsGeometry contentPadding;
+  final CrossAxisAlignment crossAxisAlignment;
+  final MainAxisAlignment mainAxisAlignment;
 
   @override
   _CardWithCoverState createState() => _CardWithCoverState();
@@ -43,7 +47,7 @@ class _CardWithCoverState extends State<CardWithCover>
           children: <Widget>[
             // thumbnail
             Hero(
-              tag: widget.heroTag,
+              tag: widget.heroTag ?? '',
               child: Image.network(
                 widget.imageUrl,
                 fit: BoxFit.cover,
@@ -55,9 +59,11 @@ class _CardWithCoverState extends State<CardWithCover>
             // title & description
             Container(
               width: restWidth,
+              height: cardHeight,
               padding: widget.contentPadding,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: widget.crossAxisAlignment,
+                mainAxisAlignment: widget.mainAxisAlignment,
                 children: widget.detailwidgets,
               ),
             )

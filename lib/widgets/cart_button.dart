@@ -6,8 +6,9 @@ import 'package:foodbar_user/bloc/bloc.dart';
 class CartButton extends StatefulWidget {
   final Function onTap;
   final Color color;
+  final double size;
 
-  CartButton({this.onTap, this.color});
+  CartButton({this.onTap, this.color, this.size=25});
 
   @override
   _CartButtonState createState() => _CartButtonState();
@@ -43,11 +44,11 @@ class _CartButtonState extends State<CartButton> {
         Icon icon = Icon(
           iconData,
           color: widget.color,
-          size: AppProperties.appBarIconSize,
+          size: widget.size,
         );
 
         // create counter
-        double counterSize = (AppProperties.appBarIconSize / 100) * 65;
+        double counterSize = (widget.size / 100) * 65;
         Widget counterWidget = Positioned(
           bottom: 0,
           right: 0,
@@ -81,8 +82,6 @@ class _CartButtonState extends State<CartButton> {
 
         return FlatButton(
           child: Container(
-            height: AppProperties.appBarIconSize + counterSize,
-            width: AppProperties.appBarIconSize + counterSize,
             child: stack,
           ),
           onPressed: widget.onTap ?? goToCartPage,
