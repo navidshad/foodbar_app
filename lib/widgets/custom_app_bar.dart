@@ -64,7 +64,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
     // build appbar
     return AppBar(
-      actionsIconTheme: Theme.of(context).appBarTheme.actionsIconTheme,
       title: Text(
         title,
         style: TextStyle(
@@ -72,7 +71,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
         ),
       ),
       actions: <Widget>[actionBtn],
-      elevation: 1,
     );
   }
 

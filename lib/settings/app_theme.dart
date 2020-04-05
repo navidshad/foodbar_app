@@ -32,18 +32,20 @@ class AppTheme {
             textTheme: ButtonTextTheme.normal,
             disabledColor: theme.disabledColor),
         appBarTheme: AppBarTheme(
+          color: theme.backgroundColor,
+          elevation: 0,
           textTheme: TextTheme(
               title: TextStyle(
-            color: theme.colorScheme.onPrimary,
+            color: theme.colorScheme.onBackground,
             fontWeight: FontWeight.bold,
             fontSize: 25,
           )),
           actionsIconTheme: IconThemeData(
-            color: theme.colorScheme.onPrimary,
+            color: theme.colorScheme.onBackground,
             size: 25,
           ),
           iconTheme: IconThemeData(
-            color: theme.colorScheme.onPrimary,
+            color: theme.colorScheme.onBackground,
             size: 25,
           ),
         ));
