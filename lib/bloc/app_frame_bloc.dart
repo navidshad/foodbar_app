@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/widgets.dart';
 import 'package:foodbar_flutter_core/interfaces/auth_interface.dart';
 import 'package:foodbar_user/services/services.dart';
 import 'package:foodbar_user/settings/settings.dart';
@@ -21,6 +22,13 @@ class AppFrameEvent {
   AppFrameEvent({this.switchFrom, this.switchTo});
 }
 
+class ColorSwicher {
+  Color color;
+  Color onColor;
+
+  ColorSwicher({this.color, this.onColor});
+}
+
 class AppFrameBloc implements BlocInterface<AppFrameEvent, AppFrameState> {
 
   AuthInterface authService = AuthService.instant;
@@ -33,6 +41,12 @@ class AppFrameBloc implements BlocInterface<AppFrameEvent, AppFrameState> {
   // event stream
   final _eventController = BehaviorSubject<AppFrameEvent>();
   StreamSink<AppFrameEvent> get eventSink => _eventController.sink;
+
+  // background color stream
+  final _colorController = BehaviorSubject<ColorSwicher>();
+  Stream<ColorSwicher> get colorStream => _colorController.stream;
+  StreamSink get colorSink => _colorController.sink;
+
 
   static FrameTabType currentType = FrameTabType.MENU;
   static String title;

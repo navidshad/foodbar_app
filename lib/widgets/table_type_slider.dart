@@ -42,10 +42,6 @@ class _TableSliderState extends State<TableSlider> {
           cards.add(CardTable(
             table: table,
             margin: EdgeInsets.all(cardMargin),
-            // backgroundColor: AppProperties.secondColor,
-            // textColor: AppProperties.textOnMainColor,
-            // disableColor: AppProperties.disabledColor,
-            // disableTextColor: AppProperties.textOnDisabled,
             isActive: (selectedDayIndex == i),
             onPressed: (table) {
               selectedDayIndex = i;
@@ -89,7 +85,12 @@ class _TableSliderState extends State<TableSlider> {
 
         bodyColumnWidgets.add(daysSectionWidget);
 
-        return Column(children: bodyColumnWidgets);
+        return Container(
+          height: 300,
+          child: Column(
+            children: bodyColumnWidgets,
+          ),
+        );
       },
     );
   }

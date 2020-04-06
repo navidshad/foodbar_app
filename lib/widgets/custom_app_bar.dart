@@ -24,6 +24,13 @@ class _CustomAppBarState extends State<CustomAppBar> {
     bloc = BlocProvider.of<AppFrameBloc>(context);
   }
 
+  resetBackgroundColor() {
+    bloc.colorSink.add(ColorSwicher(
+      color: Theme.of(context).colorScheme.background,
+      onColor: Theme.of(context).colorScheme.onBackground,
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -44,6 +51,10 @@ class _CustomAppBarState extends State<CustomAppBar> {
         color: Theme.of(context).appBarTheme.actionsIconTheme.color,
         size: Theme.of(context).appBarTheme.actionsIconTheme.size,
         onTap: () {
+          bloc.colorSink.add(ColorSwicher(
+            color: Theme.of(context).colorScheme.primary,
+            onColor: Theme.of(context).colorScheme.onPrimary,
+          ));
           AppFrameEvent event = AppFrameEvent(switchTo: FrameTabType.CART);
           bloc.eventSink.add(event);
         },
@@ -56,6 +67,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
           size: Theme.of(context).appBarTheme.actionsIconTheme.size,
         ),
         onPressed: () {
+          resetBackgroundColor();
           AppFrameEvent event = AppFrameEvent(switchTo: FrameTabType.MENU);
           bloc.eventSink.add(event);
         },

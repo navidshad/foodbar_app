@@ -11,11 +11,11 @@ class AppFrame extends StatefulWidget {
   _AppFrameState createState() => _AppFrameState();
 }
 
-class _AppFrameState extends State<AppFrame>
-    with SingleTickerProviderStateMixin {
+class _AppFrameState extends State<AppFrame> with TickerProviderStateMixin {
   AppFrameBloc bloc;
   FrameTabType currentTab;
   TabController _tabController;
+  ThemeData theme;
 
   @override
   void initState() {
@@ -24,52 +24,83 @@ class _AppFrameState extends State<AppFrame>
     _tabController.addListener(onTabViewChanged);
   }
 
+  onChangeBckGround(ColorSwicher swicher) {
+    theme = Theme.of(context).copyWith(
+      backgroundColor: swicher.color,
+      scaffoldBackgroundColor: swicher.color,
+      appBarTheme: AppBarTheme(
+        color: swicher.color,
+        elevation: 0,
+        textTheme: TextTheme(
+            title: TextStyle(
+          color: swicher.onColor,
+          fontWeight: FontWeight.bold,
+          fontSize: 25,
+        )),
+        actionsIconTheme: IconThemeData(
+          color: swicher.onColor,
+          size: 25,
+        ),
+        iconTheme: IconThemeData(
+          color: swicher.onColor,
+          size: 25,
+        ),
+      ),
+    );
+    setState(() {});
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     bloc = BlocProvider.of<AppFrameBloc>(context);
+    bloc.colorStream.listen(onChangeBckGround);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(),
-      drawer: CustomDrawer(),
-      drawerScrimColor: Colors.transparent,
-      body: StreamBuilder<AppFrameState>(
-        stream: bloc.stateStream,
-        initialData: bloc.getInitialState(),
-        builder: (stateContext, AsyncSnapshot<AppFrameState> snapshot) {
-          currentTab = AppFrameBloc.currentType; //snapshot.data.type;
+    if (theme == null) theme = Theme.of(context);
 
-          _tabController.index = getTypeIndex(currentTab);
+    return Theme(
+      data: theme,
+      child: Scaffold(
+        appBar: CustomAppBar(),
+        drawer: CustomDrawer(),
+        body: StreamBuilder<AppFrameState>(
+          stream: bloc.stateStream,
+          initialData: bloc.getInitialState(),
+          builder: (stateContext, AsyncSnapshot<AppFrameState> snapshot) {
+            currentTab = AppFrameBloc.currentType; //snapshot.data.type;
 
-          return TabBarView(
-            controller: _tabController,
-            physics: NeverScrollableScrollPhysics(),
-            children: <Widget>[
-              BlocProvider(
-                child: MenuTab(),
-                bloc: MenuBloc(),
-              ),
+            _tabController.index = getTypeIndex(currentTab);
 
-              // cartBloc was provided by the route of this page
-              CartTab(),
+            return TabBarView(
+              controller: _tabController,
+              physics: NeverScrollableScrollPhysics(),
+              children: <Widget>[
+                BlocProvider(
+                  child: MenuTab(),
+                  bloc: MenuBloc(),
+                ),
 
-              ReservationTab(),
+                // cartBloc was provided by the route of this page
+                CartTab(),
 
-              BlocProvider(
-                bloc: ReservedBloc(),
-                child: OldReserved(),
-              ),
+                ReservationTab(),
 
-              BlocProvider(
-                bloc: OrderBloc(),
-                child: OrdersTab(),
-              )
-            ],
-          );
-        },
+                BlocProvider(
+                  bloc: ReservedBloc(),
+                  child: OldReserved(),
+                ),
+
+                BlocProvider(
+                  bloc: OrderBloc(),
+                  child: OrdersTab(),
+                )
+              ],
+            );
+          },
+        ),
       ),
     );
   }

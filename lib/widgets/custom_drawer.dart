@@ -22,6 +22,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
     bloc = BlocProvider.of<AppFrameBloc>(context);
   }
 
+  resetBackgroundColor() {
+    bloc.colorSink.add(ColorSwicher(
+      color: Theme.of(context).colorScheme.background,
+      onColor: Theme.of(context).colorScheme.onBackground,
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     double lohoHeight = 150;
@@ -78,7 +85,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 ListTile(
                   title: Text(options.properties.menuTitle),
                   leading: Icon(AppProperties.menuIcon),
-                  onTap: () => switchTab(FrameTabType.MENU),
+                  onTap: () {
+                    resetBackgroundColor();
+                    switchTab(FrameTabType.MENU);
+                  },
                 ),
                 Divider(
                   height: 0,
@@ -86,7 +96,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 ListTile(
                   title: Text(options.properties.cartTitle),
                   leading: Icon(AppProperties.cartIcon),
-                  onTap: () => switchTab(FrameTabType.CART),
+                  onTap: () {
+                    bloc.colorSink.add(ColorSwicher(
+                      color: Theme.of(context).colorScheme.primary,
+                      onColor: Theme.of(context).colorScheme.onPrimary,
+                    ));
+                    switchTab(FrameTabType.CART);
+                  },
                 ),
                 Divider(
                   height: 0,
@@ -94,7 +110,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 ListTile(
                   title: Text(options.properties.reservationTitle),
                   leading: Icon(AppProperties.reservationIcon),
-                  onTap: () => switchTab(FrameTabType.RESERVATION),
+                  onTap: () {
+                    bloc.colorSink.add(ColorSwicher(
+                      color: Theme.of(context).colorScheme.secondaryVariant,
+                      onColor: Theme.of(context).colorScheme.onSecondary,
+                    ));
+                    switchTab(FrameTabType.RESERVATION);
+                  },
                 ),
                 Divider(
                   height: 0,
@@ -102,7 +124,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 ListTile(
                   title: Text(options.properties.oldReservedTitle),
                   leading: Icon(AppProperties.oldReservedIcon),
-                  onTap: () => switchTab(FrameTabType.RESERVED),
+                  onTap: () {
+                    resetBackgroundColor();
+                    switchTab(FrameTabType.RESERVED);
+                  },
                 ),
                 Divider(
                   height: 0,
@@ -110,7 +135,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 ListTile(
                   title: Text(options.properties.myOrdersTitle),
                   leading: Icon(AppProperties.myOrdersIcon),
-                  onTap: () => switchTab(FrameTabType.ORDERS),
+                  onTap: () {
+                    resetBackgroundColor();
+                    switchTab(FrameTabType.ORDERS);
+                  },
                 ),
                 Divider(
                   height: 0,
