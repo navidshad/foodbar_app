@@ -198,6 +198,25 @@ class _PageWithScalableHeaderState extends State<PageWithScalableHeader>
                           ),
                         ),
 
+                      // header gradient for behind appbar
+                      Positioned.fill(
+                        child: Align(
+                          alignment: Alignment.topCenter,
+                          child: Container(
+                            height: 100,
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Theme.of(context).accentColor,
+                                Colors.transparent,
+                              ],
+                            )),
+                          ),
+                        ),
+                      ),
+
                       // header contents
                       Positioned.fill(
                         bottom: 20 + widget.borderRaduis,
@@ -210,58 +229,61 @@ class _PageWithScalableHeaderState extends State<PageWithScalableHeader>
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               // appbar
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  // lead button
-                                  SlideTransition(
-                                    position: buttonOffsetAnim,
-                                    child: FadeTransition(
-                                      opacity: buttonFadeAnim,
-                                      child: GestureDetector(
-                                        child: Icon(
-                                          FontAwesomeIcons.chevronLeft,
-                                          color: Colors.white,
-                                          size: widget.headerButtonSize,
-                                        ),
-                                        onTap: onLeadButtonTap,
-                                      ),
-                                    ),
-                                  ),
-
-                                  // title
-                                  if (widget.headerTitle != null)
-                                    FadeTransition(
-                                      opacity: smallTitleFadeAnim,
-                                      child: Text(
-                                        widget.headerTitle,
-                                        style: TextStyle(
+                              Container(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    // lead button
+                                    SlideTransition(
+                                      position: buttonOffsetAnim,
+                                      child: FadeTransition(
+                                        opacity: buttonFadeAnim,
+                                        child: GestureDetector(
+                                          child: Icon(
+                                            FontAwesomeIcons.chevronLeft,
                                             color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            shadows: [
-                                              Shadow(
-                                                  color: Colors.black,
-                                                  blurRadius: 20),
-                                              Shadow(
-                                                  color: Colors.black,
-                                                  blurRadius: 5),
-                                            ]),
+                                            size: widget.headerButtonSize,
+                                          ),
+                                          onTap: onLeadButtonTap,
+                                        ),
                                       ),
                                     ),
 
-                                  // actions
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: <Widget>[
-                                      for (var action in widget.actionButtons)
-                                        FadeTransition(
-                                          opacity: buttonFadeAnim,
-                                          child: action,
-                                        )
-                                    ],
-                                  )
-                                ],
+                                    // title
+                                    if (widget.headerTitle != null)
+                                      FadeTransition(
+                                        opacity: smallTitleFadeAnim,
+                                        child: Text(
+                                          widget.headerTitle,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              shadows: [
+                                                Shadow(
+                                                    color: Colors.black,
+                                                    blurRadius: 20),
+                                                Shadow(
+                                                    color: Colors.black,
+                                                    blurRadius: 5),
+                                              ]),
+                                        ),
+                                      ),
+
+                                    // actions
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: <Widget>[
+                                        for (var action in widget.actionButtons)
+                                          FadeTransition(
+                                            opacity: buttonFadeAnim,
+                                            child: action,
+                                          )
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
 
                               // header Content
