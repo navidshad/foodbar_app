@@ -22,11 +22,11 @@ class AppFrameEvent {
   AppFrameEvent({this.switchFrom, this.switchTo});
 }
 
-class ColorSwicher {
+class ColorSwiche {
   Color color;
   Color onColor;
 
-  ColorSwicher({this.color, this.onColor});
+  ColorSwiche({this.color, this.onColor});
 }
 
 class AppFrameBloc implements BlocInterface<AppFrameEvent, AppFrameState> {
@@ -43,8 +43,8 @@ class AppFrameBloc implements BlocInterface<AppFrameEvent, AppFrameState> {
   StreamSink<AppFrameEvent> get eventSink => _eventController.sink;
 
   // background color stream
-  final _colorController = BehaviorSubject<ColorSwicher>();
-  Stream<ColorSwicher> get colorStream => _colorController.stream;
+  final _colorController = BehaviorSubject<ColorSwiche>();
+  Stream<ColorSwiche> get colorStream => _colorController.stream;
   StreamSink get colorSink => _colorController.sink;
 
 

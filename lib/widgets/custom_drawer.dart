@@ -22,13 +22,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
     bloc = BlocProvider.of<AppFrameBloc>(context);
   }
 
-  resetBackgroundColor() {
-    bloc.colorSink.add(ColorSwicher(
-      color: Theme.of(context).colorScheme.background,
-      onColor: Theme.of(context).colorScheme.onBackground,
-    ));
-  }
-
   @override
   Widget build(BuildContext context) {
     double lohoHeight = 150;
@@ -86,7 +79,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   title: Text(options.properties.menuTitle),
                   leading: Icon(AppProperties.menuIcon),
                   onTap: () {
-                    resetBackgroundColor();
                     switchTab(FrameTabType.MENU);
                   },
                 ),
@@ -97,10 +89,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   title: Text(options.properties.cartTitle),
                   leading: Icon(AppProperties.cartIcon),
                   onTap: () {
-                    bloc.colorSink.add(ColorSwicher(
-                      color: Theme.of(context).colorScheme.primary,
-                      onColor: Theme.of(context).colorScheme.onPrimary,
-                    ));
                     switchTab(FrameTabType.CART);
                   },
                 ),
@@ -111,10 +99,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   title: Text(options.properties.reservationTitle),
                   leading: Icon(AppProperties.reservationIcon),
                   onTap: () {
-                    bloc.colorSink.add(ColorSwicher(
-                      color: Theme.of(context).colorScheme.secondaryVariant,
-                      onColor: Theme.of(context).colorScheme.onSecondary,
-                    ));
                     switchTab(FrameTabType.RESERVATION);
                   },
                 ),
@@ -125,7 +109,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   title: Text(options.properties.oldReservedTitle),
                   leading: Icon(AppProperties.oldReservedIcon),
                   onTap: () {
-                    resetBackgroundColor();
                     switchTab(FrameTabType.RESERVED);
                   },
                 ),
@@ -136,7 +119,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   title: Text(options.properties.myOrdersTitle),
                   leading: Icon(AppProperties.myOrdersIcon),
                   onTap: () {
-                    resetBackgroundColor();
                     switchTab(FrameTabType.ORDERS);
                   },
                 ),

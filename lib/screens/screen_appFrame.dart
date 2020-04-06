@@ -24,25 +24,25 @@ class _AppFrameState extends State<AppFrame> with TickerProviderStateMixin {
     _tabController.addListener(onTabViewChanged);
   }
 
-  onChangeBckGround(ColorSwicher swicher) {
+  onChangeBckGround(ColorSwiche swiche) {
     theme = Theme.of(context).copyWith(
-      backgroundColor: swicher.color,
-      scaffoldBackgroundColor: swicher.color,
+      backgroundColor: swiche.color,
+      scaffoldBackgroundColor: swiche.color,
       appBarTheme: AppBarTheme(
-        color: swicher.color,
+        color: swiche.color,
         elevation: 0,
         textTheme: TextTheme(
             title: TextStyle(
-          color: swicher.onColor,
+          color: swiche.onColor,
           fontWeight: FontWeight.bold,
           fontSize: 25,
         )),
         actionsIconTheme: IconThemeData(
-          color: swicher.onColor,
+          color: swiche.onColor,
           size: 25,
         ),
         iconTheme: IconThemeData(
-          color: swicher.onColor,
+          color: swiche.onColor,
           size: 25,
         ),
       ),
@@ -121,8 +121,24 @@ class _AppFrameState extends State<AppFrame> with TickerProviderStateMixin {
   }
 
   void onTabViewChanged() {
-    //FrameTabType type = AppFrameBloc.switchType(currentTab);
-    //sbloc.add(ChangeAppBarAppFrameEvent(type));
+    var swiche = ColorSwiche(
+      color: Theme.of(context).colorScheme.background,
+      onColor: Theme.of(context).colorScheme.onBackground,
+    );
+
+    if (currentTab == FrameTabType.CART) {
+      swiche = ColorSwiche(
+        color: Theme.of(context).colorScheme.primary,
+        onColor: Theme.of(context).colorScheme.onPrimary,
+      );
+    } else if (currentTab == FrameTabType.RESERVATION) {
+      swiche = ColorSwiche(
+        color: Theme.of(context).colorScheme.secondaryVariant,
+        onColor: Theme.of(context).colorScheme.onSecondary,
+      );
+    }
+
+    bloc.colorSink.add(swiche);
   }
 
   void switchTab(FrameTabType type) {

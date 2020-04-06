@@ -25,7 +25,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   }
 
   resetBackgroundColor() {
-    bloc.colorSink.add(ColorSwicher(
+    bloc.colorSink.add(ColorSwiche(
       color: Theme.of(context).colorScheme.background,
       onColor: Theme.of(context).colorScheme.onBackground,
     ));
@@ -51,7 +51,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
         color: Theme.of(context).appBarTheme.actionsIconTheme.color,
         size: Theme.of(context).appBarTheme.actionsIconTheme.size,
         onTap: () {
-          bloc.colorSink.add(ColorSwicher(
+          bloc.colorSink.add(ColorSwiche(
             color: Theme.of(context).colorScheme.primary,
             onColor: Theme.of(context).colorScheme.onPrimary,
           ));
