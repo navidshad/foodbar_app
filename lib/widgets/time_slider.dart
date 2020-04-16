@@ -1,5 +1,6 @@
 import 'package:foodbar_flutter_core/models/time.dart';
 import 'package:flutter/material.dart';
+import 'package:foodbar_flutter_core/utilities/date_util.dart';
 
 import 'package:foodbar_user/widgets/widgets.dart';
 import 'package:foodbar_user/settings/app_properties.dart';
@@ -51,15 +52,12 @@ class _CustomTimeSliderState extends State<CustomTimeSlider> {
 
             if (currentCard == selectedDayIndex) selectedDate = speratedTime;
 
+            bool isReserved = getReservationStatus(speratedTime);
             var card = CardTime(
               date: speratedTime,
               margin: EdgeInsets.all(cardMargin),
-              // backgroundColor: AppProperties.secondColor,
-              // textColor: AppProperties.textOnMainColor,
-              // disableColor: AppProperties.disabledColor,
-              // disableTextColor: AppProperties.textOnDisabled,
               isActive: (selectedDayIndex == currentCard),
-              isReserved: isReserved(speratedTime),
+              isReserved: isReserved,
               onPressed: (DateTime d) {
                 selectedDayIndex = currentCard;
                 setState(() {});
@@ -67,6 +65,7 @@ class _CustomTimeSliderState extends State<CustomTimeSlider> {
               },
             );
 
+            if(!isReserved)
             cardTimes.add(card);
           });
         }
@@ -78,9 +77,15 @@ class _CustomTimeSliderState extends State<CustomTimeSlider> {
             children: <Widget>[
               Text(
                 widget.title,
-                textScaleFactor: 1.5,
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSecondary,
+                ),
               ),
+              Text(
+                DateUtil.getOnlyDate(widget.date),
+                style:
+                    TextStyle(color: Theme.of(context).colorScheme.onSecondary),
+              )
             ],
           ),
         );
@@ -89,6 +94,7 @@ class _CustomTimeSliderState extends State<CustomTimeSlider> {
 
         SingleChildScrollView daysSectionWidget = SingleChildScrollView(
           scrollDirection: Axis.horizontal,
+          padding: EdgeInsets.only(left:10, right:10),
           child: ConstrainedBox(
             constraints: BoxConstraints(
               minWidth: constraints.maxWidth,
@@ -102,6 +108,9 @@ class _CustomTimeSliderState extends State<CustomTimeSlider> {
           ),
         );
 
+        if(widget.reservedTimes == null) {
+          bodyColumnWidgets.add(Center(child: CircularProgressIndicator(),));
+        } else 
         bodyColumnWidgets.add(daysSectionWidget);
 
         return Column(children: bodyColumnWidgets);
@@ -109,11 +118,13 @@ class _CustomTimeSliderState extends State<CustomTimeSlider> {
     );
   }
 
-  bool isReserved(DateTime time) {
+  bool getReservationStatus(DateTime time) {
     bool key = false;
 
-    widget.reservedTimes.forEach((t) {
-      if(t.compareTo(time) == 0) key = true;
+    List<DateTime> times = widget.reservedTimes ?? [];
+    
+    times.forEach((t) {
+      if (t.compareTo(time) == 0) key = true;
     });
 
     return key;

@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'package:foodbar_flutter_core/utilities/date_util\.dart';
-
 class CardTime extends StatelessWidget {
   CardTime(
       {Key key,
       this.date,
       this.margin,
-      // this.backgroundColor,
-      // this.textColor,
-      // this.disableColor = Colors.grey,
-      // this.disableTextColor = Colors.black,
       this.isActive = false,
       this.isReserved = false,
       this.onPressed})
@@ -30,12 +24,12 @@ class CardTime extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = 75;
-    double height = 90;
+    double height = 80;
 
-    backgroundColor = Theme.of(context).backgroundColor;
-    textColor = Theme.of(context).colorScheme.onBackground;
-    disableColor = Theme.of(context).colorScheme.error;
-    disableTextColor = Theme.of(context).colorScheme.onError;
+    backgroundColor = Theme.of(context).colorScheme.secondaryVariant;
+    textColor = Theme.of(context).colorScheme.onSecondary;
+    disableColor = Theme.of(context).colorScheme.secondary;
+    disableTextColor = Theme.of(context).colorScheme.onSecondary;
 
     Color tempBackColor = (isActive) ? backgroundColor : disableColor;
     Color tempTextColor = (isActive) ? textColor : disableTextColor;
@@ -47,20 +41,36 @@ class CardTime extends StatelessWidget {
     Widget body = Container(
       width: width,
       height: height,
-      decoration: BoxDecoration(shape: BoxShape.circle, color: tempBackColor),
+      decoration:
+          BoxDecoration(shape: BoxShape.rectangle, color: tempBackColor),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(
-            time.split(' ')[0],
-            textScaleFactor: 1,
-            style: TextStyle(color: tempTextColor),
+          Container(
+            height: height / 3 * 2,
+            color: Color.fromRGBO(
+              backgroundColor.red,
+              backgroundColor.green,
+              backgroundColor.blue,
+              0.5,
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              time.split(' ')[0],
+              textScaleFactor: 1.3,
+              style: TextStyle(color: tempTextColor),
+            ),
           ),
-          Text(
-            time.split(' ')[1],
-            textScaleFactor: 0.5,
-            style: TextStyle(color: tempTextColor),
+          Container(
+            height: height / 3,
+            child: Center(
+              child: Text(
+                time.split(' ')[1],
+                textScaleFactor: 0.8,
+                style: TextStyle(color: tempTextColor),
+              ),
+            ),
           )
         ],
       ),
@@ -93,10 +103,10 @@ class CardTime extends StatelessWidget {
     return Container(
       margin: margin,
       child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(100)),
+        borderRadius: BorderRadius.all(Radius.circular(15)),
         child: InkWell(
           child: stack,
-          borderRadius: BorderRadius.all(Radius.circular(1000)),
+          borderRadius: BorderRadius.all(Radius.circular(15)),
           onTap: () {
             if (!isReserved) onPressed(date);
           },

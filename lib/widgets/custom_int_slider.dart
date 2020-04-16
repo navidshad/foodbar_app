@@ -32,7 +32,7 @@ class _CustomIntSliderState extends State<CustomIntSlider> {
     currentValue = currentValue ?? widget.min;
 
     // slider
-    Slider slider = Slider(
+    Widget slider = Slider(
       key: widget.key,
       divisions: widget.divisions,
       value: currentValue,
@@ -56,11 +56,16 @@ class _CustomIntSliderState extends State<CustomIntSlider> {
       headerChilds.add(Text(
         widget.title,
         textScaleFactor: 1.5,
-        style: TextStyle(fontWeight: FontWeight.bold),
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Theme.of(context).colorScheme.onSecondary,
+        ),
       ));
       headerChilds.add(Text(
         currentValue.toInt().toString(),
-        //style: TextStyle(color: AppProperties.secondColor),
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onSecondary,
+        ),
       ));
     }
     Widget headerRow = Container(

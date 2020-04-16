@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:foodbar_user/settings/app_properties.dart';
-
 class CardButton extends StatelessWidget {
   final double elevation;
   final double radius;

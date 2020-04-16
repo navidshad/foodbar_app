@@ -49,6 +49,14 @@ class ReservationBloc
       _reservedTimeController.stream;
 
   //
+  // values ---------------------------------------------------
+  //
+  static CustomTable selectedTable;
+  static DateTime selectedDate;
+  static DateTime selectedTime;
+  static int selectedPersons = 0;
+
+  //
   // initializers ---------------------------------------------
   //
   @override
@@ -81,14 +89,7 @@ class ReservationBloc
     // get and stream Schedule options
     if (event is GetScheduleOptions) {
       _service.getScheduleOptions().then(((options) async {
-        //
-        // get reserved time and put it into schedule option for the fost time
-        // await _service
-        //     .getReservedTimes(options.from, options.)
-        //     .then((times) => options.reservedTimes = times)
-        //     .catchError(
-        //         (onError) => print('getReservedTimes ${onError.toString()}'));
-
+        selectedDate = options.from;
         _stateController.add(ScheduleState(options: options));
       }));
 
@@ -104,7 +105,7 @@ class ReservationBloc
     } else if (event is GetTotalPerson) {
       //GetTotalPerson eventDetail = event;
       _service
-          .getRemainPersons(event.date, event.table)
+          .getRemainPersons(selectedTime, selectedTable)
           .then((int totalPerson) {
         PersonPickerOptions options = PersonPickerOptions(
           divisions: totalPerson,
@@ -118,7 +119,9 @@ class ReservationBloc
       //
       // get and stream reserved time per day
     } else if (event is GetReservedTimes) {
-      _service.getReservedTimes(event.date, event.tableId).then((times) {
+      _reservedTimeController.add(null);
+
+      _service.getReservedTimes(selectedDate, selectedTable.id).then((times) {
         _reservedTimeController.add(times);
       });
 
@@ -130,15 +133,14 @@ class ReservationBloc
       _stateController.add(state);
 
       _service
-          .reserve(date: event.date, persons: event.persons, table: event.table)
+          .reserve(date: selectedTime, persons: selectedPersons, table: selectedTable)
           // return success state
           .then((result) {
         state = ConfirmState(result: result);
         _stateController.add(state);
-        
       })
-      // return error state
-      .catchError((ReserveConfirmationResult result) {
+          // return error state
+          .catchError((dynamic result) {
         state = ConfirmState(result: result);
         _stateController.add(state);
       });
@@ -153,23 +155,23 @@ class GetScheduleOptions extends ReservationEvent {}
 class GetTables extends ReservationEvent {}
 
 class GetReservedTimes extends ReservationEvent {
-  DateTime date;
-  String tableId;
-  GetReservedTimes(this.date, this.tableId);
+  // DateTime date;
+  // String tableId;
+  // GetReservedTimes(this.date, this.tableId);
 }
 
 class GetTotalPerson extends ReservationEvent {
-  DateTime date;
-  CustomTable table;
-  GetTotalPerson({this.date, this.table});
+  // DateTime date;
+  // CustomTable table;
+  // GetTotalPerson({this.date, this.table});
 }
 
 class ReserveTable extends ReservationEvent {
-  int persons;
-  CustomTable table;
-  DateTime date;
+  // int persons;
+  // CustomTable table;
+  // DateTime date;
 
-  ReserveTable({this.persons, this.date, this.table});
+  // ReserveTable({this.persons, this.date, this.table});
 }
 
 class ReservationState {}

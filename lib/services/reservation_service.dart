@@ -80,12 +80,14 @@ class ReservationService implements ReservationProviderInterface {
 
       tableDocs.forEach((t) {
         try {
-          tables.add(CustomTable.fromMap(t));
+          tables.add(CustomTable.fromMap(t, host: MongoDBService.host));
         } catch (e) {}
       });
     }).catchError((onError) {
       print(onError.toString());
     });
+
+    tables.sort((a,b) => a.persons.compareTo(b.persons));
 
     return tables;
   }
@@ -119,7 +121,7 @@ class ReservationService implements ReservationProviderInterface {
     String url = Vars.host + '/reservation/reserveTable';
 
     Map body = {
-      'isoDate': date.toUtc().toIso8601String(),
+      'isoDate': date.toIso8601String(),
       'tableId': table.id,
       'persons': persons,
     };

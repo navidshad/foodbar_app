@@ -1,11 +1,33 @@
+import 'dart:async';
+
 import 'package:foodbar_user/settings/settings.dart';
 import 'package:foodbar_user/widgets/table_type_slider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:foodbar_user/bloc/bloc.dart';
-import 'package:foodbar_flutter_core/models/models.dart';
 import 'package:foodbar_user/widgets/widgets.dart';
-import 'package:foodbar_user/settings/app_properties.dart';
+
+class ReservationPageDetail {
+  Function(BuildContext context) builder;
+  String lable;
+  String nextbuttonlable;
+  String previusbuttonlable;
+  Function(Completer compeleter) onTapNextButton;
+  Function(Completer compeleter) onTapPreviusButton;
+  Function onPageLoaded;
+  bool Function() isActive;
+
+  ReservationPageDetail({
+    this.lable,
+    this.builder,
+    this.nextbuttonlable,
+    this.previusbuttonlable,
+    this.onTapNextButton,
+    this.onTapPreviusButton,
+    this.onPageLoaded,
+    this.isActive,
+  });
+}
 
 class ReservationTab extends StatefulWidget {
   ReservationTab({Key key}) : super(key: key);
@@ -16,283 +38,286 @@ class ReservationTab extends StatefulWidget {
 
 class _ReservationTabState extends State<ReservationTab> {
   ReservationBloc bloc;
-  int selectedPersons = 0;
-  CustomTable selectedTable;
-  DateTime selectedDate;
+  ConfirmState confirmState;
   Key personSliderKey;
-  List<DateTime> reservedTimes;
+
+  double totalHeight;
+  double totalWidth;
+
+  int initialPage = 0;
+  int currentPage = 0;
+  PageController _pageController;
+  Duration pageTransitionDuration;
+  Curve transitionCurve = Curves.easeInOut;
+  ReservationPageDetail pageDetail;
+  List<ReservationPageDetail> pages;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+
     bloc = BlocProvider.of<ReservationBloc>(context);
+
+    bloc.stateStream.listen((state) {
+      if (state is ConfirmState) {
+        confirmState = state;
+        if (this.mounted) setState(() {});
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    _pageController = PageController(
+      viewportFraction: 1,
+      initialPage: initialPage - 1,
+    );
+
+    pageTransitionDuration = Duration(milliseconds: 200);
+
+    pages = [
+      // Table Picker
+      ReservationPageDetail(
+        lable: 'What type of table do you want?',
+        nextbuttonlable: 'Next',
+        isActive: () {
+          if (ReservationBloc.selectedTable != null)
+            return true;
+          else
+            return false;
+        },
+        onPageLoaded: () {
+          ReservationBloc.selectedTable = null;
+          ReservationBloc.selectedDate = null;
+          ReservationBloc.selectedTime = null;
+          ReservationBloc.selectedPersons = 0;
+        },
+        onTapNextButton: (completer) {
+          _pageController
+              .nextPage(
+            duration: pageTransitionDuration,
+            curve: transitionCurve,
+          )
+              .whenComplete(() {
+            completer.complete();
+          });
+        },
+        builder: (context) {
+          return TableSlider(
+            bloc: bloc,
+            onPicked: (table) {
+              ReservationBloc.selectedTable = table;
+              if (mounted) setState(() {});
+            },
+          );
+        },
+      ),
+
+      // Date Picker
+      ReservationPageDetail(
+        lable: 'When do you want to come here?',
+        nextbuttonlable: 'Submit Date',
+        isActive: () {
+          if (ReservationBloc.selectedTime != null)
+            return true;
+          else
+            return false;
+        },
+        onPageLoaded: () {
+          Future.doWhile(() async {
+            await Future.delayed(Duration(milliseconds: 200));
+            return (ReservationBloc.selectedDate == null) ? true : false;
+          }).whenComplete(() {
+            bloc.eventSink.add(GetReservedTimes());
+          });
+        },
+        onTapNextButton: (completer) {
+          _pageController
+              .nextPage(
+            duration: pageTransitionDuration,
+            curve: transitionCurve,
+          )
+              .whenComplete(() {
+            completer.complete();
+          });
+        },
+        builder: (context) {
+          return CustomDatePicker(
+            dateTitle: 'Pick a date',
+            timeTitle: 'Pick a time',
+            bloc: bloc,
+            onPickedTime: (time) {
+              if (this.mounted) setState(() {});
+            },
+          );
+        },
+      ),
+
+      // person selector
+      ReservationPageDetail(
+        nextbuttonlable: 'Confirm',
+        lable: 'How many people are you?',
+        isActive: () {
+          if (ReservationBloc.selectedPersons > 0)
+            return true;
+          else
+            return false;
+        },
+        onTapNextButton: (completer) {
+          bloc.eventSink.add(ReserveTable());
+          _pageController
+              .nextPage(
+            duration: pageTransitionDuration,
+            curve: transitionCurve,
+          )
+              .whenComplete(() {
+            completer.complete();
+          });
+        },
+        onPageLoaded: () {
+          bloc.eventSink.add(GetTotalPerson());
+        },
+        builder: (context) {
+          return PersonSelector(
+            bloc: bloc,
+            onSelectPerson: (value) {
+              if (this.mounted) setState(() {});
+            },
+          );
+        },
+      ),
+
+      // confirm page
+      ReservationPageDetail(
+        lable: '',
+        nextbuttonlable: 'Main Menu',
+        previusbuttonlable: 'New Reservation',
+        onTapNextButton: (completer) {
+          AppFrameBloc menuBloc = BlocProvider.of<AppFrameBloc>(context);
+          menuBloc.eventSink.add(AppFrameEvent(
+            //switchFrom: FrameTabType.Reserve,
+            switchTo: FrameTabType.MENU,
+          ));
+        },
+        onTapPreviusButton: (compeleter) {
+          _pageController.jumpToPage(0);
+          compeleter.complete();
+        },
+        builder: (context) {
+          Widget stateWidget;
+
+          if (confirmState.waitingForResult) {
+            stateWidget = Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            //stateWidget = Text('Thank You');
+            stateWidget = ConfirmStateViewer(
+              isSucceed: confirmState?.result?.succeed,
+              subtitle: confirmState?.result?.message,
+              processID: confirmState?.result?.reservationId,
+              backGroundUrl: ReservationBloc.selectedTable.image.getUrl(),
+            );
+          }
+
+          return stateWidget;
+        },
+      )
+    ];
+
+    pageDetail = pages[initialPage];
+
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<ReservationState>(
-      stream: bloc.stateStream,
-      initialData: bloc.getInitialState(),
-      builder: (context, stateSnapShot) {
-        ReservationState state = stateSnapShot.data;
-        Widget page;
+    totalHeight = MediaQuery.of(context).size.height;
+    totalWidth = MediaQuery.of(context).size.width;
 
-        if (state is ConfirmState)
-          page = buildConfirmationState(state);
-        else
-          page = buildScheduleState(state);
-
-        return page;
-      },
-    );
-  }
-
-  Widget buildConfirmationState(ConfirmState confirmState) {
-    Widget stateWidget;
-
-    if (confirmState.waitingForResult) {
-      stateWidget = Center(
-        child: CircularProgressIndicator(),
-      );
-    } else {
-      //stateWidget = Text('Thank You');
-      stateWidget = ListView(
-        children: <Widget>[
-          ConfirmStateViewer(
-            isSucceed: confirmState?.result?.succeed,
-            subtitle: confirmState?.result?.message,
-            processID: confirmState?.result?.reservationId,
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 20, right: 20, top: 20),
-            child: CardButton(
-              title: 'Reserve a New Table',
-              height: 50,
-              onTap: () => getShceduleOptions(),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 20, right: 20, top: 10),
-            child: CardButton(
-              title: 'Back To Menu',
-              height: 50,
-              isOutline: true,
-              onTap: () {
-                AppFrameBloc menuBloc = BlocProvider.of<AppFrameBloc>(context);
-                menuBloc.eventSink.add(AppFrameEvent(
-                  //switchFrom: FrameTabType.Reserve,
-                  switchTo: FrameTabType.MENU,
-                ));
-              },
-            ),
-          )
-        ],
-      );
-    }
-
-    return stateWidget;
-  }
-
-  Widget buildScheduleState(ScheduleState scheduleState) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        List<Widget> bodyColumnWidgets = [];
-
-        // table picker ----
-        Widget tablePicker = StreamBuilder<List<CustomTable>>(
-          stream: bloc.tableStream,
-          initialData: null,
-          builder: buildTablePicker,
-        );
-
-        bodyColumnWidgets.add(tablePicker);
-
-        // date picker -----
-        Widget datePicker = buildDatePicker(scheduleState);
-        bodyColumnWidgets.add(datePicker);
-
-        //total person picker ------
-        Widget totalPersonPicker = StreamBuilder<PersonPickerOptions>(
-          stream: bloc.personStream,
-          initialData: bloc.getPersonPickerIntialState(),
-          builder: buildPersonPicker,
-        );
-
-        if (selectedDate != null) bodyColumnWidgets.add(totalPersonPicker);
-
-        // submite button
-        Widget submite = Center(
+    return Stack(
+      children: <Widget>[
+        Positioned(
+          top: 0,
+          bottom: (pageDetail?.lable != null) 
+            ? (totalHeight / 100) * 80
+            : (totalHeight / 100) * 100,
+          left: 0,
+          right: 0,
           child: Container(
-            width: 150,
-            child: OutlineButton(
-              child: Text('Reserve'),
-              //color: AppProperties.mainColor,
-              onPressed: (selectedPersons == 0) ? null : onConfirm,
+            child: Container(
+              padding: EdgeInsets.only(left: 50, right: 50),
+              child: FittedBox(
+                child: Center(
+                  child: Text(
+                    pageDetail?.lable ?? '',
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSecondary,
+                        fontSize: 18),
+                  ),
+                ),
+              ),
             ),
           ),
-        );
+        ),
+        Positioned(
+          top: (totalHeight / 100) * 10,
+          bottom: (totalHeight / 100) * 15,
+          left: 0,
+          right: 0,
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              height: (totalHeight / 100) * 75,
+              width: totalWidth,
+              child: PageView.builder(
+                itemCount: pages.length,
+                controller: _pageController,
+                physics: NeverScrollableScrollPhysics(),
+                onPageChanged: (index) {
+                  currentPage = index;
+                  pageDetail = pages[currentPage];
 
-        bodyColumnWidgets.add(submite);
+                  if (pageDetail.onPageLoaded != null)
+                    pageDetail.onPageLoaded();
 
-        // combine all
-        return ListView(children: bodyColumnWidgets);
-      },
+                  if (this.mounted) setState(() {});
+                },
+                itemBuilder: (BuildContext context, int index) {
+                  return pages[index].builder(context);
+                },
+              ),
+            ),
+          ),
+        ),
+        Positioned.fill(
+          top: (totalHeight / 100) * 75,
+          bottom: (totalHeight / 100) * 5,
+          left: 0,
+          right: 0,
+          child: Container(
+            width: 300,
+            //padding: EdgeInsets.only(left: 100, right: 100),
+            child: ReservationFooterButtons(
+              currentPage: currentPage,
+              totalWidth: totalWidth,
+              pageController: _pageController,
+              pageTransitionDuration: pageTransitionDuration,
+              transitionCurve: transitionCurve,
+              pageDetail: pageDetail,
+            ),
+          ),
+        )
+      ],
     );
-  }
-
-  Widget buildTablePicker(context, AsyncSnapshot<List<CustomTable>> snapshot) {
-    List<CustomTable> tables = snapshot.data;
-    Widget tablePicker;
-
-    if (tables == null) {
-      tablePicker = buildCircularProgressBar();
-      getTables();
-    } else {
-      tablePicker = TableSlider(
-        tables: tables,
-        onPicked: (CustomTable table) {
-          selectedTable = table;
-          getTotalPerson();
-        },
-      );
-    }
-
-    return Container(
-      margin: EdgeInsets.only(top: 15),
-      child: tablePicker,
-    );
-  }
-
-  Widget buildPersonPicker(context, snapshot) {
-    PersonPickerOptions options = snapshot.data;
-    Widget personPicker;
-
-    if (options == null)
-      personPicker = buildCircularProgressBar();
-    else if (!(options.divisions == null || options.divisions > 0))
-      personPicker = Container(
-        margin: EdgeInsets.only(top: 10, bottom: 10),
-        // child: Text(
-        //   'This Time Was Reserved',
-        //   textAlign: TextAlign.center,
-        //   style: TextStyle(
-        //     color: Colors.red
-        //   ),
-        // ),
-      );
-    else {
-      // this is a phase for halde the key of slider
-      // the key must hadle in a custome way.
-      // becuase when this (selectedPersons > options.max) will be happened
-      // slider must be reseted.
-      if (personSliderKey == null)
-        personSliderKey = Key(options.hashCode.toString());
-      if (selectedPersons > options.max) {
-        personSliderKey = Key(options.hashCode.toString());
-        selectedPersons = options.max.toInt();
-      }
-
-      personPicker = CustomIntSlider(
-        title: 'Number of persons',
-        key: personSliderKey,
-        divisions: options.divisions ?? 0,
-        min: options.min,
-        max: options.max,
-        onChanged: (int value) => setState(() {
-          selectedPersons = value;
-        }),
-      );
-    }
-
-    return personPicker;
-  }
-
-  Widget buildDatePicker(ScheduleState state) {
-    Widget datePickerWidget;
-
-    if (state.options == null) {
-      datePickerWidget = buildCircularProgressBar();
-      getShceduleOptions();
-    } else {
-      // schedule option contains reservedTimes
-      // add it
-      if (state.options.reservedTimes.length > 0)
-        reservedTimes = state.options.reservedTimes;
-
-      datePickerWidget = StreamBuilder<List<DateTime>>(
-        stream: bloc.reservedTimeStream,
-        initialData: reservedTimes,
-        builder: (context, timesSnapShot) {
-          if (reservedTimes == null) getReservedTimes(state.options.from);
-
-          reservedTimes = timesSnapShot.data;
-
-          return CustomDatePicker(
-            dateTitle: 'Pick a date',
-            timeTitle: 'Pick a time',
-            from: state.options.from,
-            totalDays: state.options.totalDays,
-            periods: state.options.periods,
-            reservedTimes: reservedTimes ?? [],
-            onPickedDate: (picked) {
-              setState(() {
-                getReservedTimes(picked);
-              });
-            },
-            onPickedTime: (picked) {
-              setState(() {
-                selectedDate = picked;
-                getTotalPerson();
-              });
-            },
-          );
-        },
-      );
-    }
-
-    return datePickerWidget;
-  }
-
-  Widget buildCircularProgressBar() {
-    return Padding(
-      padding: const EdgeInsets.all(40),
-      child: Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
-  }
-
-  void getShceduleOptions() {
-    bloc.eventSink.add(GetScheduleOptions());
-  }
-
-  void getTables() {
-    bloc.eventSink.add(GetTables());
-  }
-
-  void getReservedTimes(DateTime day) {
-    bloc.eventSink.add(GetReservedTimes(day, selectedTable?.id));
-  }
-
-  void getTotalPerson() {
-    if (selectedTable == null || selectedDate == null) return;
-
-    bloc.eventSink.add(GetTotalPerson(
-      date: selectedDate,
-      table: selectedTable,
-    ));
   }
 
   void onConfirm() {
-    ReserveTable event = ReserveTable(
-      date: selectedDate,
-      persons: selectedPersons,
-      table: selectedTable,
-    );
+    ReserveTable event = ReserveTable();
 
     setState(() {
-      selectedDate = null;
-      selectedPersons = 0;
+      ReservationBloc.selectedDate = null;
+      ReservationBloc.selectedPersons = 0;
 
       bloc.eventSink.add(event);
     });

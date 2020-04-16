@@ -12,15 +12,22 @@ export './date_picker.dart';
 export './day_slider.dart';
 export './time_slider.dart';
 export './custom_int_slider.dart';
-export './cart_button.dart';
+export './person_selector.dart';
 export './confirm_state_viewer.dart';
 export './text_field_with_icon.dart';
 export './card_with_cover.dart';
 export './page_with_scalable_header.dart';
+export './flexible_vertical_tabs.dart';
+export './vertical_swip_detector.dart';
+
+export './cart_button.dart';
+export './status_button.dart';
+export './reservation_footer_buttons.dart';
 
 export './card_day.dart';
 export './card_time.dart';
 export './card_button.dart';
 export './card_table.dart';
+export './card_date_detail.dart';
 export './card_order_detail.dart';
 export './card_reserved_detail.dart';

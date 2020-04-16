@@ -209,7 +209,7 @@ class _PageWithScalableHeaderState extends State<PageWithScalableHeader>
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                               colors: [
-                                Theme.of(context).accentColor,
+                                Theme.of(context).colorScheme.secondaryVariant,
                                 Colors.transparent,
                               ],
                             )),
