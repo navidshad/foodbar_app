@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:foodbar_flutter_core/models/reserved_table.dart';
+import 'package:foodbar_user/services/services.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:foodbar_flutter_core/interfaces/bloc_interface.dart';
@@ -11,6 +12,7 @@ class ReservedBloc implements BlocInterface<ReservedEvent, ReservedState> {
   StreamController<ReservedEvent> _eventController = BehaviorSubject();
 
   ContentProvider _contentService = ContentService.instance;
+  ReservationService _reservationService = ReservationService.instance;
 
   ReservedBloc() {
     _eventController.stream.listen(handler);
@@ -32,13 +34,15 @@ class ReservedBloc implements BlocInterface<ReservedEvent, ReservedState> {
     ReservedState state;
 
     if (event is GetOldReservedTables) {
-      await _contentService.getReservedTables().then((reservedList) {
+      if (_reservationService.tables == null)
+        await _reservationService.getTableTypes();
+
+      await _contentService
+          .getReservedTables(tables: _reservationService.tables)
+          .then((reservedList) {
         state = ReservedState(reservedList);
       });
-
-    } else if (event is CancelReservedTable) {
-      
-    }
+    } else if (event is CancelReservedTable) {}
 
     if (state != null) _stateController.add(state);
   }

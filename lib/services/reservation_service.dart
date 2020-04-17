@@ -17,6 +17,8 @@ class ReservationService implements ReservationProviderInterface {
   AuthInterface _authService = AuthService.instant;
   Client _http = Client();
 
+  List<CustomTable> tables;
+
   Map<String, String> get headers {
     return {
       'Content-Type': 'application/json',
@@ -73,11 +75,11 @@ class ReservationService implements ReservationProviderInterface {
   Future<List<CustomTable>> getTableTypes() async {
     String url = Vars.host + '/reservation/getTables';
 
-    List<CustomTable> tables = [];
-
     await _http.get(url, headers: headers).then(_analizeResult).then((result) {
       List tableDocs = result['tables'];
 
+      tables = [];
+      
       tableDocs.forEach((t) {
         try {
           tables.add(CustomTable.fromMap(t, host: MongoDBService.host));
