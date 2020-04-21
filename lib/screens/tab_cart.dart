@@ -73,24 +73,8 @@ class _CartTabState extends State<CartTab> {
       stream: bloc.stateStream,
       initialData: bloc.getInitialState(),
       builder: (streamContext, AsyncSnapshot snapshot) {
-        //List<Widget> widgets = [];
         CartState state = snapshot.data;
         orders = state.cart.foods;
-
-        // add foods
-        // state.cart.foods.forEach((food) {
-        //   widgets.add(OrderedFoodCard(food));
-        // });
-
-        // add Proceed card
-        // ProceedToCheckout proceedCard = ;
-
-        // widgets.add(proceedCard);
-
-        // return ListView(
-        //   children: widgets,
-        //   padding: EdgeInsets.all(AppProperties.cardSideMargin),
-        // );
 
         return AnimatedList(
           key: _listKey,

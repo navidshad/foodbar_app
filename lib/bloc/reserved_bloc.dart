@@ -42,7 +42,14 @@ class ReservedBloc implements BlocInterface<ReservedEvent, ReservedState> {
           .then((reservedList) {
         state = ReservedState(reservedList);
       });
-    } else if (event is CancelReservedTable) {}
+    } else if (event is CancelReservedTable) {
+      _reservationService.cancel(event.reservedId)
+      .then((_) {
+        event.onDone(true, _);
+      }).catchError((onError) {
+        event.onDone(false, onError);
+      });
+    }
 
     if (state != null) _stateController.add(state);
   }
@@ -60,7 +67,8 @@ class GetOldReservedTables extends ReservedEvent {}
 
 class CancelReservedTable extends ReservedEvent {
   String reservedId;
-  CancelReservedTable(this.reservedId);
+  Function(bool isSuccess, dynamic body) onDone;
+  CancelReservedTable(this.reservedId,{this.onDone});
 }
 
 class ReservedState {

@@ -21,7 +21,12 @@ class ConfirmStateViewer extends StatelessWidget {
   Widget build(BuildContext context) {
     String title = (isSucceed) ? 'Thank You!' : 'Sorry... !';
 
+    Color subtitleColor = isSucceed
+        ? Theme.of(context).colorScheme.onPrimary
+        : Theme.of(context).colorScheme.error;
+
     Widget iconWidget;
+
     if (isSucceed) {
       iconWidget = Icon(
         FoodBarIcons.success,
@@ -44,42 +49,53 @@ class ConfirmStateViewer extends StatelessWidget {
       // ),
 
       // Texts
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          FittedBox(
-            fit: BoxFit.contain,
-            child: Text(
-              title,
-              // textScaleFactor: 1.8,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontSize: AppProperties.h1),
+      Padding(
+        padding: EdgeInsets.only(
+          left: MediaQuery.of(context).size.width / 100 * 10,
+          right: MediaQuery.of(context).size.width / 100 * 10,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(height: 20,),
+            FittedBox(
+              fit: BoxFit.contain,
+              child: Text(
+                title,
+                // textScaleFactor: 1.8,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    fontSize: AppProperties.h1),
+              ),
             ),
-          ),
-          Text(
-            subtitle ?? '',
-            textAlign: TextAlign.center,
-          ),
-          if (processID != null)
-            Container(
-              width: MediaQuery.of(context).size.width / 100 * 50,
-              child: Column(children: [
-                FittedBox(
-                  child: Text(
-                    'RID ' + processID.toString(),
-                    style: TextStyle(
-                        color: Colors.white,
-                        decorationStyle: TextDecorationStyle.wavy,
-                        letterSpacing: 5,
-                        shadows: [Shadow(color: Colors.black, blurRadius: 80)]),
+            SizedBox(height: 10,),
+            Text(
+              subtitle ?? '',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: subtitleColor),
+            ),
+            if (processID != null)
+              Container(
+                width: MediaQuery.of(context).size.width / 100 * 50,
+                child: Column(children: [
+                  FittedBox(
+                    child: Text(
+                      'RID ' + processID.toString(),
+                      style: TextStyle(
+                          color: Colors.white,
+                          decorationStyle: TextDecorationStyle.wavy,
+                          letterSpacing: 5,
+                          shadows: [
+                            Shadow(color: Colors.black, blurRadius: 80)
+                          ]),
+                    ),
                   ),
-                ),
-              ]),
-            ),
-        ],
+                ]),
+              ),
+          ],
+        ),
       ),
 
       // note text

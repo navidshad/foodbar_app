@@ -106,7 +106,11 @@ class _ReservationTabState extends State<ReservationTab> {
           return TableSlider(
             bloc: bloc,
             onPicked: (table) {
-              ReservationBloc.selectedTable = table;
+              if (ReservationBloc.selectedTable?.id == table.id)
+                ReservationBloc.selectedTable = null;
+              else
+                ReservationBloc.selectedTable = table;
+
               if (mounted) setState(() {});
             },
           );
@@ -239,9 +243,9 @@ class _ReservationTabState extends State<ReservationTab> {
       children: <Widget>[
         Positioned(
           top: 0,
-          bottom: (pageDetail?.lable != null) 
-            ? (totalHeight / 100) * 80
-            : (totalHeight / 100) * 100,
+          bottom: (pageDetail?.lable != null)
+              ? (totalHeight / 100) * 80
+              : (totalHeight / 100) * 100,
           left: 0,
           right: 0,
           child: Container(

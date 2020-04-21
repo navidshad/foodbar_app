@@ -21,7 +21,7 @@ class CardWithCover extends StatefulWidget {
   final String imageUrl;
   final String heroTag;
   final Function onCardTap;
-  EdgeInsetsGeometry contentPadding;
+  final EdgeInsetsGeometry contentPadding;
   final CrossAxisAlignment crossAxisAlignment;
   final MainAxisAlignment mainAxisAlignment;
 
@@ -92,7 +92,10 @@ class _CardWithCoverState extends State<CardWithCover>
 
   @override
   void afterFirstLayout(BuildContext context) {
-    RenderBox renderBox = _cardKey.currentContext.findRenderObject();
+    RenderBox renderBox = _cardKey.currentContext?.findRenderObject();
+    
+    if(renderBox == null) return;
+
     cardHeight = renderBox.size.height;
     setState(() {});
   }

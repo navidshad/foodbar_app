@@ -48,7 +48,7 @@ class _StatusButtonState extends State<StatusButton> {
         widget.title,
         style: TextStyle(
           color: Theme.of(context).colorScheme.onPrimary,
-          fontSize: 15,
+          fontSize: 13,
           // fontWeight: FontWeight.bold,
         ),
       );

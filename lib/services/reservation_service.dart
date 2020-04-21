@@ -117,6 +117,23 @@ class ReservationService implements ReservationProviderInterface {
     return remain;
   }
 
+  Future<bool> cancel(String reservedId) {
+    String url = Vars.host + '/reservation/cancel';
+
+    Map body = {
+      'reservedId': reservedId
+    };
+
+    return _http
+        .post(url, headers: headers, body: json.encode(body))
+        .then(_analizeResult)
+        .then((_) => true)
+        .catchError((error) {
+          print('revervation cancel error $error');
+          return false;
+        });
+  }
+
   @override
   Future<ReserveConfirmationResult> reserve(
       {int persons, CustomTable table, DateTime date}) async {

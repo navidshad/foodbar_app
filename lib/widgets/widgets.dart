@@ -19,6 +19,7 @@ export './card_with_cover.dart';
 export './page_with_scalable_header.dart';
 export './flexible_vertical_tabs.dart';
 export './vertical_swip_detector.dart';
+export './custom_animated_list.dart';
 
 export './cart_button.dart';
 export './status_button.dart';
