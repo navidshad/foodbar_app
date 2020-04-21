@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 import 'package:foodbar_user/settings/app_properties.dart';
@@ -136,11 +134,32 @@ class CardReservedDetail extends StatelessWidget {
                         fontSize: AppProperties.p),
                   ),
                 ),
-                onTap: onCancel,
+                onTap: () => showCancelValidation(context),
               ),
             ),
           ),
       ],
     );
+  }
+
+  void showCancelValidation(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (con) {
+          return AlertDialog(
+            content: Text('Are you sure about canceling this table?'),
+            actions: <Widget>[
+              FlatButton(
+                  onPressed: () {
+                    onCancel();
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Yes')),
+              FlatButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text('No')),
+            ],
+          );
+        });
   }
 }
