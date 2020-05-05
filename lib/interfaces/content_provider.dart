@@ -9,5 +9,5 @@ abstract class ContentProvider {
 
   Future<List<ReservedTable>> getReservedTables();
 
-  Future<List<Order>> getOrders();
+  Future<List<Cart>> getOrders();
 }

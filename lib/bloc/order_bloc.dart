@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'package:foodbar_flutter_core/models/order.dart';
+import 'package:foodbar_flutter_core/models/cart.dart';
+import 'package:foodbar_flutter_core/models/payment.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:foodbar_flutter_core/interfaces/bloc_interface.dart';
@@ -32,7 +33,7 @@ class OrderBloc implements BlocInterface<OrderEvent, OrderState> {
     OrderState state;
 
     if (event is GetOldOrderTables) {
-      await _contentService.getOrders().then((orderList) {
+      await _contentService.getFactors().then((orderList) {
         state = OrderState(orderList);
       });
 
@@ -60,6 +61,6 @@ class CancelOrderTable extends OrderEvent {
 }
 
 class OrderState {
-  List<Order> orderList;
+  List<Factor> orderList;
   OrderState([this.orderList = const []]);
 }
