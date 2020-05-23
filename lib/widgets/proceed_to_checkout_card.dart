@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:foodbar_flutter_core/models/models.dart';
 import 'package:foodbar_user/settings/app_properties.dart';
 import 'package:foodbar_user/bloc/bloc.dart';
+import 'package:foodbar_user/widgets/add_coupen_button.dart';
 
 class ProceedToCheckout extends StatelessWidget {
   final Function onProceedToCheckout;
@@ -49,21 +50,14 @@ class ProceedToCheckout extends StatelessWidget {
                         Text('Delivery Charges'),
                         Text('\$${cart.deliveryCharges}', style: bold)
                       ]),
-                  Container(
-                    height: 20,
-                  ),
+                  Container(height: 20),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text('Coupon Discount'),
                         FittedBox(
-                          child: OutlineButton(
-                            child: Text('+ADD',
-                                textScaleFactor: 0.8,
-                                style: TextStyle(
-                                    //color: AppProperties.mainColor,
-                                    fontWeight: FontWeight.bold)),
-                            onPressed: onApplyCoupon,
+                          child: AddCoupenButton(
+                            
                           ),
                         )
                       ]),

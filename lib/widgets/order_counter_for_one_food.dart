@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:foodbar_user/settings/app_properties.dart';
+import 'package:foodbar_user/widgets/circle_button.dart';
 
 class OrderCounterForOneFood extends StatefulWidget {
   final int count;
@@ -47,20 +48,12 @@ class _OrderCounterForOneFoodState extends State<OrderCounterForOneFood> {
           child: Row(
             children: <Widget>[
               // plus counter
-              ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(50)),
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    child: Container(
-                        width: oneThird,
-                        height: oneThird,
-                        child: Icon(
-                          FontAwesomeIcons.plus,
-                          color: Theme.of(context).primaryColor,
-                        )),
-                    onTap: () => setState(increment),
-                  ),
+              CircleButton(
+                size: oneThird,
+                ontap: () => setState(increment),
+                child: Icon(
+                  FontAwesomeIcons.plus,
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
 
@@ -82,23 +75,14 @@ class _OrderCounterForOneFoodState extends State<OrderCounterForOneFood> {
               ),
 
               // mine counter
-              ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(50)),
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    child: Container(
-                      width: oneThird,
-                      height: oneThird,
-                      child: Icon(
-                        FontAwesomeIcons.minus,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                    onTap: () => setState(decrement),
-                  ),
+              CircleButton(
+                size: oneThird,
+                ontap: () => setState(decrement),
+                child: Icon(
+                  FontAwesomeIcons.minus,
+                  color: Theme.of(context).primaryColor,
                 ),
-              )
+              ),
             ].reversed.toList(),
           ),
         );

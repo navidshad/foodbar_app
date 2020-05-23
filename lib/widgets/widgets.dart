@@ -21,6 +21,7 @@ export './flexible_vertical_tabs.dart';
 export './vertical_swip_detector.dart';
 export './custom_animated_list.dart';
 
+export 'add_coupen_button.dart';
 export './cart_button.dart';
 export './status_button.dart';
 export './reservation_footer_buttons.dart';
@@ -30,5 +31,4 @@ export './card_time.dart';
 export './card_button.dart';
 export './card_table.dart';
 export './card_date_detail.dart';
-export './card_order_detail.dart';
 export './card_reserved_detail.dart';
