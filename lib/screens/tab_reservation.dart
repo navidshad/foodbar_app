@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'package:foodbar_user/bloc/bloc.dart';
 import 'package:foodbar_user/widgets/widgets.dart';
+import 'package:foodbar_user/helpers/auth_alert.dart';
 
 class ReservationPageDetail {
   Function(BuildContext context) builder;
@@ -93,14 +94,19 @@ class _ReservationTabState extends State<ReservationTab> {
           ReservationBloc.selectedPersons = 0;
         },
         onTapNextButton: (completer) {
-          _pageController
-              .nextPage(
-            duration: pageTransitionDuration,
-            curve: transitionCurve,
-          )
-              .whenComplete(() {
+          if (!bloc.authService.isLogedInAsUser) {
+            openAuthAlert(context);
             completer.complete();
-          });
+          } else {
+            _pageController
+                .nextPage(
+              duration: pageTransitionDuration,
+              curve: transitionCurve,
+            )
+                .whenComplete(() {
+              completer.complete();
+            });
+          }
         },
         builder: (context) {
           return TableSlider(

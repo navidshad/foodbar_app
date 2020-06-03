@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:foodbar_flutter_core/interfaces/auth_interface.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:foodbar_flutter_core/interfaces/bloc_interface.dart';
@@ -8,6 +9,8 @@ import 'package:foodbar_flutter_core/models/models.dart';
 
 class ReservationBloc
     implements BlocInterface<ReservationEvent, ReservationState> {
+  final AuthInterface authService = AuthService.instant;
+
   //
   // constructor ---------------------------------------------
   //
@@ -133,7 +136,10 @@ class ReservationBloc
       _stateController.add(state);
 
       _service
-          .reserve(date: selectedTime, persons: selectedPersons, table: selectedTable)
+          .reserve(
+              date: selectedTime,
+              persons: selectedPersons,
+              table: selectedTable)
           // return success state
           .then((result) {
         state = ConfirmState(result: result);

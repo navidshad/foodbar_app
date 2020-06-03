@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:foodbar_flutter_core/interfaces/interfaces.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:foodbar_flutter_core/interfaces/bloc_interface.dart';
@@ -23,6 +24,8 @@ class CartCounterState {
 }
 
 class CartBloc implements BlocInterface<CartEvent, CartState> {
+  final AuthInterface authService = AuthService.instant;
+  
   final StreamController<CartEvent> _eventController = BehaviorSubject<CartEvent>();
   final StreamController<CartState> _stateController = BehaviorSubject<CartState>();
   final StreamController<CartCounterState> _counterStateController = BehaviorSubject<CartCounterState>();

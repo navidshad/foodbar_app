@@ -22,6 +22,8 @@ class IntroBloc implements BlocInterface<IntroEvent, IntroState> {
     _eventController.stream.listen(handler);
   }
 
+  static IntroTabType forceTab;
+
   @override
   void dispose() {
     _eventController.close();

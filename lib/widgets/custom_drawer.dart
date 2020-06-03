@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodbar_user/bloc/intro_bloc.dart';
 
 import 'package:foodbar_user/settings/types.dart';
 import 'package:foodbar_user/settings/app_properties.dart';
@@ -85,6 +86,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 Divider(
                   height: 0,
                 ),
+                if (bloc.authService.isLogedInAsUser)
                 ListTile(
                   title: Text(options.properties.cartTitle),
                   leading: Icon(AppProperties.cartIcon),
@@ -92,6 +94,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     switchTab(FrameTabType.CART);
                   },
                 ),
+                if (bloc.authService.isLogedInAsUser)
                 Divider(
                   height: 0,
                 ),
@@ -105,34 +108,48 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 Divider(
                   height: 0,
                 ),
-                ListTile(
-                  title: Text(options.properties.oldReservedTitle),
-                  leading: Icon(AppProperties.oldReservedIcon),
-                  onTap: () {
-                    switchTab(FrameTabType.RESERVED);
-                  },
-                ),
-                Divider(
-                  height: 0,
-                ),
-                ListTile(
-                  title: Text(options.properties.myOrdersTitle),
-                  leading: Icon(AppProperties.myOrdersIcon),
-                  onTap: () {
-                    switchTab(FrameTabType.ORDERS);
-                  },
-                ),
-                Divider(
-                  height: 0,
-                ),
-                ListTile(
-                  title: Text(options.properties.logoutTitle),
-                  leading: Icon(AppProperties.logoutIcon),
-                  onTap: () {
-                    bloc.authService.logout();
-                    Navigator.pushReplacementNamed(context, '/intro');
-                  },
-                ),
+                if (bloc.authService.isLogedInAsUser)
+                  ListTile(
+                    title: Text(options.properties.oldReservedTitle),
+                    leading: Icon(AppProperties.oldReservedIcon),
+                    onTap: () {
+                      switchTab(FrameTabType.RESERVED);
+                    },
+                  ),
+                if (bloc.authService.isLogedInAsUser)
+                  Divider(
+                    height: 0,
+                  ),
+                if (bloc.authService.isLogedInAsUser)
+                  ListTile(
+                    title: Text(options.properties.myOrdersTitle),
+                    leading: Icon(AppProperties.myOrdersIcon),
+                    onTap: () {
+                      switchTab(FrameTabType.ORDERS);
+                    },
+                  ),
+                if (bloc.authService.isLogedInAsUser)
+                  Divider(
+                    height: 0,
+                  ),
+                if (bloc.authService.isLogedInAsUser)
+                  ListTile(
+                    title: Text(options.properties.logoutTitle),
+                    leading: Icon(AppProperties.logoutIcon),
+                    onTap: () {
+                      bloc.authService.logout();
+                      Navigator.pushReplacementNamed(context, '/intro');
+                    },
+                  ),
+                if (!bloc.authService.isLogedInAsUser)
+                  ListTile(
+                    title: Text(options.properties.loginTitle),
+                    leading: Icon(AppProperties.logoutIcon),
+                    onTap: () {
+                      IntroBloc.forceTab = IntroTabType.LoginForm;
+                      Navigator.pushReplacementNamed(context, '/intro');
+                    },
+                  ),
               ],
             ),
           ),

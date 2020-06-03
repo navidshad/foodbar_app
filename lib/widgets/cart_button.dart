@@ -2,13 +2,14 @@ import 'package:foodbar_user/settings/settings.dart';
 import 'package:flutter/material.dart';
 
 import 'package:foodbar_user/bloc/bloc.dart';
+import 'package:foodbar_user/helpers/auth_alert.dart';
 
 class CartButton extends StatefulWidget {
   final Function onTap;
   final Color color;
   final double size;
 
-  CartButton({this.onTap, this.color, this.size=25});
+  CartButton({this.onTap, this.color, this.size = 25});
 
   @override
   _CartButtonState createState() => _CartButtonState();
@@ -17,6 +18,7 @@ class CartButton extends StatefulWidget {
 class _CartButtonState extends State<CartButton> {
   CartBloc bloc;
   AppFrameBloc frameBloc;
+  BuildContext _context;
 
   @override
   void didChangeDependencies() {
@@ -27,6 +29,8 @@ class _CartButtonState extends State<CartButton> {
 
   @override
   Widget build(BuildContext context) {
+    _context = context;
+
     return StreamBuilder<CartCounterState>(
       stream: bloc.stateCounter,
       initialData: bloc.getInitialCounterState(),
@@ -84,14 +88,26 @@ class _CartButtonState extends State<CartButton> {
           child: Container(
             child: stack,
           ),
-          onPressed: widget.onTap ?? goToCartPage,
+          onPressed: onPressed,
         );
       },
     );
   }
 
+  void onPressed() {
+    if (bloc.authService.isLogedInAsUser)
+      goToCartPage();
+    else {
+      openAuthAlert(_context);
+    }
+  }
+
   void goToCartPage() {
-    Navigator.popUntil(context, (route) => (route.settings.name == '/home'));
-    frameBloc.eventSink.add(AppFrameEvent(switchFrom: FrameTabType.MENU));
+    if (widget.onTap != null)
+      widget.onTap();
+    else {
+      Navigator.popUntil(context, (route) => (route.settings.name == '/home'));
+      frameBloc.eventSink.add(AppFrameEvent(switchFrom: FrameTabType.MENU));
+    }
   }
 }

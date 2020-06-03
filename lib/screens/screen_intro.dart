@@ -24,7 +24,9 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
   void didChangeDependencies() {
     super.didChangeDependencies();
     bloc = BlocProvider.of<IntroBloc>(context);
-    bloc.authService.loginEvent.listen(enterToHome);
+    bloc.authService.loginEvent.listen((key) {
+      if (_tabController.index == 0) enterToHome(key);
+    });
     _tabController = TabController(length: 4, vsync: this);
   }
 
@@ -37,11 +39,17 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
         stream: bloc.stateStream,
         builder: (context, snapshot) {
           IntroState state = snapshot.data;
-          _tabController.index = _getTabIndexFromType(state.type);
+          IntroTabType pageType = state.type;
+
+          if (IntroBloc.forceTab != null) {
+            pageType = IntroBloc.forceTab;
+            IntroBloc.forceTab = null;
+          }
+
+          _tabController.index = _getTabIndexFromType(pageType);
 
           // go to next tabs affter seconds
-          if (state.type == IntroTabType.Splash)
-            _checkFirstEnterAndLoginStatus();
+          if (pageType == IntroTabType.Splash) _checkFirstEnterAndLoginStatus();
 
           return TabBarView(
             controller: _tabController,
@@ -84,10 +92,11 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
     bool firstEnter = false;
 
     // login with last session or as annymouse
-    await bloc.loginWithLastSessionOrAnonymouse()
-      .then((_) => firstEnter = bloc.authService.isFirstEnter);
+    await bloc
+        .loginWithLastSessionOrAnonymouse()
+        .then((_) => firstEnter = bloc.authService.isFirstEnter);
 
-    if (!firstEnter) {
+    if (!firstEnter && !bloc.authService.isLogedInAsUser) {
       IntroEvent event;
       event = IntroSwitchEvent(switchTo: IntroTabType.Slider);
       bloc.eventSink.add(event);
@@ -107,7 +116,6 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
   void enterToHome(bool allowToEnter) {
     if (!allowToEnter) return;
 
-    if (bloc.authService.user.type.index == UserType.user.index)
-      Navigator.pushReplacementNamed(context, '/home');
+    Navigator.pushReplacementNamed(context, '/home');
   }
 }

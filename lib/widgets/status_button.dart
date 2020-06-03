@@ -7,7 +7,7 @@ class StatusButton extends StatefulWidget {
     Key key,
     this.title,
     this.onTap,
-    this.isActive,
+    this.isActive = true,
     this.width,
     this.margine,
   }) : super(key: key);

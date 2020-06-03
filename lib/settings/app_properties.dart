@@ -14,6 +14,7 @@ class AppProperties {
   String myOrdersTitle = 'My Orders';
   String oldReservedTitle = 'Old Reserved';
   String logoutTitle = 'Logout';
+  String loginTitle = 'Login';
 
   static int splashDelayInSeconds = 1;
 
@@ -43,6 +44,7 @@ class AppProperties {
   static IconData reservationIcon = FoodBarIcons.reservation02;
   static IconData oldReservedIcon = FoodBarIcons.reserved01;
   static IconData logoutIcon = Icons.exit_to_app;
+  static IconData loinIcon = Icons.exit_to_app;
   static IconData myOrdersIcon = FoodBarIcons.orders;
 
   // payment

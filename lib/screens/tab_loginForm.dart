@@ -99,6 +99,8 @@ class _LoginFormTabState extends State<LoginFormTab> {
   }
 
   void login() {
+    if(_email.length == 0 ?? _password.length == 0) return;
+    
     IntroEvent event = IntroLoginEvent(email: _email, passwod: _password);
     bloc.eventSink.add(event);
   }
