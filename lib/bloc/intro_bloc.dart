@@ -33,24 +33,28 @@ class IntroBloc implements BlocInterface<IntroEvent, IntroState> {
     return IntroState(type: IntroTabType.Splash);
   }
 
-  @override
-  void handler(IntroEvent event) async {
-    IntroState state;
-
+  Future<void> loginWithLastSessionOrAnonymouse() async {
     // check that is ther any Auth token
     if (!authService.isLogedIn) {
+      print('check that is ther any Auth token');
       await authService.loginWithLastSession().catchError((e) {
         print('loginWithLastSession has not been done.');
       });
     }
-    
+
     // get a token if dosent exist
     if (!authService.isLogedIn) {
+      print('get a token if dosent exist');
       await authService.loginAnonymous().catchError((e) {
         print('loginAnonymous has not been done.');
         print(e.toString());
       });
     }
+  }
+
+  @override
+  void handler(IntroEvent event) async {
+    IntroState state;
 
     // switch events
     if (event is IntroSwitchEvent) {
@@ -64,9 +68,12 @@ class IntroBloc implements BlocInterface<IntroEvent, IntroState> {
           List slideDetail = list;
           introSlideItems = [];
           slideDetail.forEach((itemDetail) {
-            IntroSlideItem slide = IntroSlideItem.fromMap(itemDetail, host: MongoDBService.host);
+            IntroSlideItem slide =
+                IntroSlideItem.fromMap(itemDetail, host: MongoDBService.host);
             introSlideItems.add(slide);
           });
+        }).catchError((onError) {
+          print('get intro slides $onError');
         });
       }
     }
@@ -162,12 +169,15 @@ class IntroBloc implements BlocInterface<IntroEvent, IntroState> {
       });
     }
 
-    // submit password
     _stateController.add(state);
+    if (event.onDone != null) event.onDone();
   }
 }
 
-class IntroEvent {}
+class IntroEvent {
+  Function onDone;
+  IntroEvent({this.onDone});
+}
 
 class IntroSwitchEvent extends IntroEvent {
   IntroTabType switchTo;
