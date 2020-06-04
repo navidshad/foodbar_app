@@ -23,8 +23,8 @@ class MenuState {
   MenuState(
       {this.isInitState = false,
       @required this.type,
-      this.categories,
-      this.categoriesWithFoods});
+      this.categories = const [],
+      this.categoriesWithFoods = const []});
 }
 
 class MenuBloc implements BlocInterface<MenuEvent, MenuState> {
@@ -52,7 +52,7 @@ class MenuBloc implements BlocInterface<MenuEvent, MenuState> {
         categoriesWithFoods: await _contentProvider.getCategoriesWithFoods(),
       );
     } else {
-      if (_contentProvider.categories.length == 0)
+      if (_contentProvider.categories?.length == 0)
         await _contentProvider.updateCategories();
 
       state = MenuState(
