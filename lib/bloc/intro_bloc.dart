@@ -54,6 +54,13 @@ class IntroBloc implements BlocInterface<IntroEvent, IntroState> {
     }
   }
 
+  Future<int> getTotalIntroSlidesWithAlwayShowProperty() {
+    return mongodb.count(
+        database: 'cms',
+        collection: 'introSlider',
+        query: {'alwaysShow': true}).then((value) => value as int);
+  }
+
   @override
   void handler(IntroEvent event) async {
     IntroState state;
@@ -64,8 +71,14 @@ class IntroBloc implements BlocInterface<IntroEvent, IntroState> {
 
       // get intro slides
       if (event.switchTo == IntroTabType.Slider) {
+        Map query = {};
+
+        if (!authService.isFirstEnter) {
+          query['alwaysShow'] = true;
+        }
+
         await mongodb
-            .find(database: 'cms', collection: 'introSlider')
+            .find(database: 'cms', collection: 'introSlider', query: query)
             .then((list) {
           List slideDetail = list;
           introSlideItems = [];

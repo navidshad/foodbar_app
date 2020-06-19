@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:foodbar_user/bloc/bloc.dart';
+// import 'package:foodbar_user/helpers/auth_alert.dart';
 import 'package:foodbar_user/screens/screens.dart';
 import 'package:foodbar_flutter_core/settings/types.dart';
 import 'package:foodbar_user/services/options_service.dart';
@@ -34,6 +35,7 @@ class _MenuTabState extends State<MenuTab> {
           widget = Center(child: CircularProgressIndicator());
         } else if (state.type == MenuType.OnePage) {
           widget = MenuTabOnePageView(state.categoriesWithFoods);
+          // openClosedPopup();
         } else if (state.type == MenuType.TwoPage) {
           widget = MenuTabTwoPageCategoriesView(state.categories);
         }
@@ -42,6 +44,12 @@ class _MenuTabState extends State<MenuTab> {
       },
     );
   }
+  
+  // openClosedPopup() async {
+  //   print('### appframe openCloseTimeAlert');
+  //   await Future.delayed(Duration(seconds: 5));
+  //   // openCloseTimeAlert(context);
+  // }
 
   void loadMenu() {
     MenuEvent event = MenuEvent(options.properties.menuType);

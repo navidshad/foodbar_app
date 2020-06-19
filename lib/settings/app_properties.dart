@@ -36,7 +36,7 @@ class AppProperties {
   static double p = 12;
 
   // appframe
-  MenuType menuType = MenuType.OnePage;
+  MenuType menuType = MenuType.TwoPage;
 
   static IconData menuIcon = FoodBarIcons.spoon_and_fork;
   static IconData cartIcon = FoodBarIcons.shopping_bag_not_empty;

@@ -25,7 +25,8 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
     super.didChangeDependencies();
     bloc = BlocProvider.of<IntroBloc>(context);
     bloc.authService.loginEvent.listen((key) {
-      if (_tabController.index == 0) enterToHome(key);
+      // if (_tabController.index == 0)
+      // enterToHome(key);
     });
     _tabController = TabController(length: 4, vsync: this);
   }
@@ -96,7 +97,17 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
         .loginWithLastSessionOrAnonymouse()
         .then((_) => firstEnter = bloc.authService.isFirstEnter);
 
-    if (!firstEnter && !bloc.authService.isLogedInAsUser) {
+    // check to exist slides with always show
+    bool hasAlwaysShowslide = false;
+    await bloc
+        .getTotalIntroSlidesWithAlwayShowProperty()
+        .then((value) => {hasAlwaysShowslide = (value > 0)});
+
+    if (firstEnter && !bloc.authService.isLogedInAsUser) {
+      IntroEvent event;
+      event = IntroSwitchEvent(switchTo: IntroTabType.Slider);
+      bloc.eventSink.add(event);
+    } else if (hasAlwaysShowslide) {
       IntroEvent event;
       event = IntroSwitchEvent(switchTo: IntroTabType.Slider);
       bloc.eventSink.add(event);
