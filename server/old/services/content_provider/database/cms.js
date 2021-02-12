@@ -40,6 +40,7 @@ module.exports.getModels = (connection) => {
         isAnonymous: { type: Boolean, default: false },
         title: String,
     });
+    
     permissionSchema.index({ title: 1 }, { unique: true });
     models['permission'] = connection.model('permission', permissionSchema);
 
