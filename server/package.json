@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@modular-rest/server": "file:../../modular-rest/packages/server",
-    "datejs": "^1.0.0-rc3"
+    "datejs": "^1.0.0-rc3",
+    "koa-router": "^10.0.0"
   }
 }

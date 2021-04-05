@@ -1,9 +1,9 @@
-const { CollectionDefinition, Schema, Permission, PermissionTypes, DatabaseTrigger, } = require('@modular-rest/server');
+const { CollectionDefinition, Schema, Schemas, Permission, PermissionTypes, DatabaseTrigger, } = require('@modular-rest/server');
 
 let foodCategorySchema = new Schema({
     title: String,
     description: String,
-    image: ImageSchema,
+    image: Schemas.file,
 });
 foodCategorySchema.index({ title: 1 }, { unique: true });
 
@@ -14,7 +14,7 @@ let foodSchema = new Schema({
     subTitle: String,
     description: String,
     price: Number,
-    image: ImageSchema,
+    image: Schemas.file,
 });
 foodSchema.index({ title: 1, category: 1 }, { unique: true });
 
@@ -23,7 +23,7 @@ let tableSchema = new Schema({
     persons: { type: Number, default: 2 },
     count: { type: Number, default: 1 },
     type: { type: String, enum: ['Board', 'RollBand'], required: true },
-    image: ImageSchema,
+    image: Schemas.file,
 });
 tableSchema.index({ title: 1 }, { unique: true });
 
@@ -54,9 +54,8 @@ let periodSchema = new Schema({
 let introSliderSchema = new Schema({
     title: String,
     description: String,
-    image: ImageSchema,
+    image: Schemas.file,
 });
-models['introSlider'] = connection.model('introSlider', introSliderSchema);
 
 module.exports = [
     new CollectionDefinition({
