@@ -180,13 +180,13 @@ class _SettingsTabState extends State<SettingsTab> {
 
     pd.update(message: 'Done!');
     Future.delayed(Duration(milliseconds: 300));
-    pd.dismiss();
+    pd.hide();
   }
 
   void onError(dynamic error) {
     pd.update(message: 'Error!');
     Future.delayed(Duration(milliseconds: 300));
-    pd.dismiss();
+    pd.hide();
 
     showDialog(
         context: context,

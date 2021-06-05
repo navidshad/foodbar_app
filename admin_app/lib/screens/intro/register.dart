@@ -7,15 +7,16 @@ import 'package:foodbar_admin/bloc/bloc.dart';
 import 'package:foodbar_admin/settings/types.dart';
 import 'package:foodbar_admin/services/options_service.dart';
 
-class RegisterTab extends StatefulWidget {
-  RegisterTab({Key key}) : super(key: key);
+class RegisterScreen extends StatefulWidget {
+  RegisterScreen({Key key}) : super(key: key);
 
   @override
-  _RegisterTabState createState() => _RegisterTabState();
+  _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _RegisterTabState extends State<RegisterTab> {
+class _RegisterScreenState extends State<RegisterScreen> {
   OptionsService options = OptionsService.instance;
+  BuildContext _context;
 
   IntroBloc bloc;
   String _email = '';
@@ -24,14 +25,16 @@ class _RegisterTabState extends State<RegisterTab> {
 
   String errorMessage = '';
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    bloc = BlocProvider.of<IntroBloc>(context);
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   bloc = BlocProvider.of<IntroBloc>(context);
+  // }
 
   @override
   Widget build(BuildContext context) {
+    _context = context;
+
     // load logo and setup it
     Widget logo = Container(
       padding: EdgeInsets.only(top: 60, bottom: 40),
@@ -75,9 +78,11 @@ class _RegisterTabState extends State<RegisterTab> {
           listElements.insert(1, errorWidget);
         }
 
-        return ListView(
-          padding: EdgeInsets.only(left: 30, right: 30),
-          children: listElements,
+        return Scaffold(
+          body: ListView(
+            padding: EdgeInsets.only(left: 30, right: 30),
+            children: listElements,
+          ),
         );
       },
     );
@@ -228,10 +233,7 @@ class _RegisterTabState extends State<RegisterTab> {
   }
 
   void goToLoginForm() {
-    IntroEvent event;
-    event = IntroSwitchEvent(switchTo: IntroTabType.LoginForm);
-
-    bloc.eventSink.add(event);
+    Navigator.of(_context).pop();
   }
 
   Future<void> waite() {

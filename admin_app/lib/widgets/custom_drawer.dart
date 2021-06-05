@@ -32,21 +32,20 @@ class _CustomDrawerState extends State<CustomDrawer> {
     );
 
     List<Widget> titles = [];
-    if (!options.properties.logoHasTitleAndSlagon) {
-      titles = [
-        Text(
-          options.properties.title,
-          textScaleFactor: 1.6,
-        ),
-        Text(options.properties.slagon)
-      ];
-    }
+    // if (!options.properties.logoHasTitleAndSlagon) {
+    //   titles = [
+    //     Text(
+    //       options.properties.title,
+    //       textScaleFactor: 1.6,
+    //     ),
+    //     Text(options.properties.slagon)
+    //   ];
+    // }
 
     return StreamBuilder(
       stream: bloc.stateStream,
       initialData: bloc.getInitialState(),
       builder: (context, constrants) {
-
         // create Menu Items
         List<Widget> menuItems = [];
         for (FrameTabType type in options.properties.tabDetails.keys) {

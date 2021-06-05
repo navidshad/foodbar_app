@@ -62,10 +62,7 @@ class AppProperties {
       title: 'Users',
       icon: Icons.supervised_user_circle,
     ),
-    FrameTabType.SETTINGS: TabDetail(
-      title: 'Settings',
-      icon: Icons.settings
-    ),
+    FrameTabType.SETTINGS: TabDetail(title: 'Settings', icon: Icons.settings),
   };
 
   static int splashDelayInSeconds = 1;
@@ -97,7 +94,7 @@ class AppProperties {
   // img
   String imgPathLogoWide = 'assets/images/logo_wide.png';
   String imgPathLogoVertical = 'assets/images/logo_vertical.png';
-  bool logoHasTitleAndSlagon = true;
+  // bool logoHasTitleAndSlagon = true;
 
   // local db
   static String collectionAuth = 'auth';

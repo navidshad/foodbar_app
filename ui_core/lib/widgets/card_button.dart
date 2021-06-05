@@ -8,6 +8,7 @@ class CardButton extends StatelessWidget {
   final Function onTap;
   final bool isOutline;
   final EdgeInsets margin;
+  final bool loading;
 
   final Color mainColor;
   final Color disabledColor;
@@ -22,6 +23,7 @@ class CardButton extends StatelessWidget {
       this.onTap,
       this.isOutline = false,
       this.margin,
+      this.loading = false,
       @required this.mainColor,
       @required this.disabledColor,
       @required this.textOnDisabled,
@@ -35,30 +37,37 @@ class CardButton extends StatelessWidget {
 
         if (isOutline) {
           button = OutlineButton(
-            onPressed: onTap,
+            onPressed: () {
+              if (!loading) onTap();
+            },
             borderSide: BorderSide(color: mainColor),
             disabledBorderColor: disabledColor,
             disabledTextColor: textOnDisabled,
-            child: Text(
-              title,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: mainColor,
-              ),
-            ),
+            child: loading
+                ? CircularProgressIndicator()
+                : Text(
+                    title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: mainColor,
+                    ),
+                  ),
           );
         } else {
           button = FlatButton(
-            onPressed: onTap,
+            onPressed: () {
+              if (!loading) onTap();
+            },
             color: mainColor,
             disabledColor: disabledColor,
             disabledTextColor: textOnDisabled,
-            child: Text(
-              title,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: textOnMainColor),
-            ),
+            child: loading
+                ? CircularProgressIndicator()
+                : Text(
+                    title,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: textOnMainColor),
+                  ),
           );
         }
 

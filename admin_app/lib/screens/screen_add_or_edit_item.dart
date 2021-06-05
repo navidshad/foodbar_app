@@ -14,7 +14,7 @@ class AddOrEditeItem extends StatefulWidget {
       {Key key,
       this.isNew = true,
       this.hasImage = false,
-      this.editingDoc = const{},
+      this.editingDoc = const {},
       @required this.dbFields,
       @required this.bloc})
       : super(key: key);
@@ -57,7 +57,7 @@ class _AddOrEditeItemState extends State<AddOrEditeItem> {
                 doc = changed;
               });
             },
-            onImageSelected: (imageFile)  => _imageFile = imageFile,
+            onImageSelected: (imageFile) => _imageFile = imageFile,
           ),
           Container(
             height: 30,
@@ -106,7 +106,7 @@ class _AddOrEditeItemState extends State<AddOrEditeItem> {
       event = CreateDocEvent(
           doc: doc, onDone: onDocOperationDone, onError: onError);
     else {
-      if(doc == null) doc = Map.from(widget.editingDoc);
+      if (doc == null) doc = Map.from(widget.editingDoc);
 
       event = UpdateDocEvent(
           query: {'_id': doc['_id']},
@@ -130,7 +130,7 @@ class _AddOrEditeItemState extends State<AddOrEditeItem> {
         onDone: () {
           pd.update(message: 'Image Uploaded!');
           Future.delayed(Duration(milliseconds: 300));
-          pd.dismiss();
+          pd.hide();
           Navigator.of(context).pop();
         },
         onError: onError,
@@ -142,7 +142,7 @@ class _AddOrEditeItemState extends State<AddOrEditeItem> {
     } else {
       pd.update(message: 'Done!');
       Future.delayed(Duration(milliseconds: 300));
-      pd.dismiss();
+      pd.hide();
       Navigator.of(context).pop();
     }
   }
@@ -150,7 +150,7 @@ class _AddOrEditeItemState extends State<AddOrEditeItem> {
   void onError(dynamic error) {
     pd.update(message: 'Error!');
     Future.delayed(Duration(milliseconds: 300));
-    pd.dismiss();
+    pd.hide();
 
     showDialog(
         context: context,

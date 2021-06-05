@@ -45,9 +45,9 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
             controller: _tabController,
             physics: NeverScrollableScrollPhysics(),
             children: <Widget>[
-              SplashScreen(),
-              LoginFormTab(),
-              RegisterTab(),
+              // SplashScreen(),
+              // LoginScreen(),
+              // RegisterScreen(),
             ],
           );
         },
@@ -62,7 +62,6 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
     bool firstEnter = false;
 
     if (firstEnter) {
-      
     } else {
       goToLoginForm();
     }
@@ -76,9 +75,9 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
   }
 
   void onLogedIn(bool isLogedIn) {
-    if(!isLogedIn) return;
+    if (!isLogedIn) return;
 
-    if(bloc.authService.user.type.index == UserType.user.index)
+    if (bloc.authService.user.type.index == UserType.user.index)
       Navigator.pushReplacementNamed(context, '/home');
   }
 }

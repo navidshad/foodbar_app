@@ -18,8 +18,11 @@ dependencies:
   #media_info: ^0.6.1
   
   foodbar_flutter_core:
-    git: https://github.com/navidshad/foodbar_flutter_core.git
-    # path: '..\foodbar_flutter_core'
+    #git: https://github.com/navidshad/foodbar_flutter_core.git
+    path: '../ui_core'
+
+  mrest_flutter:
+    path: '../../modular-rest/packages/flutter'
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
