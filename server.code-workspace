@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "server"
+		},
+		{
+			"path": "user_app"
+		},
+		{
+			"path": "admin_app"
+		},
+		{
+			"path": "ui_core"
+		}
+	],
+	"settings": {}
+}

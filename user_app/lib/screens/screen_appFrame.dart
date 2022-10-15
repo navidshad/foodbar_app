@@ -31,12 +31,13 @@ class _AppFrameState extends State<AppFrame> with TickerProviderStateMixin {
       appBarTheme: AppBarTheme(
         color: swiche.color,
         elevation: 0,
-        textTheme: TextTheme(
-            title: TextStyle(
-          color: swiche.onColor,
-          fontWeight: FontWeight.bold,
-          fontSize: 25,
-        )),
+        // textTheme: TextTheme(
+        //     title: TextStyle(
+        //   color: swiche.onColor,
+        //   fontWeight: FontWeight.bold,
+        //   fontSize: 25,
+        // )
+        // ),
         actionsIconTheme: IconThemeData(
           color: swiche.onColor,
           size: 25,
@@ -133,7 +134,8 @@ class _AppFrameState extends State<AppFrame> with TickerProviderStateMixin {
       );
     } else if (currentTab == FrameTabType.RESERVATION) {
       swiche = ColorSwiche(
-        color: Colors.grey[900],//Theme.of(context).colorScheme.secondaryVariant,
+        color:
+            Colors.grey[900], //Theme.of(context).colorScheme.secondaryVariant,
         onColor: Theme.of(context).colorScheme.onSecondary,
       );
     }

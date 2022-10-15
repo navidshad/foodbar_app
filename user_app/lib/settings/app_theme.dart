@@ -34,12 +34,12 @@ class AppTheme {
         appBarTheme: AppBarTheme(
           color: theme.backgroundColor,
           elevation: 0,
-          textTheme: TextTheme(
-              title: TextStyle(
-            color: theme.colorScheme.onBackground,
-            fontWeight: FontWeight.bold,
-            fontSize: 25,
-          )),
+          // textTheme: TextTheme(
+          //     title: TextStyle(
+          //   color: theme.colorScheme.onBackground,
+          //   fontWeight: FontWeight.bold,
+          //   fontSize: 25,
+          // )),
           actionsIconTheme: IconThemeData(
             color: theme.colorScheme.onBackground,
             size: 25,
