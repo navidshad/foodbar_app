@@ -38,7 +38,7 @@ class ReservationService implements ReservationProviderInterface {
     List<DateTime> times = [];
 
     await _http
-        .post(url, headers: headers, body: json.encode(body))
+        .post(Uri.parse(url), headers: headers, body: json.encode(body))
         .then(_analizeResult)
         .then((result) {
       List list = result['times'] as List;
@@ -61,7 +61,10 @@ class ReservationService implements ReservationProviderInterface {
 
     ReservationScheduleOption options;
 
-    await _http.get(url, headers: headers).then(_analizeResult).then((result) {
+    await _http
+        .get(Uri.parse(url), headers: headers)
+        .then(_analizeResult)
+        .then((result) {
       Map optionDetail = result['options'];
       options = ReservationScheduleOption.fromMap(optionDetail);
     }).catchError((onError) {
@@ -75,11 +78,14 @@ class ReservationService implements ReservationProviderInterface {
   Future<List<CustomTable>> getTableTypes() async {
     String url = Vars.host + '/reservation/getTables';
 
-    await _http.get(url, headers: headers).then(_analizeResult).then((result) {
+    await _http
+        .get(Uri.parse(url), headers: headers)
+        .then(_analizeResult)
+        .then((result) {
       List tableDocs = result['tables'];
 
       tables = [];
-      
+
       tableDocs.forEach((t) {
         try {
           tables.add(CustomTable.fromMap(t, host: MongoDBService.host));
@@ -89,7 +95,7 @@ class ReservationService implements ReservationProviderInterface {
       print(onError.toString());
     });
 
-    tables.sort((a,b) => a.persons.compareTo(b.persons));
+    tables.sort((a, b) => a.persons.compareTo(b.persons));
 
     return tables;
   }
@@ -106,7 +112,7 @@ class ReservationService implements ReservationProviderInterface {
     int remain = 0;
 
     await _http
-        .post(url, headers: headers, body: json.encode(body))
+        .post(Uri.parse(url), headers: headers, body: json.encode(body))
         .then(_analizeResult)
         .then((result) {
       remain = result['remain'];
@@ -120,18 +126,16 @@ class ReservationService implements ReservationProviderInterface {
   Future<bool> cancel(String reservedId) {
     String url = Vars.host + '/reservation/cancel';
 
-    Map body = {
-      'reservedId': reservedId
-    };
+    Map body = {'reservedId': reservedId};
 
     return _http
-        .post(url, headers: headers, body: json.encode(body))
+        .post(Uri.parse(url), headers: headers, body: json.encode(body))
         .then(_analizeResult)
         .then((_) => true)
         .catchError((error) {
-          print('revervation cancel error $error');
-          return false;
-        });
+      print('revervation cancel error $error');
+      return false;
+    });
   }
 
   @override
@@ -146,7 +150,7 @@ class ReservationService implements ReservationProviderInterface {
     };
 
     return _http
-        .post(url, headers: headers, body: json.encode(body))
+        .post(Uri.parse(url), headers: headers, body: json.encode(body))
         .then(_analizeResult)
         .then((result) {
       return ReserveConfirmationResult(

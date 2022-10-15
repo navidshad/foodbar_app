@@ -12,23 +12,22 @@ import 'package:rxdart/rxdart.dart';
 
 class AuthService implements AuthInterface {
   AuthService._privateConstructor();
-  
+
   static final instant = AuthService._privateConstructor();
-  
+
   static String host;
   static String tokenCollection;
 
   static void setOptions({String host, String tokenCollection}) {
-    if(host != null) AuthService.host = host;
-    if(tokenCollection != null) AuthService.tokenCollection= tokenCollection;
+    if (host != null) AuthService.host = host;
+    if (tokenCollection != null) AuthService.tokenCollection = tokenCollection;
   }
 
-  final StreamController<bool> _loginController = BehaviorSubject<bool>(sync: false);
+  final StreamController<bool> _loginController =
+      BehaviorSubject<bool>(sync: false);
 
   Client _http = Client();
   User _user;
-
-  
 
   @override
   bool isLogedIn = false;
@@ -58,7 +57,7 @@ class AuthService implements AuthInterface {
     Map body = {'id': identity, 'idType': identityType, 'password': password};
 
     return _http
-        .post(url, body: json.encode(body), headers: headers)
+        .post(Uri.parse(url), body: json.encode(body), headers: headers)
         .then(_analizeResult)
         .then((rBody) => rBody['token'])
         .then((resultToken) => token = resultToken)
@@ -96,7 +95,7 @@ class AuthService implements AuthInterface {
     print(url);
 
     return _http
-        .get(url)
+        .get(Uri.parse(url))
         .then(_analizeResult)
         .then((rBody) => rBody['token'])
         .then((resultToken) => token = resultToken)
@@ -111,7 +110,7 @@ class AuthService implements AuthInterface {
     Map body = {'token': token};
 
     return _http
-        .post(url, body: json.encode(body), headers: headers)
+        .post(Uri.parse(url), body: json.encode(body), headers: headers)
         .then(_analizeResult)
         .then((rBody) => rBody['peyload']);
   }
@@ -125,7 +124,7 @@ class AuthService implements AuthInterface {
     };
 
     return _http
-        .post(url, body: json.encode(body), headers: headers)
+        .post(Uri.parse(url), body: json.encode(body), headers: headers)
         .then(_analizeResult);
   }
 
@@ -136,7 +135,7 @@ class AuthService implements AuthInterface {
     Map body = {'id': identity, 'password': password, 'serial': serial};
 
     return _http
-        .post(url, body: json.encode(body), headers: headers)
+        .post(Uri.parse(url), body: json.encode(body), headers: headers)
         .then(_analizeResult);
   }
 
@@ -146,7 +145,7 @@ class AuthService implements AuthInterface {
     Map body = {'id': identity, 'password': password, 'serial': serial};
 
     return _http
-        .post(url, body: json.encode(body), headers: headers)
+        .post(Uri.parse(url), body: json.encode(body), headers: headers)
         .then(_analizeResult);
   }
 
@@ -158,7 +157,7 @@ class AuthService implements AuthInterface {
     };
 
     return _http
-        .post(url, body: json.encode(body), headers: headers)
+        .post(Uri.parse(url), body: json.encode(body), headers: headers)
         .then(_analizeResult)
         .then((result) => result['permission']);
   }
@@ -169,7 +168,7 @@ class AuthService implements AuthInterface {
     Map body = {'id': id, 'serial': code};
 
     return _http
-        .post(url, body: json.encode(body), headers: headers)
+        .post(Uri.parse(url), body: json.encode(body), headers: headers)
         .then(_analizeResult)
         .then((result) => result['isValid'] as bool);
   }

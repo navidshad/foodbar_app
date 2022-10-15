@@ -1,16 +1,35 @@
 {
   "name": "foodbar_server",
-  "version": "1.0.0",
-  "description": "This is the server side application of foodbar project.",
+  "version": "0.0.0",
+  "description": "This is a NodeJS server for foodbar application.",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/navidshad/foodbar_server.git"
+  },
   "author": "Navid Shad <navidshad72@gmail.com>",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/navidshad/foodbar_server/issues"
+  },
+  "homepage": "https://github.com/navidshad/foodbar_server#readme",
   "dependencies": {
-    "@modular-rest/server": "file:../../modular-rest/packages/server",
+    "@koa/cors": "^3.0.0",
+    "colog": "^1.0.4",
     "datejs": "^1.0.0-rc3",
-    "koa-router": "^10.0.0"
+    "file-system": "^2.2.2",
+    "jsonwebtoken": "^8.5.1",
+    "koa-body": "^4.1.1",
+    "koa-static": "^5.0.0",
+    "modular-rest": "^1.0.9",
+    "modular-rest-toolkit": "^0.1.8",
+    "mongoose": "^6.6.5",
+    "nested-property": "^1.0.4",
+    "request-promise": "^4.2.5",
+    "sendmail": "^1.6.1",
+    "unique-random": "^2.1.0"
   }
 }

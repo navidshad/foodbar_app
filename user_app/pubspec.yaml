@@ -9,7 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   rxdart: ^0.22.0
-  http: ^0.12.0+4
+  http: ^0.13.5
   intro_slider: ^2.2.8
   shared_preferences: ^0.5.6+1
   after_layout: ^1.0.7+2

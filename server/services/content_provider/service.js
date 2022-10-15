@@ -3,11 +3,16 @@ var colog = require('colog');
 let opTypes = require('./../../class/accsess_definition').opTypes;
 
 const Mongoose = require('mongoose');
-Mongoose.set('useCreateIndex', true);
+// Mongoose.set('useCreateIndex', true);
 
-let list_dbs = [
-    { name: 'cms', path: './database/cms.js' },
-    { name: 'user', path: './database/user.js' },
+let list_dbs = [{
+        name: 'cms',
+        path: './database/cms.js'
+    },
+    {
+        name: 'user',
+        path: './database/user.js'
+    },
 ];
 
 let connections = {};
@@ -26,8 +31,13 @@ function connect() {
         let databaseDetail = require(dbmodule['path']);
 
         // conecting to database
-        let connectionString = global.config.mongo + `/${prefix + name}`;
-        let connection = Mongoose.createConnection(connectionString, { useUnifiedTopology: true, useNewUrlParser: true, });
+        //
+        let connectionString = global.config.mongoUrl + `/${prefix + name}`;
+        let connection = Mongoose.createConnection(
+            connectionString,
+            global.config.mongoOption,
+        );
+
         connection.on('connected', () => colog.info(`- ${prefix + name} database has been connected`));
 
         // get models
@@ -76,14 +86,10 @@ function _getPermissionAccessList(db, collname, operationType) {
         AD.permissionAccessList.forEach(permissionAccess => {
             if (permissionAccess.onlyOwnData == true) {
                 permissionAccessList.push(permissionAccess);
-            }
-
-            else if (operationType == opTypes.read &&
+            } else if (operationType == opTypes.read &&
                 permissionAccess.read == true) {
                 permissionAccessList.push(permissionAccess);
-            }
-
-            else if (operationType == opTypes.write &&
+            } else if (operationType == opTypes.write &&
                 permissionAccess.write == true) {
                 permissionAccessList.push(permissionAccess);
             }
@@ -110,15 +116,11 @@ function checkAccess(db, collname, operationType, queryOrDoc, user) {
             } catch (error) {
                 key = false;
             }
-        }
-
-        else if (operationType == opTypes.read) {
+        } else if (operationType == opTypes.read) {
             if (permissionAccess.read &&
                 user.permission[permissionField] == true)
                 key = true;
-        }
-
-        else if (operationType == opTypes.write) {
+        } else if (operationType == opTypes.write) {
 
             if (permissionAccess.write &&
                 user.permission[permissionField] == true)
@@ -143,9 +145,11 @@ function getAsID(strId) {
 connect();
 
 module.exports = {
-    name, addComponentCollection, getCollection,
-    checkAccess, getAsID,
+    name,
+    addComponentCollection,
+    getCollection,
+    checkAccess,
+    getAsID,
     triggers,
     TypeCasters,
 }
-

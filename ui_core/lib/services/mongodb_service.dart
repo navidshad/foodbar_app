@@ -16,7 +16,7 @@ class MongoDBService {
   static String host;
 
   static void setOptions({String host}) {
-    if(host != null) MongoDBService.host = host;
+    if (host != null) MongoDBService.host = host;
   }
 
   MongoDBService.privateConstructor();
@@ -65,7 +65,7 @@ class MongoDBService {
     String jsonBody = json.encode(body);
 
     return _http
-        .post(url, body: jsonBody, headers: headers)
+        .post(Uri.parse(url), body: jsonBody, headers: headers)
         .then(analizeResult);
   }
 
@@ -92,7 +92,7 @@ class MongoDBService {
     Map<String, String> headers = await _getHeaders(isLive);
 
     return _http
-        .post(url, body: json.encode(body), headers: headers)
+        .post(Uri.parse(url), body: json.encode(body), headers: headers)
         .then(analizeResult);
   }
 
@@ -118,7 +118,7 @@ class MongoDBService {
     Map<String, String> headers = await _getHeaders(isLive);
 
     return _http
-        .post(url, body: json.encode(body), headers: headers)
+        .post(Uri.parse(url), body: json.encode(body), headers: headers)
         .then(analizeResult)
         .catchError((e) => 0);
   }
@@ -143,7 +143,7 @@ class MongoDBService {
     Map<String, String> headers = await _getHeaders(isLive);
 
     return _http
-        .post(url, body: json.encode(body), headers: headers)
+        .post(Uri.parse(url), body: json.encode(body), headers: headers)
         .then(analizeResult);
   }
 
@@ -160,7 +160,7 @@ class MongoDBService {
     Map<String, String> headers = await _getHeaders(isLive);
 
     return _http
-        .post(url, body: json.encode(body), headers: headers)
+        .post(Uri.parse(url), body: json.encode(body), headers: headers)
         .then(analizeResult);
   }
 
@@ -180,7 +180,7 @@ class MongoDBService {
     Map<String, String> headers = await _getHeaders(isLive);
 
     return _http
-        .post(url, body: json.encode(body), headers: headers)
+        .post(Uri.parse(url), body: json.encode(body), headers: headers)
         .then(analizeResult);
   }
 
@@ -209,13 +209,13 @@ class MongoDBService {
     Map<String, String> headers = await _getHeaders(isLive);
 
     return _http
-        .post(url, body: json.encode(body), headers: headers)
+        .post(Uri.parse(url), body: json.encode(body), headers: headers)
         .then(analizeResult)
         .then((result) {
-          List<Map> docs = [];
-          (result as List).forEach((d) => docs.add(d as Map));
-          return docs;
-        });
+      List<Map> docs = [];
+      (result as List).forEach((d) => docs.add(d as Map));
+      return docs;
+    });
   }
 
   Future<dynamic> findByIds(
@@ -236,7 +236,7 @@ class MongoDBService {
     Map<String, String> headers = await _getHeaders(isLive);
 
     return _http
-        .post(url, body: json.encode(body), headers: headers)
+        .post(Uri.parse(url), body: json.encode(body), headers: headers)
         .then(analizeResult);
   }
 

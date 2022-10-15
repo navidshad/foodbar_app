@@ -4,8 +4,14 @@ module.exports =
     host: 'localhost',
 
     // content provider 
-    mongo: 'mongodb://localhost:27017',
     db_prefix: 'foodbar_',
+    mongoUrl: 'mongodb://localhost:55000',
+    mongoOption: {
+        user: "docker",
+        pass: "mongopw",
+        authSource: "admin",
+        useNewUrlParser: true,
+    },
 
     // image uploader
     uploadPath: require('path').join(__dirname, 'uploads'),
