@@ -18,7 +18,7 @@ jobs:
           # The channel/version of Flutter to be used e.g., beta or 2.0.0
           version: 2.7.0-3.0.pre
       - name: Build admin app
-      - run: |
+        run: |
           cd admin_app
           flutter pub get
           flutter build web
