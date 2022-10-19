@@ -18,12 +18,12 @@ jobs:
           # The channel/version of Flutter to be used e.g., beta or 2.0.0
           version: 2.7.0-3.0.pre
       - name: Build admin app
+        working-directory: admin_app
         run: |
-          cd admin_app
           flutter pub get
           flutter build web
       - name: Build user app
+        working-directory: user_app
         run: |
-          cd ../user_app
           flutter pub get
           flutter build web
