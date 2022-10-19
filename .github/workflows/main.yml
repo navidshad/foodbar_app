@@ -27,7 +27,7 @@ jobs:
         with:
           source: build/web
           target: ../server/assets
-        run: |
+      - run: |
           cd ../server/assets
           ls
       - name: Build user app
