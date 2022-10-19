@@ -38,6 +38,10 @@ function connect() {
             global.config.mongoOption,
         );
 
+        connection.on('error', function (err) {
+            console.log('Mongo connection error', err);
+        });
+
         connection.on('connected', () => colog.info(`- ${prefix + name} database has been connected`));
 
         // get models

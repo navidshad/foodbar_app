@@ -4,7 +4,8 @@
   "description": "This is a NodeJS server for foodbar application.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run": "node app.js"
   },
   "repository": {
     "type": "git",

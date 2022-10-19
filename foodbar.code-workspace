@@ -11,6 +11,9 @@
 		},
 		{
 			"path": "ui_core"
+		},
+		{
+			"path": "."
 		}
 	],
 	"settings": {}

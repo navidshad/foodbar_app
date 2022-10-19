@@ -7,7 +7,8 @@ yarn-error.log*
 lerna-debug.log*
 
 #uploads
-uploads
+assets
+enduser
 config.js
 
 # Diagnostic reports (https://nodejs.org/api/report.html)

@@ -72,10 +72,10 @@ function BeforInit(app) {
   let corsOptions = {
     origin: (ctx) => {
       const requestOrigin = ctx.accept.headers.origin;
-      let whitelist = global.config.valid_cors;
+      // let whitelist = global.config.valid_cors;
 
-      if (!whitelist.includes(requestOrigin))
-        return ctx.throw(`🙈 ${requestOrigin} is not a valid origin`);
+      // if (!whitelist.includes(requestOrigin))
+      //   return ctx.throw(`🙈 ${requestOrigin} is not a valid origin`);
 
       return requestOrigin;
     }
@@ -112,6 +112,7 @@ function Init(app, otherSrvice) {
 
   // serve upload folder
   app.use(koaStatic(global.config.uploadPath));
+  app.use(koaStatic('enduser'));
 
   // serve build folder
   // TODO ...
