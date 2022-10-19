@@ -9,8 +9,8 @@ COPY /server/class ./class
 COPY /server/services ./services
 
 # Put static contents
-COPY /server/assets ./assets
-COPY /server/enduser ./enduser
+COPY /admin_app/build/web ./assets/admin
+COPY /user_app/build/web ./enduser
 
 # Run
 WORKDIR /app
