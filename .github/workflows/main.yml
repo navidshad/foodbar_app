@@ -12,9 +12,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # - uses: britannio/action-install-flutter@v1.1
-      #   with:
-      #     # The channel/version of Flutter to be used e.g., beta or 2.0.0
-      #     version: 2.7.0-3.0.pre
-      - run: ls
-      - run: flutter pub get
+      - uses: britannio/action-install-flutter@v1.1
+        with:
+          # The channel/version of Flutter to be used e.g., beta or 2.0.0
+          version: 2.7.0-3.0.pre
+      - run: |
+          cd admin_app
+          flutter pub get
+          flutter build web
