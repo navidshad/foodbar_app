@@ -1,6 +1,7 @@
 module.exports = {
     title: 'Haiku',
     host: 'localhost',
+    
 
     // content provider
     db_prefix: 'foodbar_',
