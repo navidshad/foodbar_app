@@ -22,14 +22,6 @@ jobs:
           cd admin_app
           flutter pub get
           flutter build web
-      - name: Copy Artifacts
-        uses: MadaraUchiha/copy-action@0.0.1
-        with:
-          source: admin_app/build/web
-          target: server/assets
-      - run: |
-          cd ../server/assets
-          ls
       - name: Build user app
         run: |
           cd ../user_app
