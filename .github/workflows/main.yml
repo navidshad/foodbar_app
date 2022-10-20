@@ -11,7 +11,7 @@ env:
   ECS_CLUSTER: foodbar-cluster                 # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: task-defintion.json # set this to the path to your Amazon ECS task definition
                                                # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME: foodbar-container           # set this to the name of t
+  CONTAINER_NAME: foodbar           # set this to the name of t
   
 jobs:
   build:
