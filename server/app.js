@@ -112,7 +112,6 @@ function Init(app, otherSrvice) {
 
   // serve upload folder
   app.use(koaStatic(global.config.uploadPath));
-  app.use(koaStatic('enduser'));
 
   // serve build folder
   // TODO ...

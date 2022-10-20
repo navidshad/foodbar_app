@@ -1,5 +1,5 @@
 ### links
-- [Foodbar user website](http://ec2co-ecsel-1op6zyha6a2pa-1320295553.us-east-1.elb.amazonaws.com/)
+- [Foodbar user website](http://ec2co-ecsel-1op6zyha6a2pa-1320295553.us-east-1.elb.amazonaws.com/user)
 - [Foodbar admin website](http://ec2co-ecsel-1op6zyha6a2pa-1320295553.us-east-1.elb.amazonaws.com/admin)
 ### Build and run image
 ```

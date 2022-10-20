@@ -10,7 +10,7 @@ COPY /server/services ./services
 
 # Put static contents
 COPY /admin_app/build/web ./assets/admin
-COPY /user_app/build/web ./enduser
+COPY /user_app/build/web ./assets/user
 
 # Run
 WORKDIR /app
