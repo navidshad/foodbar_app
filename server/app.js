@@ -6,6 +6,10 @@ const koaBody = require('koa-body');
 const koaStatic = require('koa-static');
 const cors = require('@koa/cors');
 
+let Router = require('koa-router');
+let healthCheck = new Router();
+healthCheck.get('/health', (ctx) => ctx.body = 'success')
+
 const EventEmitter = require('events');
 global.event = new EventEmitter();
 
@@ -68,6 +72,8 @@ let option = {
 };
 
 function BeforInit(app) {
+  app.user(healthCheck.routes())
+  
   // set cors 
   let corsOptions = {
     origin: (ctx) => {
