@@ -9,12 +9,12 @@
         "logDriver": "awslogs",
         "secretOptions": null,
         "options": {
-          "awslogs-group": "/ecs/serve-foodbar-app",
+          "awslogs-group": "/ecs/serve-foodbar-task",
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "ecs"
         }
       },
-      "entryPoint": [],
+      "entryPoint": null,
       "portMappings": [
         {
           "hostPort": 80,
@@ -22,7 +22,7 @@
           "containerPort": 80
         }
       ],
-      "command": [],
+      "command": null,
       "linuxParameters": null,
       "cpu": 0,
       "environment": [],
@@ -34,7 +34,7 @@
       "secrets": null,
       "dockerSecurityOptions": null,
       "memory": null,
-      "memoryReservation": 400,
+      "memoryReservation": 300,
       "volumesFrom": [],
       "stopTimeout": null,
       "image": "644354346006.dkr.ecr.us-east-1.amazonaws.com/foodbar",
@@ -45,7 +45,7 @@
       "interactive": null,
       "healthCheck": null,
       "essential": true,
-      "links": [],
+      "links": null,
       "hostname": null,
       "extraHosts": null,
       "pseudoTerminal": null,
@@ -54,18 +54,18 @@
       "dockerLabels": null,
       "systemControls": null,
       "privileged": null,
-      "name": "custom"
+      "name": "foodbar-app"
     }
   ],
   "placementConstraints": [],
   "memory": "512",
-  "taskRoleArn": null,
+  "taskRoleArn": "arn:aws:iam::644354346006:role/ecsTaskExecutionRole",
   "compatibilities": [
     "EC2",
     "FARGATE"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:644354346006:task-definition/serve-foodbar-app:1",
-  "family": "serve-foodbar-app",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:644354346006:task-definition/serve-foodbar-task:1",
+  "family": "serve-foodbar-task",
   "requiresAttributes": [
     {
       "targetId": null,
@@ -101,6 +101,12 @@
       "targetId": null,
       "targetType": null,
       "value": null,
+      "name": "com.amazonaws.ecs.capability.task-iam-role"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
       "name": "ecs.capability.execution-role-ecr-pull"
     },
     {
@@ -121,7 +127,10 @@
     "FARGATE"
   ],
   "networkMode": "awsvpc",
-  "runtimePlatform": null,
+  "runtimePlatform": {
+    "operatingSystemFamily": "LINUX",
+    "cpuArchitecture": null
+  },
   "cpu": "256",
   "revision": 1,
   "status": "ACTIVE",
