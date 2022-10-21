@@ -1,6 +1,6 @@
 ### links
-- [Foodbar user website](http://ec2co-ecsel-1op6zyha6a2pa-1320295553.us-east-1.elb.amazonaws.com/user)
-- [Foodbar admin website](http://ec2co-ecsel-1op6zyha6a2pa-1320295553.us-east-1.elb.amazonaws.com/admin)
+- [Foodbar user website](http://ec2co-ecsel-1gp3cytj0gkr7-2119626231.us-east-1.elb.amazonaws.com/user)
+- [Foodbar admin website](http://ec2co-ecsel-1gp3cytj0gkr7-2119626231.us-east-1.elb.amazonaws.com/admin)
 ### Build and run image
 ```
 docker build -t foodbar-server .
