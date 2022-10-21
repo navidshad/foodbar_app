@@ -46,6 +46,7 @@
         "healthCheck": {
           "retries": 3,
           "command": [
+            "CMD",
             "curl -f http://localhost/health || exit 1"
           ],
           "timeout": 5,
