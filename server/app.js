@@ -72,7 +72,7 @@ let option = {
 };
 
 function BeforInit(app) {
-  app.user(healthCheck.routes())
+  app.use(healthCheck.routes())
   
   // set cors 
   let corsOptions = {
