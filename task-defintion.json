@@ -43,16 +43,7 @@
         "dependsOn": null,
         "disableNetworking": null,
         "interactive": null,
-        "healthCheck": {
-          "retries": 3,
-          "command": [
-            "CMD",
-            "curl -f http://localhost/health || exit 1"
-          ],
-          "timeout": 5,
-          "interval": 30,
-          "startPeriod": null
-        },
+ 
         "essential": true,
         "links": [],
         "hostname": null,
