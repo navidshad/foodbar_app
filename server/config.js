@@ -25,6 +25,8 @@ module.exports = {
     },
 
     // jwt
-    PRIVATE_KEY: process.env.PRIVATE_KEY,
-    PUBLIC_KEY: process.env.PUBLIC_KEY,
+    PRIVATE_KEY: Buffer.from(process.env.PRIVATE_KEY64, 'base64'),
+    PUBLIC_KEY: Buffer.from(process.env.PUBLIC_KEY64, 'base64'),
 }
+
+console.log(process.env.PRIVATE_KEY);
