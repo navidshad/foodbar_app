@@ -8,7 +8,7 @@ env:
   ECR_REPOSITORY: foodbar-user                       # set this to your Amazon ECR repository name
   ECS_SERVICE: user-service                  # set this to your Amazon ECS service name
   ECS_CLUSTER: foodbar-cluster                  # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: task-defintion.json      # set this to the path to your Amazon ECS task definition
+  ECS_TASK_DEFINITION: task-user.json      # set this to the path to your Amazon ECS task definition
                                                 # file, e.g. .aws/task-definition.json
   CONTAINER_NAME: user-app                   # set this to the name of 
   
