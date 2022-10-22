@@ -1,4 +1,4 @@
-name: Deploy Server to Amazon ECS
+name: Deploy ServerApp to Amazon ECS
 on:
   push:
     branches:
