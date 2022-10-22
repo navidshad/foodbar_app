@@ -1,0 +1,76 @@
+name: Deploy Server to Amazon ECS
+on:
+  push:
+    branches:
+      - master
+env:
+  AWS_REGION: us-east-1                         # set this to your preferred AWS region, e.g. us-west-1
+  ECR_REPOSITORY: foodbar-user                       # set this to your Amazon ECR repository name
+  ECS_SERVICE: user-service                  # set this to your Amazon ECS service name
+  ECS_CLUSTER: foodbar-cluster                  # set this to your Amazon ECS cluster name
+  ECS_TASK_DEFINITION: task-defintion.json      # set this to the path to your Amazon ECS task definition
+                                                # file, e.g. .aws/task-definition.json
+  CONTAINER_NAME: user-app                   # set this to the name of 
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: britannio/action-install-flutter@v1.1
+        with:
+          # The channel/version of Flutter to be used e.g., beta or 2.0.0
+          version: 2.7.0-3.0.pre
+          
+      - name: Build admin app
+        working-directory: admin_app
+        run: |
+          flutter pub get
+          flutter build web
+          
+      - name: Build user app
+        working-directory: user_app
+        run: |
+          flutter pub get
+          flutter build web
+          
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@13d241b293754004c80624b5567555c4a39ffbe3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@aaf69d68aa3fb14c1d5a6be9ac61fe15b48453a2
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          # Build a docker container and
+          # push it to ECR so that it can
+          # be deployed to ECS.
+          docker build -f df-user.Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@97587c9d45a4930bf0e3da8dd2feb2a463cf4a3a
+        with:
+          task-definition: ${{ env.ECS_TASK_DEFINITION }}
+          container-name: ${{ env.CONTAINER_NAME }}
+          image: ${{ steps.build-image.outputs.image }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true
+
