@@ -61,7 +61,7 @@
       "extraHosts": null,
       "pseudoTerminal": null,
       "user": null,
-      "readonlyRootFilesystem": false,
+      "readonlyRootFilesystem": null,
       "dockerLabels": null,
       "systemControls": null,
       "privileged": null,
@@ -75,7 +75,7 @@
     "EC2",
     "FARGATE"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:644354346006:task-definition/server-task:8",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:644354346006:task-definition/server-task:10",
   "family": "server-task",
   "requiresAttributes": [
     {
@@ -161,7 +161,7 @@
     "cpuArchitecture": null
   },
   "cpu": "256",
-  "revision": 8,
+  "revision": 10,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
