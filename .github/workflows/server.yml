@@ -1,6 +1,6 @@
 name: Deploy ServerApp to Amazon ECS
 on:
-  push:
+  workflow_dispatch:
     branches:
       - master
 env:
