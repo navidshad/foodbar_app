@@ -7,7 +7,7 @@ import 'package:foodbar_user/bloc/bloc.dart';
 import 'package:foodbar_user/services/options_service.dart';
 
 class CustomDrawer extends StatefulWidget {
-  const CustomDrawer({Key key}) : super(key: key);
+  const CustomDrawer({Key? key}) : super(key: key);
 
   @override
   _CustomDrawerState createState() => _CustomDrawerState();

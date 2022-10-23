@@ -5,7 +5,7 @@ import 'package:foodbar_user/settings/types.dart';
 import 'package:foodbar_user/widgets/widgets.dart';
 
 class PopupAuthAlert extends StatelessWidget {
-  const PopupAuthAlert({Key key}) : super(key: key);
+  const PopupAuthAlert({Key? key}) : super(key: key);
 
   final double width = 100;
   final double height = 200;

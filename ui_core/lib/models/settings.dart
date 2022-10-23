@@ -3,20 +3,20 @@ import 'package:foodbar_flutter_core/foodbar_flutter_core.dart';
 import 'package:foodbar_flutter_core/mongodb/field.dart';
 import 'package:foodbar_flutter_core/settings/types.dart';
 
-class Settings  {
-  String title;
-  String slagon;
+class Settings {
+  String title = 'Title';
+  String slagon = 'Slagon';
 
-  MenuType menuType;
+  MenuType menuType = MenuType.OnePage;
 
-  int deliveryCharges;
-  int totalAllowedDaysForReservation;
-  int timeDividedPerMitutes;
-  int timeToDeliveryFromNowByMinutes;
-  int timeToDeliveryBeforClosedResturantByMinutes;
+  int deliveryCharges = 0;
+  int totalAllowedDaysForReservation = 3;
+  int timeDividedPerMitutes = 30;
+  int timeToDeliveryFromNowByMinutes = 30;
+  int timeToDeliveryBeforClosedResturantByMinutes = 40;
 
-  ImageDetail vertivalImage;
-  ImageDetail horizontalImage;
+  ImageDetail? vertivalImage;
+  ImageDetail? horizontalImage;
 
   static List<DbField> getDbFields() {
     return [

@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 
 class TextfieldWithIcon extends StatelessWidget {
   final IconData iconData;
-  final String hint;
+  final String? hint;
   final bool obscureText;
   final Function(String value) onSubmitted;
   final TextInputType keyboardType;
 
-  TextfieldWithIcon({
-    Key key,
-    @required this.iconData,
-    @required this.onSubmitted,
-    this.hint,
-    this.obscureText = false,
-    this.keyboardType = TextInputType.text
-  }) : super(key: key);
+  TextfieldWithIcon(
+      {Key? key,
+      required this.iconData,
+      required this.onSubmitted,
+      this.hint,
+      this.obscureText = false,
+      this.keyboardType = TextInputType.text})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

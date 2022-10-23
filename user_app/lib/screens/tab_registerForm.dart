@@ -8,7 +8,7 @@ import 'package:foodbar_user/settings/types.dart';
 import 'package:foodbar_user/services/options_service.dart';
 
 class RegisterTab extends StatefulWidget {
-  RegisterTab({Key key}) : super(key: key);
+  RegisterTab({Key? key}) : super(key: key);
 
   @override
   _RegisterTabState createState() => _RegisterTabState();
@@ -18,7 +18,7 @@ class _RegisterTabState extends State<RegisterTab> {
 
   OptionsService options = OptionsService.instance;
 
-  IntroBloc bloc;
+  late IntroBloc bloc;
   String _email = '';
   String _password = '';
   int _varificationCode;

@@ -10,9 +10,9 @@ class ReservationScheduleOption {
   List<DateTime> reservedTimes = [];
 
   ReservationScheduleOption({
-    @required this.from,
-    @required this.totalDays,
-    @required this.periods,
+    required this.from,
+    required this.totalDays,
+    required this.periods,
   });
 
   factory ReservationScheduleOption.fromMap(Map detail) {

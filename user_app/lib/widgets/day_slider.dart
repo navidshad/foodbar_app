@@ -6,7 +6,7 @@ import 'package:foodbar_flutter_core/utilities/date_util\.dart';
 
 class CustomDaySlider extends StatefulWidget {
   CustomDaySlider({
-    Key key,
+    Key? key,
     @required this.title,
     @required this.height,
     this.totalDays,

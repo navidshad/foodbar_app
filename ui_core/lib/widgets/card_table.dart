@@ -3,20 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:foodbar_flutter_core/models/models.dart';
 
 class CardTable extends StatelessWidget {
-  CardTable(
-      {Key key,
-      this.table,
-      this.margin,
-      this.backgroundColor,
-      this.textColor,
-      this.disableColor = Colors.grey,
-      this.disableTextColor = Colors.black,
-      this.isActive = false,
-      this.onPressed})
-      : super(key: key);
+  CardTable({
+    Key? key,
+    required this.table,
+    required this.onPressed,
+    required this.backgroundColor,
+    required this.textColor,
+    this.margin,
+    this.disableColor = Colors.grey,
+    this.disableTextColor = Colors.black,
+    this.isActive = false,
+  }) : super(key: key);
 
   final CustomTable table;
-  final EdgeInsets margin;
+  final EdgeInsets? margin;
   final Color backgroundColor;
   final Color textColor;
   final Color disableColor;

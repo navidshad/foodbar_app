@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class CustomIntSlider extends StatefulWidget {
   CustomIntSlider(
-      {Key key,
+      {Key? key,
       this.title,
       this.min = 0,
       this.max,

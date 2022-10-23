@@ -1,17 +1,21 @@
-
 import 'package:foodbar_flutter_core/mongodb/field.dart';
 import './image_detail.dart';
 
-class CustomTable  {
+class CustomTable {
   String id;
   String title;
-  ImageDetail image;
+  ImageDetail? image;
   int persons;
 
-  CustomTable({this.id, this.title, this.image, this.persons});
+  CustomTable({
+    required this.id,
+    this.title = '',
+    this.persons = 1,
+    this.image,
+  });
 
-  factory CustomTable.fromMap(Map detail, {String host}) {
-    CustomTable table;
+  factory CustomTable.fromMap(Map detail, {String host = ''}) {
+    CustomTable table = CustomTable(id: '');
 
     if (detail['type'] == 'Board') {
       table = BoardTable(
@@ -66,19 +70,19 @@ class BoardTable extends CustomTable {
   int count;
 
   BoardTable({
-    int persons,
-    this.count,
-    String title,
-    ImageDetail image,
-    String id,
+    int persons = 1,
+    this.count = 10,
+    String title = '',
+    ImageDetail? image,
+    required String id,
   }) : super(id: id, title: title, image: image, persons: persons);
 }
 
 class RollBandTable extends CustomTable {
   RollBandTable({
-    int persons,
-    String title,
-    ImageDetail image,
-    String id,
+    int persons = 1,
+    String title = '',
+    ImageDetail? image,
+    required String id,
   }) : super(id: id, title: title, image: image, persons: persons);
 }

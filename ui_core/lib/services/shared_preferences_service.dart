@@ -11,7 +11,7 @@ class SharedPreferencesService implements LocalStorageInterface {
 
   @override
   Future<List<Map<String, dynamic>>> find(String collection,
-      [bool query(Map<String, dynamic> doc)]) async {
+      [bool query(Map<String, dynamic> doc)?]) async {
     //
     // get an instace of this
     SharedPreferences adapter = await SharedPreferences.getInstance();
@@ -21,7 +21,7 @@ class SharedPreferencesService implements LocalStorageInterface {
     dynamic deserialized;
 
     // get and data
-    String jsonContent = adapter.getString(collection);
+    String? jsonContent = adapter.getString(collection);
     if (jsonContent == null) return docs;
 
     try {
@@ -32,18 +32,18 @@ class SharedPreferencesService implements LocalStorageInterface {
 
     // normalize the list
     deserialized.forEach((doc) {
-      if (doc is Map) docs.add(doc);
+      if (doc is Map) docs.add(doc as Map<String, dynamic>);
     });
 
     // perform query
-    if (query != null) docs = docs.where(query);
+    if (query != null) docs = docs.where(query).toList();
 
     return docs;
   }
 
   @override
-  Future<Map<String, dynamic>> findOne(String collection,
-      [bool query(Map<String, dynamic> doc)]) async {
+  Future<Map<String, dynamic>?> findOne(String collection,
+      [bool query(Map<String, dynamic> doc)?]) async {
     List<Map<String, dynamic>> list = await find(collection, query);
 
     if (list.length == 0)
@@ -58,7 +58,7 @@ class SharedPreferencesService implements LocalStorageInterface {
     List<Map<String, dynamic>> list = await find(collection);
 
     int oldDocIndex = -1;
-    
+
     if (list.length > 0) {
       Map<String, dynamic> oldDoc =
           list.singleWhere((d) => (d['_id'].toString() == id));

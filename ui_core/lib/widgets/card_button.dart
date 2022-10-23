@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class CardButton extends StatelessWidget {
-  final double elevation;
+  final double? elevation;
   final double radius;
-  final double height;
+  final double? height;
   final String title;
-  final Function onTap;
+  final Function? onTap;
   final bool isOutline;
-  final EdgeInsets margin;
+  final EdgeInsets? margin;
 
   final Color mainColor;
   final Color disabledColor;
@@ -17,15 +17,15 @@ class CardButton extends StatelessWidget {
   CardButton(
       {this.elevation,
       this.radius = 5,
-      this.title,
-      this.height,
+      this.title = '',
+      this.height = 10,
       this.onTap,
       this.isOutline = false,
       this.margin,
-      @required this.mainColor,
-      @required this.disabledColor,
-      @required this.textOnDisabled,
-      @required this.textOnMainColor});
+      required this.mainColor,
+      required this.disabledColor,
+      required this.textOnDisabled,
+      required this.textOnMainColor});
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +34,11 @@ class CardButton extends StatelessWidget {
         Widget button;
 
         if (isOutline) {
-          button = OutlineButton(
-            onPressed: onTap,
-            borderSide: BorderSide(color: mainColor),
-            disabledBorderColor: disabledColor,
-            disabledTextColor: textOnDisabled,
+          button = OutlinedButton(
+            onPressed: () => onTap != null && onTap!(),
+            // borderSide: BorderSide(color: mainColor),
+            // disabledBorderColor: disabledColor,
+            // disabledTextColor: textOnDisabled,
             child: Text(
               title,
               style: TextStyle(
@@ -48,16 +48,15 @@ class CardButton extends StatelessWidget {
             ),
           );
         } else {
-          button = FlatButton(
-            onPressed: onTap,
-            color: mainColor,
-            disabledColor: disabledColor,
-            disabledTextColor: textOnDisabled,
+          button = ElevatedButton(
+            onPressed: () => onTap!(),
+            // color: mainColor,
+            // disabledColor: disabledColor,
+            // disabledTextColor: textOnDisabled,
             child: Text(
               title,
               style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: textOnMainColor),
+                  fontWeight: FontWeight.bold, color: textOnMainColor),
             ),
           );
         }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Popup extends StatelessWidget {
-  const Popup({Key key, this.bodyContent}) : super(key: key);
+  const Popup({Key? key, this.bodyContent}) : super(key: key);
 
   final Widget bodyContent;
   final double width = 100;

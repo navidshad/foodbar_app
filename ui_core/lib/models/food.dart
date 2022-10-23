@@ -1,28 +1,28 @@
-
 import 'package:foodbar_flutter_core/mongodb/field.dart';
 import './category.dart';
 import './image_detail.dart';
 
-class Food  {
+class Food {
   String id;
   String categoryId;
   String title;
   String subTitle;
   String description;
-  ImageDetail image;
+  ImageDetail? image;
   double price;
 
-  Food(
-      {this.id,
-      this.categoryId,
-      this.title,
-      this.subTitle,
-      this.description,
-      this.price,
-      this.image});
+  Food({
+    required this.id,
+    required this.categoryId,
+    required this.title,
+    this.subTitle = '',
+    this.description = '',
+    this.price = 0,
+    this.image,
+  });
 
-  factory Food.fromMap(Map detail, {String host}) {
-    Food food;
+  factory Food.fromMap(Map detail, {String host = ''}) {
+    Food food = Food(id: '', categoryId: '', title: '');
 
     try {
       food = Food(
@@ -56,5 +56,5 @@ class Food  {
     ];
   }
 
-  String getCombinedTag() => '#$id-${image.getUrl()}';
+  String getCombinedTag() => '#$id-${image!.getUrl()}';
 }

@@ -7,7 +7,7 @@ import 'package:foodbar_user/settings/settings.dart';
 
 class PageWithScalableHeader extends StatefulWidget {
   PageWithScalableHeader({
-    Key key,
+    Key? key,
     this.headerColor = Colors.grey,
     this.heroTag,
     this.headerDescription,

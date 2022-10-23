@@ -2,10 +2,10 @@ import 'package:rxdart/rxdart.dart';
 import 'dart:async';
 
 abstract class BlocInterface<BlocEvent, BlocState> {
-  final StreamController _stateController = BehaviorSubject<BlocState>();
+  final StreamController<BlocState> _stateController = BehaviorSubject();
   Stream<BlocState> get stateStream => _stateController.stream;
 
-  final StreamController _eventController = BehaviorSubject<BlocEvent>();
+  final StreamController<BlocEvent> _eventController = BehaviorSubject();
   StreamSink<BlocEvent> get eventSink => _eventController.sink;
 
   BlocInterface() {

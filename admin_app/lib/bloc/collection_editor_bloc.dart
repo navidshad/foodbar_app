@@ -30,7 +30,7 @@ class CollectionEditorBloc
   MongoNavigatorDetail navigatorDetail = MongoNavigatorDetail();
   ImageService _imageService = ImageService.instance;
 
-  CollectionEditorBloc({@required this.database, @required this.collection}) {
+  CollectionEditorBloc({required this.database, required this.collection}) {
     _eventController.stream.listen(handler);
   }
 
@@ -175,26 +175,25 @@ class CollectionEditorBloc
 }
 
 class CollectionEditorBlocEvent {
-  Function _onDone;
-  Function(dynamic error) _onError;
+  Function? _onDone;
+  Function(dynamic error)? _onError;
   bool wasErrorHapened = false;
 
   CollectionEditorBlocEvent(
-      {Function onDone, Function(dynamic error) onError}) {
-    _onDone = onDone;
-    _onError = onError;
+      {Function? onDone, Function(dynamic error)? onError}) {
+    _onDone = onDone!;
+    _onError = onError!;
   }
 
   void onDone() {
     if (wasErrorHapened) return;
-
-    if (_onDone != null) _onDone();
+    if (_onDone != null) _onDone!();
   }
 
   void onError(dynamic error) {
     wasErrorHapened = true;
 
-    if (_onError != null) _onError(error);
+    if (_onError != null) _onError!(error);
   }
 }
 
@@ -209,17 +208,17 @@ class GetDocsEvent extends CollectionEditorBlocEvent {
     this.query = const {},
     this.options = const {},
     this.types = const [],
-    Function onDone,
-    Function(dynamic error) onError,
+    Function? onDone,
+    Function(dynamic error)? onError,
   }) : super(onDone: onDone, onError: onError);
 }
 
 class CreateDocEvent extends CollectionEditorBlocEvent {
   Map<dynamic, dynamic> doc;
   CreateDocEvent({
-    this.doc,
-    Function onDone,
-    Function(dynamic error) onError,
+    required this.doc,
+    required Function onDone,
+    Function(dynamic error)? onError,
   }) : super(onDone: onDone, onError: onError);
 }
 
@@ -229,20 +228,20 @@ class UpdateDocEvent extends CollectionEditorBlocEvent {
   Map<dynamic, dynamic> options;
 
   UpdateDocEvent({
-    this.query,
-    this.update,
+    required this.query,
+    required this.update,
     this.options = const {},
-    Function onDone,
-    Function(dynamic error) onError,
+    Function? onDone,
+    Function(dynamic error)? onError,
   }) : super(onDone: onDone, onError: onError);
 }
 
 class RemoveDocsEvent extends CollectionEditorBlocEvent {
   Map<dynamic, dynamic> query;
   RemoveDocsEvent({
-    this.query,
-    Function onDone,
-    Function(dynamic error) onError,
+    required this.query,
+    Function? onDone,
+    Function(dynamic error)? onError,
   }) : super(onDone: onDone, onError: onError);
 }
 
@@ -251,16 +250,17 @@ class UploadImageEvent extends CollectionEditorBlocEvent {
   File file;
   Function(int percent) onTransform;
   UploadImageEvent({
-    this.id,
-    this.file,
-    this.onTransform,
-    Function onDone,
-    Function(dynamic error) onError,
+    required this.id,
+    required this.file,
+    required this.onTransform,
+    Function? onDone,
+    Function(dynamic error)? onError,
   }) : super(onDone: onDone, onError: onError);
 }
 
 class CollectionEditorBlocState {
   List<Map> docs;
   MongoNavigatorDetail navigatorDetail;
-  CollectionEditorBlocState({this.docs = const [], this.navigatorDetail});
+  CollectionEditorBlocState(
+      {this.docs = const [], required this.navigatorDetail});
 }

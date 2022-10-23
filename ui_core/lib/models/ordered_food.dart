@@ -6,20 +6,20 @@ class OrderedFood extends Food {
 
   double get totalPrice => this.price * total;
 
-  // his code is used when a copy of this object wants to update 
+  // this code is used when a copy of this object wants to update
   // this object at cart food list.
   // this hashcode being given when this object is about to be a refrence;
-  int initialHash;
+  int initialHash = 0;
 
   OrderedFood({
-    String id,
-    String categoryId,
-    String title,
-    String subTitle,
-    String description,
-    ImageDetail image,
-    double price,
-    this.total,
+    required String id,
+    required String categoryId,
+    required String title,
+    String subTitle = '',
+    String description = '',
+    ImageDetail? image,
+    double price = 0,
+    this.total = 0,
   }) : super(
           id: id,
           categoryId: categoryId,

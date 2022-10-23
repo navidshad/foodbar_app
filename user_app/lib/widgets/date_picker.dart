@@ -6,7 +6,7 @@ import 'package:foodbar_flutter_core/models/models.dart';
 
 class CustomDatePicker extends StatefulWidget {
   CustomDatePicker({
-    Key key,
+    Key? key,
     @required this.dateTitle,
     @required this.timeTitle,
     @required this.bloc,

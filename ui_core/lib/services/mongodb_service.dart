@@ -11,11 +11,11 @@ export 'package:foodbar_flutter_core/mongodb/mongodb.dart';
 class MongoDBService {
   Client _http = Client();
   AuthInterface _userService = AuthService.instant;
-  User get user => _userService.user;
+  User? get user => _userService.user;
 
-  static String host;
+  static String host = '';
 
-  static void setOptions({String host}) {
+  static void setOptions({String? host}) {
     if (host != null) MongoDBService.host = host;
   }
 
@@ -33,7 +33,7 @@ class MongoDBService {
 
     Map<String, String> headers = {
       'Content-Type': 'application/json',
-      'authorization': _userService.token
+      'authorization': _userService.token ?? ''
     };
 
     if (isLive) headers['live'] = 'true';
@@ -41,13 +41,14 @@ class MongoDBService {
     return headers;
   }
 
-  Future<dynamic> find(
-      {bool isLive = true,
-      String database,
-      String collection,
-      Map query = const {},
-      Map options = const {},
-      List<TypeCaster> types = const []}) async {
+  Future<dynamic> find({
+    bool isLive = true,
+    required String database,
+    required String collection,
+    Map query = const {},
+    Map options = const {},
+    List<TypeCaster> types = const [],
+  }) async {
     String url = MongoDBService.host + '/contentProvider/find';
 
     Map body = {
@@ -69,13 +70,14 @@ class MongoDBService {
         .then(analizeResult);
   }
 
-  Future<dynamic> findOne(
-      {bool isLive = true,
-      String database,
-      String collection,
-      Map query = const {},
-      Map options = const {},
-      List<TypeCaster> types = const []}) async {
+  Future<dynamic> findOne({
+    bool isLive = true,
+    required String database,
+    required String collection,
+    Map query = const {},
+    Map options = const {},
+    List<TypeCaster> types = const [],
+  }) async {
     String url = MongoDBService.host + '/contentProvider/findOne';
 
     dynamic body = {
@@ -98,8 +100,8 @@ class MongoDBService {
 
   Future<dynamic> count(
       {bool isLive = true,
-      String database,
-      String collection,
+      required String database,
+      required String collection,
       Map query = const {},
       String bodyKey = '',
       List<TypeCaster> types = const []}) async {
@@ -123,13 +125,14 @@ class MongoDBService {
         .catchError((e) => 0);
   }
 
-  Future<dynamic> updateOne(
-      {bool isLive = true,
-      String database,
-      String collection,
-      Map query,
-      Map update,
-      Map options = const {}}) async {
+  Future<dynamic> updateOne({
+    bool isLive = true,
+    required String database,
+    required String collection,
+    required Map query,
+    required Map update,
+    Map options = const {},
+  }) async {
     String url = MongoDBService.host + '/contentProvider/updateOne';
 
     dynamic body = {
@@ -147,8 +150,12 @@ class MongoDBService {
         .then(analizeResult);
   }
 
-  Future<dynamic> insertOne(
-      {bool isLive = true, String database, String collection, Map doc}) async {
+  Future<dynamic> insertOne({
+    bool isLive = true,
+    required String database,
+    required String collection,
+    Map? doc,
+  }) async {
     String url = MongoDBService.host + '/contentProvider/insertOne';
 
     dynamic body = {
@@ -164,11 +171,12 @@ class MongoDBService {
         .then(analizeResult);
   }
 
-  Future<dynamic> removeOne(
-      {bool isLive = true,
-      String database,
-      String collection,
-      Map query}) async {
+  Future<dynamic> removeOne({
+    bool isLive = true,
+    String? database,
+    String? collection,
+    Map? query,
+  }) async {
     String url = MongoDBService.host + '/contentProvider/removeOne';
 
     dynamic body = {
@@ -184,13 +192,14 @@ class MongoDBService {
         .then(analizeResult);
   }
 
-  Future<List<Map>> aggregate(
-      {bool isLive = true,
-      String database,
-      String collection,
-      List<Map> piplines,
-      Map accessQuery = const {},
-      List<TypeCaster> types = const []}) async {
+  Future<List<Map>> aggregate({
+    bool isLive = true,
+    required String database,
+    required String collection,
+    required List<Map> piplines,
+    Map accessQuery = const {},
+    List<TypeCaster> types = const [],
+  }) async {
     String url = MongoDBService.host + '/contentProvider/aggregate';
 
     dynamic body = {
@@ -218,12 +227,13 @@ class MongoDBService {
     });
   }
 
-  Future<dynamic> findByIds(
-      {bool isLive = true,
-      String database,
-      String collection,
-      Map options = const {},
-      List<String> ids}) async {
+  Future<dynamic> findByIds({
+    bool isLive = true,
+    required String database,
+    required String collection,
+    Map options = const {},
+    required List<String> ids,
+  }) async {
     String url = MongoDBService.host + '/contentProvider/getByIds';
 
     dynamic body = {
@@ -242,9 +252,9 @@ class MongoDBService {
 
   Future<dynamic> findById(
       {bool isLive = true,
-      String database,
-      String collection,
-      String id,
+      required String database,
+      required String collection,
+      required String id,
       Map options = const {}}) async {
     dynamic body = {
       'database': database,

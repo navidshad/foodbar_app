@@ -4,7 +4,7 @@ import 'package:foodbar_user/bloc/bloc.dart';
 import 'package:foodbar_user/widgets/widgets.dart';
 
 class PersonSelector extends StatefulWidget {
-  PersonSelector({Key key, @required this.bloc, @required this.onSelectPerson})
+  PersonSelector({Key? key, @required this.bloc, @required this.onSelectPerson})
       : super(key: key);
 
   final ReservationBloc bloc;

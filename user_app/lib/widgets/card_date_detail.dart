@@ -5,7 +5,7 @@ import 'package:foodbar_flutter_core/utilities/date_util\.dart';
 
 class CardDateDetail extends StatelessWidget {
   CardDateDetail({
-    Key key,
+    Key? key,
     this.width,
     this.height,
     this.date,

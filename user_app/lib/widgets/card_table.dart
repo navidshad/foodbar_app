@@ -5,7 +5,7 @@ import 'package:foodbar_user/settings/settings.dart';
 
 class CardTable extends StatelessWidget {
   CardTable(
-      {Key key,
+      {Key? key,
       this.table,
       this.margin,
       this.height = 200,

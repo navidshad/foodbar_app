@@ -15,10 +15,10 @@ class AuthService implements AuthInterface {
 
   static final instant = AuthService._privateConstructor();
 
-  static String host;
-  static String tokenCollection;
+  static String host = '';
+  static String tokenCollection = '';
 
-  static void setOptions({String host, String tokenCollection}) {
+  static void setOptions({String? host, String? tokenCollection}) {
     if (host != null) AuthService.host = host;
     if (tokenCollection != null) AuthService.tokenCollection = tokenCollection;
   }
@@ -27,7 +27,7 @@ class AuthService implements AuthInterface {
       BehaviorSubject<bool>(sync: false);
 
   Client _http = Client();
-  User _user;
+  User? _user;
 
   @override
   bool isLogedIn = false;
@@ -38,10 +38,10 @@ class AuthService implements AuthInterface {
   }
 
   @override
-  String token;
+  String? token;
 
   @override
-  User get user => _user;
+  User? get user => _user;
 
   @override
   Stream<bool> get loginEvent => _loginController.stream;
@@ -50,8 +50,11 @@ class AuthService implements AuthInterface {
     'Content-Type': 'application/json',
   };
 
-  Future<dynamic> login(
-      {String identity, String identityType, String password}) {
+  Future<dynamic> login({
+    required String identity,
+    required String identityType,
+    required String password,
+  }) {
     String url = AuthService.host + '/user/login';
 
     Map body = {'id': identity, 'idType': identityType, 'password': password};
@@ -62,7 +65,7 @@ class AuthService implements AuthInterface {
         .then((rBody) => rBody['token'])
         .then((resultToken) => token = resultToken)
         // varify token
-        .then((r) => varifyToken(token))
+        .then((r) => varifyToken(token ?? ''))
         // load user detail
         .then(_loadUserFromPayload);
   }
@@ -88,8 +91,7 @@ class AuthService implements AuthInterface {
     saveSession();
   }
 
-  Future<dynamic> loginAnonymous(
-      {String identity, String identityType, String password}) {
+  Future<dynamic> loginAnonymous() {
     String url = AuthService.host + '/user/loginAnonymous';
 
     print(url);
@@ -100,7 +102,7 @@ class AuthService implements AuthInterface {
         .then((rBody) => rBody['token'])
         .then((resultToken) => token = resultToken)
         // varify token
-        .then((r) => varifyToken(token))
+        .then((r) => varifyToken(token ?? ''))
         // load user detail
         .then(_loadUserFromPayload);
   }
@@ -115,7 +117,8 @@ class AuthService implements AuthInterface {
         .then((rBody) => rBody['peyload']);
   }
 
-  Future<dynamic> registerSubmitId({String identity, String identityType}) {
+  Future<dynamic> registerSubmitId(
+      {required String identity, required String identityType}) {
     String url = AuthService.host + '/user/register_submit_id';
 
     Map body = {
@@ -129,7 +132,7 @@ class AuthService implements AuthInterface {
   }
 
   Future<dynamic> registerSubmitPass(
-      {String identity, String password, int serial}) {
+      {required String identity, required String password, int? serial}) {
     String url = AuthService.host + '/user/register_submit_pass';
 
     Map body = {'id': identity, 'password': password, 'serial': serial};
@@ -139,7 +142,8 @@ class AuthService implements AuthInterface {
         .then(_analizeResult);
   }
 
-  Future<dynamic> changePass({String identity, String password, int serial}) {
+  Future<dynamic> changePass(
+      {required String identity, required String password, int? serial}) {
     String url = AuthService.host + '/user/change_pass';
 
     Map body = {'id': identity, 'password': password, 'serial': serial};
@@ -162,7 +166,7 @@ class AuthService implements AuthInterface {
         .then((result) => result['permission']);
   }
 
-  Future<bool> validateCode({String id, int code}) {
+  Future<bool> validateCode({required String id, required int code}) {
     String url = AuthService.host + '/user/validateCode';
 
     Map body = {'id': id, 'serial': code};
@@ -177,13 +181,13 @@ class AuthService implements AuthInterface {
   Future<bool> loginWithLastSession() async {
     LocalStorageInterface storage = SharedPreferencesService.instace;
 
-    Map doc = await storage.findOne(AuthService.tokenCollection);
+    Map? doc = await storage.findOne(AuthService.tokenCollection);
     if (doc == null) return false;
 
     token = doc['token'];
 
     // varify last token
-    return varifyToken(token)
+    return varifyToken(token ?? '')
         // load user detail
         .then(_loadUserFromPayload)
         // result

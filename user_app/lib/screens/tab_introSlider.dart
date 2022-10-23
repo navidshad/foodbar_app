@@ -11,7 +11,7 @@ class SliderIntroTab extends StatelessWidget {
   Function onDone;
   BuildContext _context;
 
-  SliderIntroTab({Key key, @required this.onDone}) : super(key: key);
+  SliderIntroTab({Key? key, @required this.onDone}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

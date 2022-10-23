@@ -1,16 +1,20 @@
-
 import 'package:foodbar_flutter_core/mongodb/field.dart';
 import 'package:foodbar_flutter_core/models/models.dart';
 
-class IntroSlideItem  {
+class IntroSlideItem {
   String title;
   String description;
-  ImageDetail image;
-  bool alwaysShow;
+  ImageDetail? image;
+  bool alwaysShow = false;
 
-  IntroSlideItem({this.title, this.description, this.alwaysShow, this.image});
+  IntroSlideItem({
+    required this.title,
+    this.description = '',
+    this.alwaysShow = false,
+    this.image,
+  });
 
-  factory IntroSlideItem.fromMap(Map detail, {String host}) {
+  factory IntroSlideItem.fromMap(Map detail, {String host = ''}) {
     return IntroSlideItem(
       title: detail['title'],
       description: detail['description'],
@@ -29,7 +33,8 @@ class IntroSlideItem  {
     return [
       DbField('title'),
       DbField('description', fieldType: FieldType.textbox),
-      DbField('alwaysShow', fieldType: FieldType.checkbox, dataType: DataType.bool),
+      DbField('alwaysShow',
+          fieldType: FieldType.checkbox, dataType: DataType.bool),
       DbField('image', dataType: DataType.object, fieldType: FieldType.image),
     ];
   }

@@ -14,8 +14,8 @@ class CustomAppBar extends StatefulWidget with PreferredSizeWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
-  FrameTabType currentTab;
-  AppFrameBloc bloc;
+  late FrameTabType currentTab;
+  late AppFrameBloc bloc;
 
   @override
   void didChangeDependencies() {
@@ -29,7 +29,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
       stream: bloc.stateStream,
       initialData: bloc.getInitialState(),
       builder: (stateContext, AsyncSnapshot<AppFrameState> snapshot) {
-        return buildAppBar(snapshot.data.title, AppFrameBloc.currentType);
+        return buildAppBar(snapshot.data!.title, AppFrameBloc.currentType);
       },
     );
   }

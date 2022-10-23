@@ -23,7 +23,7 @@ class FlexibleTab {
 
 class FlexibleVerticalTabs extends StatefulWidget {
   FlexibleVerticalTabs({
-    Key key,
+    Key? key,
     @required this.tabs,
     this.openedTabHeightPercent = 70,
   }) : super(key: key);

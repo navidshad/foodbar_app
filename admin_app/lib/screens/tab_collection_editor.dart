@@ -10,13 +10,13 @@ import 'package:foodbar_flutter_core/mongodb/field.dart';
 
 class CollectionEditorTab extends StatefulWidget {
   CollectionEditorTab(
-      {Key key,
-      @required this.database,
-      @required this.collection,
+      {Key? key,
+      required this.database,
+      required this.collection,
       this.getDbFieldsMethod,
       this.getDbFieldsMethodByFuture,
-      @required this.tabTypeStream,
-      @required this.type,
+      required this.tabTypeStream,
+      required this.type,
       this.onOperation,
       this.query = const {},
       this.allowInsert = true,
@@ -32,13 +32,15 @@ class CollectionEditorTab extends StatefulWidget {
   final bool allowUpdate;
   final bool hasImage;
 
-  final Function getDbFieldsMethod;
+  final Function? getDbFieldsMethod;
+
   /// this function must return a Future
-  final Future getDbFieldsMethodByFuture;
+  final Future? getDbFieldsMethodByFuture;
   final Stream<FrameTabType> tabTypeStream;
   final FrameTabType type;
   final Map query;
-  final Function(CollectionEditorBlocEvent event, StreamSink<bool> setStateSink)
+  final Function(
+          CollectionEditorBlocEvent event, StreamSink<bool> setStateSink)?
       onOperation;
 
   @override
@@ -47,9 +49,9 @@ class CollectionEditorTab extends StatefulWidget {
 
 class _CollectionEditorTabState extends State<CollectionEditorTab> {
   StreamController<bool> _setStateStream = StreamController();
-  CollectionEditorBloc bloc;
+  late CollectionEditorBloc bloc;
   bool allowTogetDocs = false;
-  List<DbField> dbFields;
+  List<DbField> dbFields = [];
 
   @override
   void initState() {
@@ -61,9 +63,9 @@ class _CollectionEditorTabState extends State<CollectionEditorTab> {
     });
 
     if (widget.getDbFieldsMethod != null) {
-      dbFields = widget.getDbFieldsMethod();
+      dbFields = widget.getDbFieldsMethod!();
     } else if (widget.getDbFieldsMethodByFuture != null) {
-      Future.wait([widget.getDbFieldsMethodByFuture]).then((resultList) {
+      Future.wait([widget.getDbFieldsMethodByFuture!]).then((resultList) {
         dbFields = resultList.last as List<DbField>;
         setState(() {});
       });
@@ -96,7 +98,7 @@ class _CollectionEditorTabState extends State<CollectionEditorTab> {
 
       bloc.operationStream.listen((event) {
         if (widget.onOperation != null)
-          widget.onOperation(event, _setStateStream.sink);
+          widget.onOperation!(event, _setStateStream.sink);
       });
     }
 

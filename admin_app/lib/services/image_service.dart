@@ -13,11 +13,11 @@ class ImageService {
   final Client client = Client();
 
   Future<void> upload(
-      {String database,
-      String collection,
-      String id,
-      File file,
-      Function(int persent) onTransform}) async {
+      {required String database,
+      required String collection,
+      required String id,
+      required File file,
+      Function(int persent)? onTransform}) async {
     Completer completer = Completer();
     Uri uri = Uri.parse(Vars.host + '/image/upload');
     var request = MultipartRequest('POST', uri);
@@ -26,19 +26,14 @@ class ImageService {
     request.fields['type'] = collection;
     request.fields['id'] = id;
 
-    request.headers['authorization'] = AuthService.instant.token;
+    request.headers['authorization'] = AuthService.instant.token!;
 
     int length = await file.length();
     String filename = file.path.split('/').last;
     String subtype = filename.split('.').last;
 
-    request.files.add(MultipartFile(
-      'image',
-      file.openRead(),
-      length,
-      filename: filename,
-      contentType: MediaType('image', subtype)
-    ));
+    request.files.add(MultipartFile('image', file.openRead(), length,
+        filename: filename, contentType: MediaType('image', subtype)));
 
     request.send().then((streamResponse) {
       streamResponse.stream.transform(utf8.decoder).listen(

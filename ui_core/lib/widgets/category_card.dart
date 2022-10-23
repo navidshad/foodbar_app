@@ -5,7 +5,7 @@ import 'package:foodbar_flutter_core/utilities/text_util.dart';
 
 class CategoryCard extends StatelessWidget {
   final Category category;
-  BuildContext _context;
+  late BuildContext _context;
 
   double verticalMargin;
   double elevation;
@@ -36,7 +36,7 @@ class CategoryCard extends StatelessWidget {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: Image.asset(category.image.getUrl()).image,
+                  image: Image.asset(category.image!.getUrl()).image,
                 )),
               ),
             ),

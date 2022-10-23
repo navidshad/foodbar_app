@@ -7,7 +7,7 @@ class Aggregate {
   String collection;
   List<Map> pipline;
 
-  MongoNavigatorDetail navigatorDetail;
+  late MongoNavigatorDetail navigatorDetail;
 
   Map get accessQuery {
     return {'refId': AuthService.instant?.user?.id};
@@ -24,13 +24,14 @@ class Aggregate {
   int page = 0;
   int pages = 0;
 
-  Aggregate(
-      {this.database,
-      this.collection,
-      this.pipline = const [],
-      this.types,
-      this.perPage = 20,
-      this.isLive = true});
+  Aggregate({
+    required this.database,
+    required this.collection,
+    this.pipline = const [],
+    this.types = const [],
+    this.perPage = 20,
+    this.isLive = true,
+  });
 
   Future<void> initialize() async {
     // get count ============================
@@ -59,14 +60,14 @@ class Aggregate {
     pages = navigatorDetail.pages;
   }
 
-  Future<List<Map>> loadNextPage({int goto}) async {
+  Future<List<Map>> loadNextPage({int? goto}) async {
     if (totalItems == 0) return [];
 
     page += 1;
     if (goto != null) page = goto;
 
-    navigatorDetail =
-        MongoNavigatorDetail.calculate(total: totalItems, page: page, perPage: perPage);
+    navigatorDetail = MongoNavigatorDetail.calculate(
+        total: totalItems, page: page, perPage: perPage);
 
     //print('=== SC loadNextPage $navigatorDetail | page $page');
 

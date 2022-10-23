@@ -8,8 +8,8 @@ import 'package:foodbar_flutter_core/mongodb/mongodb.dart';
 
 class CollectionEditor extends StatefulWidget {
   CollectionEditor({
-    Key key,
-    @required this.dbFields,
+    Key? key,
+    required this.dbFields,
     this.query = const {},
     this.allowInsert = true,
     this.allowRemove = true,
@@ -29,8 +29,8 @@ class CollectionEditor extends StatefulWidget {
 }
 
 class _CollectionEditorState extends State<CollectionEditor> {
-  CollectionEditorBloc bloc;
-  BuildContext _context;
+  late CollectionEditorBloc bloc;
+  late BuildContext _context;
   MongoNavigatorDetail navigatorDetail = MongoNavigatorDetail();
   bool isPending = false;
 
@@ -82,7 +82,8 @@ class _CollectionEditorState extends State<CollectionEditor> {
                     stream: bloc.stateStream,
                     initialData: bloc.getInitialState(),
                     builder: (con, snapshot) {
-                      CollectionEditorBlocState state = snapshot.data;
+                      CollectionEditorBlocState state =
+                          snapshot.data as CollectionEditorBlocState;
 
                       return Container(
                         height: detailSectionHeight,
@@ -169,7 +170,7 @@ class _CollectionEditorState extends State<CollectionEditor> {
             ),
             children: <Widget>[
               if (widget.allowUpdate)
-                FlatButton(
+                ElevatedButton(
                   onPressed: () {
                     Navigator.of(con).pop();
                     editDoc(doc);
@@ -177,7 +178,7 @@ class _CollectionEditorState extends State<CollectionEditor> {
                   child: Text('Edit it'),
                 ),
               if (widget.allowRemove)
-                FlatButton(
+                ElevatedButton(
                   onPressed: () {
                     Navigator.of(con).pop();
                     askToRemoveDoc(doc);
@@ -200,14 +201,14 @@ class _CollectionEditorState extends State<CollectionEditor> {
               textAlign: TextAlign.center,
             ),
             actions: <Widget>[
-              FlatButton(
+              ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                   removeDoc(doc);
                 },
                 child: Text('Yes'),
               ),
-              FlatButton(
+              ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(),
                 child: Text('no'),
               ),

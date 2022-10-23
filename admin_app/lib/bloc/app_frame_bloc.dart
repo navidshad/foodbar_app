@@ -18,11 +18,10 @@ class AppFrameEvent {
   //FrameTabType switchFrom;
   FrameTabType switchTo;
 
-  AppFrameEvent({this.switchTo});
+  AppFrameEvent({required this.switchTo});
 }
 
 class AppFrameBloc implements BlocInterface<AppFrameEvent, AppFrameState> {
-
   AuthInterface authService = AuthService.instant;
   OptionsService options = OptionsService.instance;
 
@@ -38,7 +37,7 @@ class AppFrameBloc implements BlocInterface<AppFrameEvent, AppFrameState> {
   Stream<FrameTabType> get tabTypeStream => _tabTypeController.stream;
 
   static FrameTabType currentType = FrameTabType.DASHBOARD;
-  static String title;
+  static String title = '';
 
   AppFrameBloc() {
     AppFrameBloc.title = getTitleFromType(FrameTabType.DASHBOARD);
@@ -46,11 +45,10 @@ class AppFrameBloc implements BlocInterface<AppFrameEvent, AppFrameState> {
   }
 
   String getTitleFromType(FrameTabType type) {
-    return options.properties.tabDetails[type].title;
+    return options.properties.tabDetails[type]!.title;
   }
 
   void handler(AppFrameEvent event) {
-  
     FrameTabType type = event.switchTo;
     String title = getTitleFromType(type);
 

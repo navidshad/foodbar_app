@@ -8,15 +8,15 @@ import 'package:foodbar_admin/screens/screens.dart';
 import 'package:foodbar_admin/bloc/bloc.dart';
 
 class Intro extends StatefulWidget {
-  Intro({Key key}) : super(key: key);
+  Intro({Key? key}) : super(key: key);
 
   @override
   _IntroState createState() => _IntroState();
 }
 
 class _IntroState extends State<Intro> with TickerProviderStateMixin {
-  TabController _tabController;
-  IntroBloc bloc;
+  late TabController _tabController;
+  late IntroBloc bloc;
 
   @override
   void didChangeDependencies() {
@@ -34,7 +34,7 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
         initialData: bloc.getInitialState(),
         stream: bloc.stateStream,
         builder: (context, snapshot) {
-          IntroState state = snapshot.data;
+          IntroState state = snapshot.data as IntroState;
           _tabController.index = state.type.index;
 
           // go to next tabs affter seconds
@@ -62,7 +62,6 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
     bool firstEnter = false;
 
     if (firstEnter) {
-      
     } else {
       goToLoginForm();
     }
@@ -76,9 +75,9 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
   }
 
   void onLogedIn(bool isLogedIn) {
-    if(!isLogedIn) return;
+    if (!isLogedIn) return;
 
-    if(bloc.authService.user.type.index == UserType.user.index)
+    if (bloc.authService.user!.type.index == UserType.user.index)
       Navigator.pushReplacementNamed(context, '/home');
   }
 }

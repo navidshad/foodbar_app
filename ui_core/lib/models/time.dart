@@ -1,7 +1,6 @@
-
 import 'package:foodbar_flutter_core/mongodb/field.dart';
 
-class Time  {
+class Time {
   int houre;
   int minutes;
 
@@ -19,13 +18,13 @@ class Time  {
   }
 }
 
-class Period  {
+class Period {
   Time from;
   Time to;
 
   int dividedPerMinutes;
 
-  Period({this.from, this.to, this.dividedPerMinutes = 30});
+  Period({required this.from, required this.to, this.dividedPerMinutes = 30});
 
   factory Period.fromMap(Map detail) {
     return Period(
@@ -36,8 +35,14 @@ class Period  {
 
   static List<DbField> getDbFields() {
     return [
-      DbField('from', dataType: DataType.object, fieldType: FieldType.object, subFields: Time.getDbFields()),
-      DbField('to', dataType: DataType.object, fieldType: FieldType.object, subFields: Time.getDbFields()),
+      DbField('from',
+          dataType: DataType.object,
+          fieldType: FieldType.object,
+          subFields: Time.getDbFields()),
+      DbField('to',
+          dataType: DataType.object,
+          fieldType: FieldType.object,
+          subFields: Time.getDbFields()),
     ];
   }
 

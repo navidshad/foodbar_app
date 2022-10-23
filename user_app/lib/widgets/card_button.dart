@@ -25,11 +25,9 @@ class CardButton extends StatelessWidget {
         Widget button;
 
         if (isOutline) {
-          button = OutlineButton(
+          button = OutlinedButton(
             onPressed: onTap,
-            borderSide: BorderSide(
-              color: Theme.of(context).buttonColor
-            ),
+            borderSide: BorderSide(color: Theme.of(context).buttonColor),
             //disabledColor: Theme.of(context).disabledColor,
             // disabledTextColor: AppProperties.textOnDisabled,
             child: Text(

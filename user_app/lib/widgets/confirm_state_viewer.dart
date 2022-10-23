@@ -5,7 +5,7 @@ import 'package:foodbar_user/utilities/food_bar_icons.dart';
 
 class ConfirmStateViewer extends StatelessWidget {
   ConfirmStateViewer({
-    Key key,
+    Key? key,
     this.isSucceed,
     this.subtitle = '',
     this.processID,

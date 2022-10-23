@@ -11,7 +11,7 @@ import 'package:foodbar_user/settings/app_properties.dart';
 
 
 class LoginFormTab extends StatefulWidget {
-  LoginFormTab({Key key}) : super(key: key);
+  LoginFormTab({Key? key}) : super(key: key);
 
   @override
   _LoginFormTabState createState() => _LoginFormTabState();
@@ -21,7 +21,7 @@ class _LoginFormTabState extends State<LoginFormTab> {
 
   OptionsService options = OptionsService.instance;
 
-  IntroBloc bloc;
+  late IntroBloc bloc;
   String _email = '';
   String _password = '';
 

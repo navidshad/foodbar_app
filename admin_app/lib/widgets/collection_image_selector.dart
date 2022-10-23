@@ -6,11 +6,11 @@ import 'package:foodbar_flutter_core/models/models.dart';
 
 class CollectionImagePicker extends StatefulWidget {
   CollectionImagePicker({
-    Key key,
+    Key? key,
     this.height = 300,
     this.width = 300,
-    this.imageDetail,
-    @required this.onSelectedImage,
+    required this.imageDetail,
+    required this.onSelectedImage,
   }) : super(key: key);
 
   final double width;
@@ -23,7 +23,7 @@ class CollectionImagePicker extends StatefulWidget {
 }
 
 class _CollectionImagePickerState extends State<CollectionImagePicker> {
-  File _imageFile;
+  File? _imageFile;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class _CollectionImagePickerState extends State<CollectionImagePicker> {
 
     if (_imageFile != null) {
       imagePreview = Image.file(
-        _imageFile,
+        _imageFile!,
         fit: BoxFit.cover,
       );
     }
@@ -63,7 +63,7 @@ class _CollectionImagePickerState extends State<CollectionImagePicker> {
       width: widget.width,
       height: widget.height,
       alignment: Alignment.bottomCenter,
-      child: OutlineButton(
+      child: OutlinedButton(
         child: Text('Pick Image'),
         onPressed: pickImage,
       ),
@@ -71,28 +71,23 @@ class _CollectionImagePickerState extends State<CollectionImagePicker> {
 
     stackChilds.add(selectButton);
 
-    // return Stack(
-    //   children: stackChilds,
-    //   overflow: Overflow.clip,
-    // );
-
     return SizedBox(
       height: widget.height,
       width: widget.width,
       child: Stack(
         children: stackChilds,
-        overflow: Overflow.clip,
+        clipBehavior: Clip.none,
       ),
     );
   }
 
   void pickImage() async {
-    ImagePicker.pickImage(source: ImageSource.gallery)
-        .catchError((onError) {
+    var picker = ImagePicker();
+    picker.pickImage(source: ImageSource.gallery).catchError((onError) {
       print('Image has not been selected: ' + onError.toString());
     }).then((file) {
-      _imageFile = file;
-      widget.onSelectedImage(_imageFile);
+      _imageFile = file as File;
+      widget.onSelectedImage(_imageFile!);
       setState(() {});
     });
   }

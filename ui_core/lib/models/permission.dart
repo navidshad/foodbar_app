@@ -9,7 +9,7 @@ class Permission {
   bool contentProducer;
 
   Permission({
-    this.id,
+    required this.id,
     this.customerAccess = false,
     this.anonymousAccess = false,
     this.userManager = false,
@@ -20,11 +20,11 @@ class Permission {
   factory Permission.fromMap(Map detail) {
     return Permission(
       id: detail['_id'],
-      customerAccess: detail['customer_access'],
-      anonymousAccess: detail['anonymous_access'],
-      userManager: detail['user_manager'],
-      advancedSettings: detail['advanced_settings'],
-      contentProducer: detail['content_sroducer'],
+      customerAccess: detail['customer_access'] ?? false,
+      anonymousAccess: detail['anonymous_access'] ?? false,
+      userManager: detail['user_manager'] ?? false,
+      advancedSettings: detail['advanced_settings'] ?? false,
+      contentProducer: detail['content_sroducer'] ?? false,
     );
   }
 

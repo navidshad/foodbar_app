@@ -4,7 +4,7 @@ import 'package:foodbar_user/screens/tab_reservation.dart';
 
 class ReservationFooterButtons extends StatelessWidget {
   const ReservationFooterButtons({
-    Key key,
+    Key? key,
     @required this.currentPage,
     @required this.totalWidth,
     @required PageController pageController,

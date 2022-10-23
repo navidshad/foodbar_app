@@ -6,7 +6,7 @@ class TabDetail {
   String title;
   IconData icon;
 
-  TabDetail({this.icon, this.title});
+  TabDetail({required this.icon, required this.title});
 }
 
 /// All default values are here, texts, colorsand etc
@@ -62,17 +62,14 @@ class AppProperties {
       title: 'Users',
       icon: Icons.supervised_user_circle,
     ),
-    FrameTabType.SETTINGS: TabDetail(
-      title: 'Settings',
-      icon: Icons.settings
-    ),
+    FrameTabType.SETTINGS: TabDetail(title: 'Settings', icon: Icons.settings),
   };
 
   static int splashDelayInSeconds = 1;
 
   static Color mainColor = Colors.lightGreen;
   static Color secondColor = Colors.blue;
-  static Color disabledColor = Colors.grey[100];
+  static Color disabledColor = Colors.grey[100]!;
   static Color backLightColor = Color.fromRGBO(255, 240, 225, 1);
 
   static Color textOnMainColor = Colors.white;

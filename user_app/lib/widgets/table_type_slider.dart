@@ -21,7 +21,7 @@ class ItemAnimationDetail {
 
 class TableSlider extends StatefulWidget {
   TableSlider({
-    Key key,
+    Key? key,
     this.title,
     this.bloc,
     @required this.onPicked,

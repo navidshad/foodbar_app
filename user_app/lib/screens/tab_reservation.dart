@@ -31,7 +31,7 @@ class ReservationPageDetail {
 }
 
 class ReservationTab extends StatefulWidget {
-  ReservationTab({Key key}) : super(key: key);
+  ReservationTab({Key? key}) : super(key: key);
 
   @override
   _ReservationTabState createState() => _ReservationTabState();

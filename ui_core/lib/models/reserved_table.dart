@@ -1,8 +1,7 @@
-
 import 'package:foodbar_flutter_core/mongodb/field.dart';
 import './image_detail.dart';
 
-class ReservedTable  {
+class ReservedTable {
   String id;
   String refId;
   String tableId;
@@ -11,38 +10,36 @@ class ReservedTable  {
   int persons;
   int totalPersonOnTable;
   int reservedId;
-  ImageDetail image;
+  ImageDetail? image;
 
   ReservedTable({
-    this.id,
-    this.refId,
-    this.tableId,
-    this.from,
-    this.to,
-    this.persons,
-    this.totalPersonOnTable,
-    this.reservedId,
+    required this.id,
+    required this.refId,
+    required this.tableId,
+    required this.from,
+    required this.to,
+    this.persons = 1,
+    required this.totalPersonOnTable,
+    required this.reservedId,
     this.image,
   });
 
   int get totalTable {
-    int tables = (persons/totalPersonOnTable).ceil();
+    int tables = (persons / totalPersonOnTable).ceil();
     return tables == totalPersonOnTable ? 1 : tables;
   }
 
-  factory ReservedTable.fromMap(Map detail, ImageDetail image) {
-
+  factory ReservedTable.fromMap(Map detail, ImageDetail? image) {
     return ReservedTable(
-      id: detail['_id'],
-      refId: detail['refId'],
-      tableId: detail['tableId'],
-      from: DateTime.parse(detail['from']),
-      to: DateTime.parse(detail['to']),
-      persons: detail['persons'],
-      totalPersonOnTable: detail['totalPersonOnTable'],
-      reservedId: detail['reservedId'],
-      image: image
-    );
+        id: detail['_id'],
+        refId: detail['refId'],
+        tableId: detail['tableId'],
+        from: DateTime.parse(detail['from']),
+        to: DateTime.parse(detail['to']),
+        persons: detail['persons'],
+        totalPersonOnTable: detail['totalPersonOnTable'],
+        reservedId: detail['reservedId'],
+        image: image);
   }
 
   static List<DbField> getDbFields() {

@@ -10,11 +10,11 @@ import 'package:foodbar_admin/widgets/widgets.dart';
 
 class CollectionTableViewer extends StatelessWidget {
   CollectionTableViewer(
-      {Key key,
-      @required this.dbFields,
-      @required this.onFieldTap,
-      @required this.docs,
-      @required this.bloc})
+      {Key? key,
+      required this.dbFields,
+      required this.onFieldTap,
+      required this.docs,
+      required this.bloc})
       : super(key: key);
 
   final List<DbField> dbFields;

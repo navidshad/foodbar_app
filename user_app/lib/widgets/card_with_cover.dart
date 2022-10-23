@@ -4,7 +4,7 @@ import 'package:foodbar_user/settings/settings.dart';
 
 class CardWithCover extends StatefulWidget {
   CardWithCover(
-      {Key key,
+      {Key? key,
       this.detailwidgets = const [],
       this.coverWithbyPersent = 25,
       this.imageUrl,

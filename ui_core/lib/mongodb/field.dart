@@ -40,13 +40,13 @@ class DbField {
   // the main key of object property.
   String key;
   // the custom title of this property
-  String title;
+  late String title;
   // the data type of this property
   DataType dataType;
   // the type of field for this property
   FieldType fieldType;
   // value of this obtion for select FieldType type.
-  String strvalue;
+  String? strvalue;
 
   // the field of this property could be disable
   bool isDisable;
@@ -57,17 +57,19 @@ class DbField {
   bool isLowerCase;
 
   //only for map type
-  List<DbField> subFields;
+  List<DbField>? subFields;
 
-  DbField(this.key,
-      {String customTitle,
-      this.strvalue,
-      this.dataType = DataType.string,
-      this.fieldType,
-      this.isDisable = false,
-      this.isHide = false,
-      this.isLowerCase = false,
-      this.subFields}) {
+  DbField(
+    this.key, {
+    String? customTitle,
+    this.strvalue,
+    this.dataType = DataType.string,
+    this.fieldType = FieldType.text,
+    this.isDisable = false,
+    this.isHide = false,
+    this.isLowerCase = false,
+    this.subFields,
+  }) {
     title = customTitle ?? key;
     if (strvalue == null) strvalue = key;
     if (fieldType == null) setDefaultFields();
@@ -140,21 +142,26 @@ class DbField {
     List<String> arr = object[key] as List<String>;
 
     // groups loop
-    subFields.forEach((group) {
-      // subgroup loop
-      group.subFields.forEach((subF) {
-        if (arr.indexOf(subF.strvalue) != -1) extracted += subF.title + ", ";
+    if (subFields != null) {
+      subFields!.forEach((group) {
+        // subgroup loop
+        group.subFields!.forEach((subF) {
+          if (arr.indexOf(subF.strvalue!) != -1) extracted += subF.title + ", ";
+        });
       });
-    });
+    }
 
     return extracted;
   }
 
   String extractTitleForStrValue(Map object) {
     String value = object[key];
-    subFields.forEach((sdf) {
-      if (sdf.strvalue == value) value = sdf.title;
-    });
+
+    if (subFields != null) {
+      subFields!.forEach((sdf) {
+        if (sdf.strvalue == value) value = sdf.title;
+      });
+    }
 
     return value;
   }

@@ -4,7 +4,7 @@ import 'package:foodbar_flutter_core/utilities/date_util.dart';
 
 class CardDay extends StatelessWidget {
   CardDay(
-      {Key key, this.date, this.margin, this.isActive = false, this.onPressed})
+      {Key? key, this.date, this.margin, this.isActive = false, this.onPressed})
       : super(key: key);
 
   final DateTime date;

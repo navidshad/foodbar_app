@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 
 class CardTime extends StatelessWidget {
   CardTime(
-      {Key key,
+      {Key? key,
       this.date,
       this.margin,
       this.isActive = false,

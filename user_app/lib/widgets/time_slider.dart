@@ -7,7 +7,7 @@ import 'package:foodbar_user/settings/app_properties.dart';
 
 class CustomTimeSlider extends StatefulWidget {
   CustomTimeSlider({
-    Key key,
+    Key? key,
     @required this.title,
     @required this.periods,
     @required this.date,

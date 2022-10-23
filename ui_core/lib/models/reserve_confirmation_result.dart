@@ -1,10 +1,10 @@
 class ReserveConfirmationResult {
   String message;
   bool succeed;
-  int reservationId;
+  int? reservationId;
 
   ReserveConfirmationResult({
-    this.message,
+    this.message = '',
     this.reservationId,
     this.succeed = false,
   });

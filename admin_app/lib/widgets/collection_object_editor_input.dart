@@ -21,13 +21,13 @@ class CollectionObjectEditorInput extends StatefulWidget {
 
   CollectionObjectEditorInput({
     this.title,
-    @required this.bloc,
-    @required this.onObjectChanged,
-    @required this.onImageSelected,
-    @required this.dbFields,
+    required this.bloc,
+    required this.onObjectChanged,
+    required this.onImageSelected,
+    required this.dbFields,
     this.hasImage = false,
     this.doc = const {},
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -39,7 +39,7 @@ class _CollectionObjectEditorInputState
     extends State<CollectionObjectEditorInput> {
   StreamController<Map> _editController = BehaviorSubject();
   // StreamSink<Map> get updateSink => _editController.sink;
-  Map changed;
+  late Map changed;
 
   @override
   void initState() {
@@ -102,8 +102,8 @@ class _CollectionObjectEditorInputState
   }
 
   Widget getInputSection(
-      {DbField dbField,
-      Function(dynamic value) onSubmitted,
+      {required DbField dbField,
+      required Function(dynamic value) onSubmitted,
       dynamic initialValue}) {
     //
     Widget inputSection;
@@ -144,7 +144,7 @@ class _CollectionObjectEditorInputState
       case FieldType.select:
         inputSection = SelectorField(
           title: dbField.title,
-          dbFields: dbField.subFields,
+          dbFields: dbField.subFields!,
           onChanged: (value) => onSubmitted(value.toString()),
           initialValue: initialValue,
         );
@@ -158,7 +158,7 @@ class _CollectionObjectEditorInputState
             onSubmitted(value);
           },
           onImageSelected: (image) {},
-          dbFields: dbField.subFields,
+          dbFields: dbField.subFields!,
           doc: initialValue,
         );
         break;

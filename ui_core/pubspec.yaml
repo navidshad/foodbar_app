@@ -1,10 +1,9 @@
 name: foodbar_flutter_core
 description: A new Flutter package project.
 version: 0.0.1
-homepage:
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.18.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -13,9 +12,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  rxdart: ^0.22.0
+  rxdart: ^0.27.5
   http: ^0.13.5
-  shared_preferences: ^0.5.6+1
+  shared_preferences: ^2.0.15
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

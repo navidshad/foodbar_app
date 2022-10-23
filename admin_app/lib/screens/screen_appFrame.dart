@@ -15,9 +15,9 @@ class AppFrame extends StatefulWidget {
 
 class _AppFrameState extends State<AppFrame>
     with SingleTickerProviderStateMixin {
-  AppFrameBloc bloc;
-  FrameTabType currentTab;
-  TabController _tabController;
+  late AppFrameBloc bloc;
+  late FrameTabType currentTab;
+  late TabController _tabController;
 
   @override
   void initState() {
@@ -109,7 +109,7 @@ class _AppFrameState extends State<AppFrame>
                         DbField(category.title, strvalue: category.id);
                     dbFields
                         .firstWhere((field) => (field.key == 'category'))
-                        .subFields
+                        .subFields!
                         .add(categoryField);
                   });
 
@@ -157,7 +157,7 @@ class _AppFrameState extends State<AppFrame>
                           customTitle: permission['title']);
                       dbFields
                           .firstWhere((f) => (f.key == 'permission'))
-                          .subFields
+                          .subFields!
                           .add(permissionField);
                     });
                   });

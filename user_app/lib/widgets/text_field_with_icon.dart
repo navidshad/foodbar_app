@@ -9,7 +9,7 @@ class TextfieldWithIcon extends StatelessWidget {
   final TextInputType keyboardType;
 
   TextfieldWithIcon({
-    Key key,
+    Key? key,
     @required this.iconData,
     @required this.onSubmitted,
     this.hint,

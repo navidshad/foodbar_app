@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AddCoupenButton extends StatefulWidget {
   AddCoupenButton({
-    Key key,
+    Key? key,
     @required this.onAddedCoupen,
     @required this.onRemovedCoupen,
     this.isPending = false,
@@ -26,7 +26,7 @@ class _AddCoupenButtonState extends State<AddCoupenButton> {
     _context = context;
 
     if (code == null) {
-      body = OutlineButton(
+      body = OutlinedButton(
         child: Text('+ADD',
             textScaleFactor: 0.8,
             style: TextStyle(fontWeight: FontWeight.bold)),

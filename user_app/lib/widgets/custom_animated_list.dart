@@ -13,7 +13,7 @@ class CustomanimatedList extends StatelessWidget {
     @required this.itemBuilder,
     this.inserStream,
     this.removeStream,
-    Key key,
+    Key? key,
   }) : super(key: key) {
     if (inserStream != null) inserStream.listen(inserItem);
     if (removeStream != null) removeStream.listen(removeItem);

@@ -8,7 +8,7 @@ import 'package:foodbar_admin/settings/types.dart';
 import 'package:foodbar_admin/services/options_service.dart';
 
 class RegisterTab extends StatefulWidget {
-  RegisterTab({Key key}) : super(key: key);
+  RegisterTab({Key? key}) : super(key: key);
 
   @override
   _RegisterTabState createState() => _RegisterTabState();
@@ -17,10 +17,10 @@ class RegisterTab extends StatefulWidget {
 class _RegisterTabState extends State<RegisterTab> {
   OptionsService options = OptionsService.instance;
 
-  IntroBloc bloc;
+  late IntroBloc bloc;
   String _email = '';
   String _password = '';
-  int _varificationCode;
+  late int _varificationCode;
 
   String errorMessage = '';
 
@@ -48,7 +48,7 @@ class _RegisterTabState extends State<RegisterTab> {
         errorMessage = '';
         List<Widget> listElements = [logo];
 
-        IntroState state = snapshot.data;
+        IntroState state = snapshot.data as IntroState;
 
         if (state is IntroRegisterWaitingState)
           listElements.add(getWaitingWidget());
@@ -89,8 +89,8 @@ class _RegisterTabState extends State<RegisterTab> {
     );
   }
 
-  List<Widget> getIdForm([IntroRegisterSubmitIdState state]) {
-    if (!state.isSuccess) errorMessage = state.message;
+  List<Widget> getIdForm([IntroRegisterSubmitIdState? state]) {
+    if (state != null && state.isSuccess) errorMessage = state.message;
 
     return [
       TextfieldWithIcon(
@@ -135,7 +135,7 @@ class _RegisterTabState extends State<RegisterTab> {
         hint: 'Code',
         keyboardType: TextInputType.number,
         onSubmitted: (value) {
-          _varificationCode = int.tryParse(value);
+          _varificationCode = int.tryParse(value)!;
         },
       ),
       CardButton(

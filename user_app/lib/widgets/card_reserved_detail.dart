@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 
 class CardReservedDetail extends StatelessWidget {
   CardReservedDetail({
-    Key key,
+    Key? key,
     @required this.reservedTable,
     this.onCancel,
   }) : super(key: key);

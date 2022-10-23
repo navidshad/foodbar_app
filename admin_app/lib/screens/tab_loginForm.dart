@@ -7,19 +7,17 @@ import 'package:foodbar_admin/utilities/food_bar_icons.dart';
 import 'package:foodbar_admin/bloc/bloc.dart';
 import 'package:foodbar_admin/settings/types.dart';
 
-
 class LoginFormTab extends StatefulWidget {
-  LoginFormTab({Key key}) : super(key: key);
+  LoginFormTab({Key? key}) : super(key: key);
 
   @override
   _LoginFormTabState createState() => _LoginFormTabState();
 }
 
 class _LoginFormTabState extends State<LoginFormTab> {
-
   OptionsService options = OptionsService.instance;
 
-  IntroBloc bloc;
+  late IntroBloc bloc;
   String _email = '';
   String _password = '';
 
@@ -66,9 +64,7 @@ class _LoginFormTabState extends State<LoginFormTab> {
           child: Text(
             errorMessage,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.red
-            ),
+            style: TextStyle(color: Colors.red),
           ),
         ),
 

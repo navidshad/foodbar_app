@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class VerticalSwipDetector extends StatelessWidget {
   VerticalSwipDetector({
-    Key key,
+    Key? key,
     @required this.child,
     @required this.onUpSwip,
     @required this.onDownSwip,

@@ -1,27 +1,27 @@
 import 'type_caster.dart';
 
-class AggregatePiplines 
-{
-	String title;
-	String database;
-	String collection;
-	bool addCountAsLastPipline;
-	
-	List<Map> piplines;
-	List<TypeCaster> types;
+class AggregatePiplines {
+  String title;
+  String database;
+  String collection;
+  bool addCountAsLastPipline;
 
-	AggregatePiplines({
-		this.title, this.database, this.collection, 
-		this.addCountAsLastPipline=false, 
-		this.piplines=const[], this.types=const[]
-		})
-	{
-		if(addCountAsLastPipline) addCountPipline();
-	}
+  List<Map> piplines;
+  List<TypeCaster> types;
 
-	void addCountPipline()
-	{
-		Map countPipline = { "\$count": "count" };
-		piplines.add(countPipline);
-	}
+  AggregatePiplines({
+    required this.title,
+    required this.database,
+    required this.collection,
+    this.addCountAsLastPipline = false,
+    this.piplines = const [],
+    this.types = const [],
+  }) {
+    if (addCountAsLastPipline) addCountPipline();
+  }
+
+  void addCountPipline() {
+    Map countPipline = {"\$count": "count"};
+    piplines.add(countPipline);
+  }
 }

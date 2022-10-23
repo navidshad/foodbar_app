@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:progress_dialog/progress_dialog.dart';
+import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 
 import 'package:foodbar_admin/bloc/bloc.dart';
 import 'package:foodbar_flutter_core/mongodb/field.dart';
@@ -11,12 +11,12 @@ import 'package:foodbar_admin/widgets/widgets.dart';
 
 class AddOrEditeItem extends StatefulWidget {
   AddOrEditeItem(
-      {Key key,
+      {Key? key,
       this.isNew = true,
       this.hasImage = false,
-      this.editingDoc = const{},
-      @required this.dbFields,
-      @required this.bloc})
+      this.editingDoc = const {},
+      required this.dbFields,
+      required this.bloc})
       : super(key: key);
 
   final bool isNew;
@@ -30,9 +30,9 @@ class AddOrEditeItem extends StatefulWidget {
 }
 
 class _AddOrEditeItemState extends State<AddOrEditeItem> {
-  ProgressDialog pd;
-  Map doc;
-  File _imageFile;
+  late ProgressDialog pd;
+  late Map doc;
+  late File _imageFile;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class _AddOrEditeItemState extends State<AddOrEditeItem> {
                 doc = changed;
               });
             },
-            onImageSelected: (imageFile)  => _imageFile = imageFile,
+            onImageSelected: (imageFile) => _imageFile = imageFile,
           ),
           Container(
             height: 30,
@@ -70,7 +70,7 @@ class _AddOrEditeItemState extends State<AddOrEditeItem> {
             disabledColor: AppProperties.disabledColor,
             textOnDisabled: AppProperties.textOnDisabled,
             textOnMainColor: AppProperties.textOnMainColor,
-            onTap: (doc != null || !widget.isNew) ? onTapButtons : null,
+            onTap: onTapButtons,
           ),
           CardButton(
             title: 'Cancel',
@@ -92,7 +92,7 @@ class _AddOrEditeItemState extends State<AddOrEditeItem> {
 
   void onTapButtons() {
     pd = ProgressDialog(context,
-        isDismissible: false, type: ProgressDialogType.Normal);
+        isDismissible: false, type: ProgressDialogType.download);
 
     CollectionEditorBlocEvent event;
     String message =
@@ -106,7 +106,7 @@ class _AddOrEditeItemState extends State<AddOrEditeItem> {
       event = CreateDocEvent(
           doc: doc, onDone: onDocOperationDone, onError: onError);
     else {
-      if(doc == null) doc = Map.from(widget.editingDoc);
+      if (doc == null) doc = Map.from(widget.editingDoc);
 
       event = UpdateDocEvent(
           query: {'_id': doc['_id']},
@@ -130,7 +130,7 @@ class _AddOrEditeItemState extends State<AddOrEditeItem> {
         onDone: () {
           pd.update(message: 'Image Uploaded!');
           Future.delayed(Duration(milliseconds: 300));
-          pd.dismiss();
+          pd.hide();
           Navigator.of(context).pop();
         },
         onError: onError,
@@ -142,7 +142,7 @@ class _AddOrEditeItemState extends State<AddOrEditeItem> {
     } else {
       pd.update(message: 'Done!');
       Future.delayed(Duration(milliseconds: 300));
-      pd.dismiss();
+      pd.hide();
       Navigator.of(context).pop();
     }
   }
@@ -150,7 +150,7 @@ class _AddOrEditeItemState extends State<AddOrEditeItem> {
   void onError(dynamic error) {
     pd.update(message: 'Error!');
     Future.delayed(Duration(milliseconds: 300));
-    pd.dismiss();
+    pd.hide();
 
     showDialog(
         context: context,
@@ -158,7 +158,7 @@ class _AddOrEditeItemState extends State<AddOrEditeItem> {
               title: Text('Somthing went wrong'),
               content: Text(error.toString()),
               actions: <Widget>[
-                FlatButton(
+                ElevatedButton(
                   onPressed: () => Navigator.of(context).pop(),
                   child: Text('ok'),
                 )

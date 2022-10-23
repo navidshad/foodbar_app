@@ -77,7 +77,7 @@ class ContentService implements ContentProvider {
 
   Future<List<ReservedTable>> getReservedTables(
       {List<CustomTable> tables = const []}) {
-    Map query = {'refId': _mongodb.user.id};
+    Map query = {'refId': _mongodb.user!.id};
 
     return _mongodb.find(
         database: 'user',
@@ -90,7 +90,7 @@ class ContentService implements ContentProvider {
 
       reservedList.forEach((detail) {
         String tableId = detail['tableId'];
-        ImageDetail image;
+        ImageDetail? image;
 
         tables.forEach((table) {
           if (table.id == tableId) image = table.image;
@@ -106,7 +106,7 @@ class ContentService implements ContentProvider {
 
   @override
   Future<List<Factor>> getFactors() {
-    Map query = {'refId': _mongodb.user.id};
+    Map query = {'refId': _mongodb.user!.id};
 
     return _mongodb
         .find(database: 'user', collection: 'factor', query: query)

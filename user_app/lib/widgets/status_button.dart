@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class StatusButton extends StatefulWidget {
   const StatusButton({
-    Key key,
+    Key? key,
     this.title,
     this.onTap,
     this.isActive = true,

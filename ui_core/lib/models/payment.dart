@@ -9,12 +9,12 @@ class Coupen {
   bool isUnlimited;
 
   Coupen({
-    this.id,
-    this.code,
-    this.discountPercent,
-    this.isUnlimited,
-    this.title,
-    this.total,
+    required this.id,
+    required this.code,
+    required this.title,
+    required this.total,
+    this.discountPercent = 0,
+    this.isUnlimited = false,
   });
 
   factory Coupen.fromMap(Map detail) {
@@ -47,7 +47,12 @@ class Order {
   String description;
   double price;
 
-  Order({this.refId, this.title, this.description, this.price});
+  Order({
+    required this.refId,
+    required this.title,
+    this.description = '',
+    this.price = 0,
+  });
 
   factory Order.fromMap(Map detail) {
     return Order(
@@ -77,18 +82,18 @@ class Factor {
   double amount;
   String currency;
   double discount;
-  String coupenId;
+  String? coupenId;
 
   Factor({
-    this.id,
-    this.amount,
+    required this.id,
+    required this.currency,
+    required this.refId,
+    this.amount = 0,
     this.coupenId,
-    this.currency,
-    this.discount,
-    this.isPaid,
-    this.orders,
-    this.otherCosts,
-    this.refId,
+    this.discount = 0,
+    this.isPaid = false,
+    this.orders = const [],
+    this.otherCosts = const [],
   });
 
   static List<DbField> getDbFields() {
@@ -119,8 +124,11 @@ class Factor {
         currency: detail['currency'],
         discount: detail['discount'],
         coupenId: detail['coupenId'],
-        orders: (detail['orders'] as List).map((item) => Order.fromMap(item)),
-        otherCosts:
-            (detail['otherCosts'] as List).map((item) => Order.fromMap(item)));
+        orders: (detail['orders'] as List)
+            .map((item) => Order.fromMap(item))
+            .toList(),
+        otherCosts: (detail['otherCosts'] as List)
+            .map((item) => Order.fromMap(item))
+            .toList());
   }
 }

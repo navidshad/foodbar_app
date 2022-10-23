@@ -6,14 +6,14 @@ import 'package:foodbar_admin/bloc/bloc.dart';
 import 'package:foodbar_admin/services/options_service.dart';
 
 class CustomDrawer extends StatefulWidget {
-  const CustomDrawer({Key key}) : super(key: key);
+  const CustomDrawer({Key? key}) : super(key: key);
 
   @override
   _CustomDrawerState createState() => _CustomDrawerState();
 }
 
 class _CustomDrawerState extends State<CustomDrawer> {
-  AppFrameBloc bloc;
+  late AppFrameBloc bloc;
   OptionsService options = OptionsService.instance;
 
   @override
@@ -46,11 +46,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
       stream: bloc.stateStream,
       initialData: bloc.getInitialState(),
       builder: (context, constrants) {
-
         // create Menu Items
         List<Widget> menuItems = [];
         for (FrameTabType type in options.properties.tabDetails.keys) {
-          TabDetail detail = options.properties.tabDetails[type];
+          TabDetail detail = options.properties.tabDetails[type] as TabDetail;
 
           menuItems.add(ListTile(
             title: Text(detail.title),

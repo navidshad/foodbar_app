@@ -3,22 +3,22 @@ import 'package:foodbar_flutter_core/settings/types.dart';
 import 'package:foodbar_flutter_core/mongodb/field.dart';
 
 class User {
-  Permission _permission;
+  late Permission _permission;
   UserType type;
 
   /// this is a ref id
   String id;
   String fullname;
   String email;
-  String imgStamp;
+  String? imgStamp;
 
   User({
-    this.id,
-    this.email,
-    this.fullname,
-    this.type,
+    required this.id,
+    required this.type,
+    required Permission permission,
+    this.email = '',
+    this.fullname = '',
     this.imgStamp,
-    Permission permission,
   }) {
     _permission = permission;
   }

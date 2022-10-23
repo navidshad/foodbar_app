@@ -3,11 +3,11 @@ import 'package:foodbar_flutter_core/mongodb/field.dart';
 
 class SelectorField extends StatefulWidget {
   SelectorField({
-    Key key,
-    @required this.title,
-    @required this.dbFields,
-    @required this.onChanged,
-    @required this.initialValue,
+    Key? key,
+    required this.title,
+    required this.dbFields,
+    required this.onChanged,
+    required this.initialValue,
   }) : super(key: key);
 
   final String title;
@@ -25,9 +25,8 @@ class _SelectorFieldState extends State<SelectorField> {
   @override
   void initState() {
     super.initState();
-    _currentValue = (widget.initialValue != null) 
-      ? widget.initialValue 
-      : 'select one item';
+    _currentValue =
+        (widget.initialValue != null) ? widget.initialValue : 'select one item';
   }
 
   @override

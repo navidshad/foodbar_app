@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class CustomIntSlider extends StatefulWidget {
   CustomIntSlider(
-      {Key key,
-      this.title,
+      {Key? key,
+      required this.title,
       this.min = 0,
-      this.max,
-      this.divisions,
-      @required this.textColor,
-      @required this.onChanged})
+      this.max = 10,
+      required this.divisions,
+      required this.textColor,
+      required this.onChanged})
       : super(key: key);
 
   final Function(int value) onChanged;
@@ -25,7 +25,7 @@ class CustomIntSlider extends StatefulWidget {
 }
 
 class _CustomIntSliderState extends State<CustomIntSlider> {
-  double currentValue;
+  late double currentValue;
 
   @override
   Widget build(BuildContext context) {

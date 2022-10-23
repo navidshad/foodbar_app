@@ -4,13 +4,13 @@ import 'package:foodbar_flutter_core/mongodb/navigator.dart';
 
 class CollectionEditorActionButtons extends StatefulWidget {
   CollectionEditorActionButtons({
-    Key key,
-    @required this.allowInsert,
-    @required this.onAddItem,
-    @required this.onRefresh,
-    @required this.onPrevious,
-    @required this.onNext,
-    @required this.navigatorDetail,
+    Key? key,
+    required this.allowInsert,
+    required this.onAddItem,
+    required this.onRefresh,
+    required this.onPrevious,
+    required this.onNext,
+    required this.navigatorDetail,
   }) : super(key: key);
 
   final Function onAddItem;
@@ -28,8 +28,8 @@ class CollectionEditorActionButtons extends StatefulWidget {
 
 class _CollectionEditorActionButtonsState
     extends State<CollectionEditorActionButtons> with TickerProviderStateMixin {
-  AnimationController _animControllerOptions;
-  AnimationController _animControllerActions;
+  late AnimationController _animControllerOptions;
+  late AnimationController _animControllerActions;
 
   @override
   void initState() {
@@ -48,7 +48,6 @@ class _CollectionEditorActionButtonsState
 
   @override
   Widget build(BuildContext context) {
-
     Widget add = Container(
       margin: EdgeInsets.only(bottom: 5),
       width: 85,
@@ -70,7 +69,7 @@ class _CollectionEditorActionButtonsState
               child: FloatingActionButton(
                 heroTag: 'Add Item',
                 child: Icon(Icons.add),
-                onPressed: widget.onAddItem,
+                onPressed: () => widget.onAddItem(),
               ),
             ),
           )
@@ -99,7 +98,7 @@ class _CollectionEditorActionButtonsState
               child: FloatingActionButton(
                 heroTag: 'Refresh',
                 child: Icon(Icons.refresh),
-                onPressed: widget.onRefresh,
+                onPressed: () => widget.onRefresh(),
               ),
             ),
           )
@@ -128,7 +127,7 @@ class _CollectionEditorActionButtonsState
               child: FloatingActionButton(
                 heroTag: 'Previous',
                 child: Icon(Icons.arrow_back),
-                onPressed: widget.onPrevious,
+                onPressed: () => widget.onPrevious(),
               ),
             ),
           )
@@ -157,7 +156,7 @@ class _CollectionEditorActionButtonsState
               child: FloatingActionButton(
                 heroTag: 'next',
                 child: Icon(Icons.arrow_forward),
-                onPressed: widget.onNext,
+                onPressed: () => widget.onNext(),
               ),
             ),
           )
@@ -186,15 +185,9 @@ class _CollectionEditorActionButtonsState
       crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         if (widget.allowInsert) add,
-        
         refresh,
-
-        if(widget.navigatorDetail.hasPrevious)
-          previous,
-        
-        if(widget.navigatorDetail.hasNext)
-          next,
-          
+        if (widget.navigatorDetail.hasPrevious) previous,
+        if (widget.navigatorDetail.hasNext) next,
         options,
       ],
     );

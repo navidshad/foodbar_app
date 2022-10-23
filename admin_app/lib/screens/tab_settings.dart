@@ -10,13 +10,13 @@ import 'package:foodbar_admin/widgets/widgets.dart';
 import 'package:foodbar_flutter_core/mongodb/field.dart';
 import 'package:foodbar_flutter_core/models/models.dart';
 import 'package:foodbar_flutter_core/widgets/widgets.dart';
-import 'package:progress_dialog/progress_dialog.dart';
+import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 
 class SettingsTab extends StatefulWidget {
   SettingsTab({
-    Key key,
-    @required this.tabTypeStream,
-    @required this.type,
+    Key? key,
+    required this.tabTypeStream,
+    required this.type,
     this.onOperation,
   }) : super(key: key);
 
@@ -26,7 +26,8 @@ class SettingsTab extends StatefulWidget {
 
   final Stream<FrameTabType> tabTypeStream;
   final FrameTabType type;
-  final Function(CollectionEditorBlocEvent event, StreamSink<bool> setStateSink)
+  final Function(
+          CollectionEditorBlocEvent event, StreamSink<bool> setStateSink)?
       onOperation;
 
   @override
@@ -35,10 +36,10 @@ class SettingsTab extends StatefulWidget {
 
 class _SettingsTabState extends State<SettingsTab> {
   StreamController<bool> _setStateStream = StreamController();
-  CollectionEditorBloc bloc;
-  ProgressDialog pd;
+  late CollectionEditorBloc bloc;
+  late ProgressDialog pd;
   bool allowGetOptionOnBuild = false;
-  Map settingsDoc;
+  late Map settingsDoc;
 
   @override
   void initState() {
@@ -54,7 +55,7 @@ class _SettingsTabState extends State<SettingsTab> {
 
     bloc.operationStream.listen((event) {
       if (widget.onOperation != null)
-        widget.onOperation(event, _setStateStream.sink);
+        widget.onOperation!(event, _setStateStream.sink);
     });
 
     bloc.stateStream.listen((state) {
@@ -132,7 +133,7 @@ class _SettingsTabState extends State<SettingsTab> {
 
   void onTapButtons() {
     pd = ProgressDialog(context,
-        isDismissible: false, type: ProgressDialogType.Normal);
+        isDismissible: false, type: ProgressDialogType.download);
 
     CollectionEditorBlocEvent event;
     String message = 'Updating Options';
@@ -162,7 +163,7 @@ class _SettingsTabState extends State<SettingsTab> {
     //     onDone: () {
     //       pd.update(message: 'Image Uploaded!');
     //       Future.delayed(Duration(milliseconds: 300));
-    //       pd.dismiss();
+    //       pd.hide();
     //       Navigator.of(context).pop();
     //     },
     //     onError: onError,
@@ -174,19 +175,19 @@ class _SettingsTabState extends State<SettingsTab> {
     // } else {
     //   pd.update(message: 'Done!');
     //   Future.delayed(Duration(milliseconds: 300));
-    //   pd.dismiss();
+    //   pd.hide();
     //   Navigator.of(context).pop();
     // }
 
     pd.update(message: 'Done!');
     Future.delayed(Duration(milliseconds: 300));
-    pd.dismiss();
+    pd.hide();
   }
 
   void onError(dynamic error) {
     pd.update(message: 'Error!');
     Future.delayed(Duration(milliseconds: 300));
-    pd.dismiss();
+    pd.hide();
 
     showDialog(
         context: context,
@@ -194,7 +195,7 @@ class _SettingsTabState extends State<SettingsTab> {
               title: Text('Somthing went wrong'),
               content: Text(error.toString()),
               actions: <Widget>[
-                FlatButton(
+                ElevatedButton(
                   onPressed: () => Navigator.of(context).pop(),
                   child: Text('ok'),
                 )

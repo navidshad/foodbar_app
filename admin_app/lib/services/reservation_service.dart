@@ -20,13 +20,13 @@ class ReservationService implements ReservationProviderInterface {
   Map<String, String> get headers {
     return {
       'Content-Type': 'application/json',
-      'authorization': _authService.token
+      'authorization': _authService.token ?? ''
     };
   }
 
   @override
   Future<List<DateTime>> getReservedTimes(DateTime day, String tableId) async {
-    String url = Vars.host + '/reservation/getReservedTimes';
+    Uri url = Uri.parse(Vars.host + '/reservation/getReservedTimes');
 
     Map body = {
       'isoDate': day.toUtc().toIso8601String(),
@@ -55,7 +55,7 @@ class ReservationService implements ReservationProviderInterface {
 
   @override
   Future<ReservationScheduleOption> getScheduleOptions() async {
-    String url = Vars.host + '/reservation/getScheduleOptions';
+    Uri url = Uri.parse(Vars.host + '/reservation/getScheduleOptions');
 
     return _http.get(url, headers: headers).then(_analizeResult).then((result) {
       Map optionDetail = result['options'];
@@ -69,7 +69,7 @@ class ReservationService implements ReservationProviderInterface {
 
   @override
   Future<List<CustomTable>> getTableTypes() async {
-    String url = Vars.host + '/reservation/getTables';
+    Uri url = Uri.parse(Vars.host + '/reservation/getTables');
 
     List<CustomTable> tables = [];
 
@@ -90,7 +90,7 @@ class ReservationService implements ReservationProviderInterface {
 
   @override
   Future<int> getRemainPersons(DateTime date, CustomTable table) async {
-    String url = Vars.host + '/reservation/getRemainPersons';
+    Uri url = Uri.parse(Vars.host + '/reservation/getRemainPersons');
 
     Map body = {
       'isoDate': date.toUtc().toIso8601String(),
@@ -113,8 +113,10 @@ class ReservationService implements ReservationProviderInterface {
 
   @override
   Future<ReserveConfirmationResult> reserve(
-      {int persons, CustomTable table, DateTime date}) async {
-    String url = Vars.host + '/reservation/reserveTable';
+      {required int persons,
+      required CustomTable table,
+      required DateTime date}) async {
+    Uri url = Uri.parse(Vars.host + '/reservation/reserveTable');
 
     Map body = {
       'isoDate': date.toUtc().toIso8601String(),
