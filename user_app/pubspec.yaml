@@ -3,17 +3,17 @@ description: Foodbar is a reservation system for restaurants, and this is an Flu
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: ">=2.18.2 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  rxdart: ^0.22.0
+  rxdart: ^0.27.5
   http: ^0.13.5
-  intro_slider: ^2.2.8
-  shared_preferences: ^0.5.6+1
-  after_layout: ^1.0.7+2
-  font_awesome_flutter: ^8.8.1
+  intro_slider: ^4.2.0
+  shared_preferences: ^2.0.15
+  after_layout: ^1.2.0
+  font_awesome_flutter: ^10.2.1
 
   
   foodbar_flutter_core:
@@ -27,10 +27,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  intl: ^0.16.0
+  # intl: ^0.16.0
 
-  flutter_launcher_icons: "^0.7.4"
-  flutter_launcher_name: "^0.0.1"
+  # flutter_launcher_icons: "^0.7.4"
+  # flutter_launcher_name: "^0.0.1"
 
 # must run "flutter pub run flutter_launcher_icons:main"
 # after change this
@@ -42,7 +42,7 @@ flutter_icons:
 # must run "flutter pub run flutter_launcher_name:main"
 # after change this
 flutter_launcher_name:
-  name: "Haiku Shushi"
+  name: "Foodbar User"
 
 
 

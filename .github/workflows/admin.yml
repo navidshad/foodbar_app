@@ -20,7 +20,7 @@ jobs:
       - uses: britannio/action-install-flutter@v1.1
         with:
           # The channel/version of Flutter to be used e.g., beta or 2.0.0
-          version: 2.7.0-3.0.pre
+          version: 3.3.5
           
       - name: Build admin app
         working-directory: admin_app

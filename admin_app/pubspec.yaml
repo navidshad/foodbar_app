@@ -43,7 +43,7 @@ flutter_icons:
 # must run "flutter pub run flutter_launcher_name:main"
 # after change this
 flutter_launcher_name:
-  name: "Haiku Admin"
+  name: "Foodbar Admin"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

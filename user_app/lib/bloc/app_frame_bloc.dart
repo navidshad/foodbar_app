@@ -19,18 +19,17 @@ class AppFrameEvent {
   FrameTabType switchFrom;
   FrameTabType switchTo;
 
-  AppFrameEvent({this.switchFrom, this.switchTo});
+  AppFrameEvent({required this.switchFrom, required this.switchTo});
 }
 
 class ColorSwiche {
   Color color;
   Color onColor;
 
-  ColorSwiche({this.color, this.onColor});
+  ColorSwiche({required this.color, required this.onColor});
 }
 
 class AppFrameBloc implements BlocInterface<AppFrameEvent, AppFrameState> {
-
   AuthInterface authService = AuthService.instant;
   OptionsService options = OptionsService.instance;
 
@@ -47,9 +46,8 @@ class AppFrameBloc implements BlocInterface<AppFrameEvent, AppFrameState> {
   Stream<ColorSwiche> get colorStream => _colorController.stream;
   StreamSink get colorSink => _colorController.sink;
 
-
   static FrameTabType currentType = FrameTabType.MENU;
-  static String title;
+  static String title = '';
 
   AppFrameBloc() {
     AppFrameBloc.title = options.properties.menuTitle;
@@ -58,7 +56,7 @@ class AppFrameBloc implements BlocInterface<AppFrameEvent, AppFrameState> {
 
   void handler(AppFrameEvent event) {
     String title;
-    FrameTabType type;
+    late FrameTabType type;
 
     // define frame type
     if (event.switchFrom != null) {
