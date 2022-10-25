@@ -9,17 +9,17 @@ import 'package:foodbar_admin/bloc/collection_editor_bloc.dart';
 import 'package:foodbar_admin/widgets/widgets.dart';
 
 class CollectionTableViewer extends StatelessWidget {
-  CollectionTableViewer(
-      {Key? key,
-      required this.dbFields,
-      required this.onFieldTap,
-      required this.docs,
-      required this.bloc})
-      : super(key: key);
+  CollectionTableViewer({
+    Key? key,
+    required this.dbFields,
+    required this.onFieldTap,
+    required this.docs,
+    required this.bloc,
+  }) : super(key: key);
 
   final List<DbField> dbFields;
   final Function(Map doc) onFieldTap;
-  final CollectionEditorBloc bloc;
+  final CollectionEditorBloc? bloc;
   List<Map> docs;
 
   List<DbField> get visibleFields => dbFields.where((f) => !f.isHide).toList();
@@ -72,8 +72,8 @@ class CollectionTableViewer extends StatelessWidget {
       if (key == 'image') {
         var imageDetail = ImageDetail(
           doc[key],
-          db: bloc.database,
-          collection: bloc.collection,
+          db: bloc!.database,
+          collection: bloc!.collection,
           host: MongoDBService.host,
           id: doc['_id'],
         );

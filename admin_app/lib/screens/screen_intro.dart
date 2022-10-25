@@ -16,13 +16,13 @@ class Intro extends StatefulWidget {
 
 class _IntroState extends State<Intro> with TickerProviderStateMixin {
   late TabController _tabController;
-  late IntroBloc bloc;
+  IntroBloc? bloc;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     bloc = BlocProvider.of<IntroBloc>(context);
-    bloc.authService.loginEvent.listen(onLogedIn);
+    bloc!.authService.loginEvent.listen(onLogedIn);
     _tabController = TabController(length: 3, vsync: this);
   }
 
@@ -31,8 +31,8 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
     return Scaffold(
       backgroundColor: AppProperties.backLightColor,
       body: StreamBuilder(
-        initialData: bloc.getInitialState(),
-        stream: bloc.stateStream,
+        initialData: bloc!.getInitialState(),
+        stream: bloc!.stateStream,
         builder: (context, snapshot) {
           IntroState state = snapshot.data as IntroState;
           _tabController.index = state.type.index;
@@ -71,13 +71,13 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
     IntroEvent event;
     event = IntroSwitchEvent(switchTo: IntroTabType.LoginForm);
 
-    bloc.eventSink.add(event);
+    bloc!.eventSink.add(event);
   }
 
   void onLogedIn(bool isLogedIn) {
     if (!isLogedIn) return;
 
-    if (bloc.authService.user!.type.index == UserType.user.index)
+    if (bloc!.authService.user!.type.index == UserType.user.index)
       Navigator.pushReplacementNamed(context, '/home');
   }
 }

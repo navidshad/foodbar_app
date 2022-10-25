@@ -36,10 +36,10 @@ class SettingsTab extends StatefulWidget {
 
 class _SettingsTabState extends State<SettingsTab> {
   StreamController<bool> _setStateStream = StreamController();
-  late CollectionEditorBloc bloc;
+  CollectionEditorBloc? bloc;
   late ProgressDialog pd;
   bool allowGetOptionOnBuild = false;
-  late Map settingsDoc;
+  Map? settingsDoc;
 
   @override
   void initState() {
@@ -53,16 +53,18 @@ class _SettingsTabState extends State<SettingsTab> {
     bloc = CollectionEditorBloc(
         database: widget.database, collection: widget.collection);
 
-    bloc.operationStream.listen((event) {
-      if (widget.onOperation != null)
-        widget.onOperation!(event, _setStateStream.sink);
-    });
-
-    bloc.stateStream.listen((state) {
-      setState(() {
-        settingsDoc = Map.from(state.docs.last);
+    bloc
+      ?..operationStream.listen((event) {
+        if (widget.onOperation != null)
+          widget.onOperation!(event, _setStateStream.sink);
       });
-    });
+
+    bloc
+      ?..stateStream.listen((state) {
+        setState(() {
+          settingsDoc = Map.from(state.docs.last);
+        });
+      });
   }
 
   @override
@@ -78,8 +80,8 @@ class _SettingsTabState extends State<SettingsTab> {
 
   void getOption() {
     allowGetOptionOnBuild = false;
-    var event = GetDocsEvent(page: bloc.navigatorDetail.page);
-    bloc.eventSink.add(event);
+    var event = GetDocsEvent(page: bloc!.navigatorDetail.page);
+    bloc!.eventSink.add(event);
   }
 
   @override
@@ -105,9 +107,11 @@ class _SettingsTabState extends State<SettingsTab> {
             hasImage: false,
             doc: settingsDoc ?? {},
             onObjectChanged: (Map changed) {
-              setState(() {
-                settingsDoc = changed;
-              });
+              if (mounted) {
+                setState(() {
+                  settingsDoc = changed;
+                });
+              }
             },
             onImageSelected: (imageFile) {},
           ),
@@ -143,12 +147,12 @@ class _SettingsTabState extends State<SettingsTab> {
     pd.show();
 
     event = UpdateDocEvent(
-        query: {'_id': settingsDoc['_id']},
-        update: settingsDoc,
+        query: {'_id': settingsDoc!['_id']},
+        update: settingsDoc!,
         onDone: onDocOperationDone,
         onError: onError);
 
-    bloc.eventSink.add(event);
+    bloc!.eventSink.add(event);
   }
 
   void onDocOperationDone() async {
@@ -169,7 +173,7 @@ class _SettingsTabState extends State<SettingsTab> {
     //     onError: onError,
     //   );
 
-    //   bloc.eventSink.add(event);
+    //   bloc!.eventSink.add(event);
 
     //   // or return back to collection viewer
     // } else {

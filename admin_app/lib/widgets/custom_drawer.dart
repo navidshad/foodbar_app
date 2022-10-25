@@ -13,7 +13,7 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class _CustomDrawerState extends State<CustomDrawer> {
-  late AppFrameBloc bloc;
+  AppFrameBloc? bloc;
   OptionsService options = OptionsService.instance;
 
   @override
@@ -43,8 +43,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
     }
 
     return StreamBuilder(
-      stream: bloc.stateStream,
-      initialData: bloc.getInitialState(),
+      stream: bloc!.stateStream,
+      initialData: bloc!.getInitialState(),
       builder: (context, constrants) {
         // create Menu Items
         List<Widget> menuItems = [];
@@ -98,7 +98,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   title: Text(options.properties.logoutTitle),
                   leading: Icon(AppProperties.logoutIcon),
                   onTap: () {
-                    bloc.authService.logout();
+                    bloc!.authService.logout();
                     Navigator.pushReplacementNamed(context, '/intro');
                   },
                 ),
@@ -111,7 +111,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
   }
 
   void switchTab(FrameTabType type) {
-    bloc.eventSink.add(AppFrameEvent(switchTo: type));
+    bloc!.eventSink.add(AppFrameEvent(switchTo: type));
     Navigator.pop(context);
   }
 }

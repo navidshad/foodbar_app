@@ -29,7 +29,7 @@ class CollectionEditor extends StatefulWidget {
 }
 
 class _CollectionEditorState extends State<CollectionEditor> {
-  late CollectionEditorBloc bloc;
+  CollectionEditorBloc? bloc;
   late BuildContext _context;
   MongoNavigatorDetail navigatorDetail = MongoNavigatorDetail();
   bool isPending = false;
@@ -42,14 +42,15 @@ class _CollectionEditorState extends State<CollectionEditor> {
 
     bloc = BlocProvider.of<CollectionEditorBloc>(context);
 
-    bloc.navigatorStream.listen((nd) {
+    bloc?.navigatorStream.listen((nd) {
       navigatorDetail = nd;
-      setState(() {});
+
+      if (mounted) setState(() {});
     });
 
-    bloc.pendingStream.listen((pendingKey) {
+    bloc?.pendingStream.listen((pendingKey) {
       isPending = pendingKey;
-      setState(() {});
+      if (mounted) setState(() {});
     });
   }
 
@@ -79,8 +80,8 @@ class _CollectionEditorState extends State<CollectionEditor> {
             children: <Widget>[
               if (!isPending)
                 StreamBuilder<CollectionEditorBlocState>(
-                    stream: bloc.stateStream,
-                    initialData: bloc.getInitialState(),
+                    stream: bloc!.stateStream,
+                    initialData: bloc!.getInitialState(),
                     builder: (con, snapshot) {
                       CollectionEditorBlocState state =
                           snapshot.data as CollectionEditorBlocState;
@@ -91,7 +92,7 @@ class _CollectionEditorState extends State<CollectionEditor> {
                           dbFields: widget.dbFields,
                           onFieldTap: onFieldTap,
                           docs: state.docs,
-                          bloc: bloc,
+                          bloc: bloc!,
                         ),
                       );
                     }),
@@ -116,7 +117,7 @@ class _CollectionEditorState extends State<CollectionEditor> {
         builder: (contx) => AddOrEditeItem(
               dbFields: widget.dbFields,
               hasImage: widget.hasImage,
-              bloc: bloc,
+              bloc: bloc!,
             ));
 
     await Navigator.of(_context).push<Map>(router);
@@ -127,11 +128,12 @@ class _CollectionEditorState extends State<CollectionEditor> {
   void editDoc(Map doc) async {
     var router = MaterialPageRoute<Map>(
         builder: (contx) => AddOrEditeItem(
-            dbFields: widget.dbFields,
-            hasImage: widget.hasImage,
-            editingDoc: doc,
-            isNew: false,
-            bloc: bloc));
+              dbFields: widget.dbFields,
+              hasImage: widget.hasImage,
+              editingDoc: doc,
+              isNew: false,
+              bloc: bloc!,
+            ));
 
     await Navigator.of(_context).push<Map>(router);
 
@@ -140,20 +142,20 @@ class _CollectionEditorState extends State<CollectionEditor> {
 
   void onRefresh() {
     var event =
-        GetDocsEvent(page: bloc.navigatorDetail.page, query: widget.query);
-    bloc.eventSink.add(event);
+        GetDocsEvent(page: bloc!.navigatorDetail.page, query: widget.query);
+    bloc!.eventSink.add(event);
   }
 
   void onPrevious() {
     var event =
-        GetDocsEvent(page: bloc.navigatorDetail.previous, query: widget.query);
-    bloc.eventSink.add(event);
+        GetDocsEvent(page: bloc!.navigatorDetail.previous, query: widget.query);
+    bloc!.eventSink.add(event);
   }
 
   void onNext() {
     var event =
-        GetDocsEvent(page: bloc.navigatorDetail.next, query: widget.query);
-    bloc.eventSink.add(event);
+        GetDocsEvent(page: bloc!.navigatorDetail.next, query: widget.query);
+    bloc!.eventSink.add(event);
   }
 
   void onFieldTap(Map doc) {
@@ -219,7 +221,7 @@ class _CollectionEditorState extends State<CollectionEditor> {
 
   void removeDoc(Map doc) {
     var event = RemoveDocsEvent(query: {'_id': doc['_id']}, onDone: onRefresh);
-    bloc.eventSink.add(event);
+    bloc!.eventSink.add(event);
   }
 
   Widget getNavigatorViewer() {

@@ -15,7 +15,7 @@ class AppFrame extends StatefulWidget {
 
 class _AppFrameState extends State<AppFrame>
     with SingleTickerProviderStateMixin {
-  late AppFrameBloc bloc;
+  AppFrameBloc? bloc;
   late FrameTabType currentTab;
   late TabController _tabController;
 
@@ -39,8 +39,8 @@ class _AppFrameState extends State<AppFrame>
       drawer: CustomDrawer(),
       drawerScrimColor: Colors.transparent,
       body: StreamBuilder<AppFrameState>(
-        stream: bloc.stateStream,
-        initialData: bloc.getInitialState(),
+        stream: bloc!.stateStream,
+        initialData: bloc!.getInitialState(),
         builder: (stateContext, AsyncSnapshot<AppFrameState> snapshot) {
           currentTab = AppFrameBloc.currentType; //snapshot.data.type;
           _tabController.index = currentTab.index;
@@ -59,7 +59,7 @@ class _AppFrameState extends State<AppFrame>
                 database: 'user',
                 collection: 'factor',
                 getDbFieldsMethod: () => Factor.getDbFields(),
-                tabTypeStream: bloc.tabTypeStream,
+                tabTypeStream: bloc!.tabTypeStream,
                 type: FrameTabType.ORDERS,
                 allowInsert: false,
               ),
@@ -67,7 +67,7 @@ class _AppFrameState extends State<AppFrame>
                 database: 'user',
                 collection: 'reservedTable',
                 getDbFieldsMethod: () => ReservedTable.getDbFields(),
-                tabTypeStream: bloc.tabTypeStream,
+                tabTypeStream: bloc!.tabTypeStream,
                 type: FrameTabType.RESERVED,
                 allowInsert: false,
                 allowUpdate: false,
@@ -76,13 +76,13 @@ class _AppFrameState extends State<AppFrame>
                 database: 'cms',
                 collection: 'coupen',
                 getDbFieldsMethod: () => Coupen.getDbFields(),
-                tabTypeStream: bloc.tabTypeStream,
+                tabTypeStream: bloc!.tabTypeStream,
                 type: FrameTabType.COUPEN,
               ),
               CollectionEditorTab(
                 database: 'cms',
                 collection: 'foodCategory',
-                tabTypeStream: bloc.tabTypeStream,
+                tabTypeStream: bloc!.tabTypeStream,
                 type: FrameTabType.CATEGORIES,
                 hasImage: true,
                 getDbFieldsMethod: () => Category.getDbFields(),
@@ -97,7 +97,7 @@ class _AppFrameState extends State<AppFrame>
               CollectionEditorTab(
                 database: 'cms',
                 collection: 'food',
-                tabTypeStream: bloc.tabTypeStream,
+                tabTypeStream: bloc!.tabTypeStream,
                 type: FrameTabType.FOODS,
                 hasImage: true,
                 getDbFieldsMethod: () {
@@ -126,21 +126,21 @@ class _AppFrameState extends State<AppFrame>
                 database: 'cms',
                 collection: 'introSlider',
                 getDbFieldsMethod: () => IntroSlideItem.getDbFields(),
-                tabTypeStream: bloc.tabTypeStream,
+                tabTypeStream: bloc!.tabTypeStream,
                 type: FrameTabType.INTRO_SLIDES,
               ),
               CollectionEditorTab(
                 database: 'cms',
                 collection: 'table',
                 getDbFieldsMethod: () => CustomTable.getDbFields(),
-                tabTypeStream: bloc.tabTypeStream,
+                tabTypeStream: bloc!.tabTypeStream,
                 type: FrameTabType.TABLES,
               ),
               CollectionEditorTab(
                 database: 'cms',
                 collection: 'period',
                 getDbFieldsMethod: () => Period.getDbFields(),
-                tabTypeStream: bloc.tabTypeStream,
+                tabTypeStream: bloc!.tabTypeStream,
                 type: FrameTabType.PERIODS,
               ),
               CollectionEditorTab(
@@ -164,11 +164,11 @@ class _AppFrameState extends State<AppFrame>
 
                   return dbFields;
                 }),
-                tabTypeStream: bloc.tabTypeStream,
+                tabTypeStream: bloc!.tabTypeStream,
                 type: FrameTabType.USERS,
               ),
               SettingsTab(
-                tabTypeStream: bloc.tabTypeStream,
+                tabTypeStream: bloc!.tabTypeStream,
                 type: FrameTabType.SETTINGS,
               )
             ],
@@ -180,17 +180,17 @@ class _AppFrameState extends State<AppFrame>
 
   void onTabViewChanged() {
     //FrameTabType type = AppFrameBloc.switchType(currentTab);
-    //sbloc.add(ChangeAppBarAppFrameEvent(type));
+    //sbloc!.add(ChangeAppBarAppFrameEvent(type));
   }
 
   void switchTab(FrameTabType type) {
-    //bloc.eventSink.add(AppFrameEvent(type));
+    //bloc!.eventSink.add(AppFrameEvent(type));
     _tabController.index = currentTab.index;
   }
 
   @override
   void dispose() {
-    //bloc.dispose();
+    //bloc!.dispose();
     super.dispose();
   }
 }

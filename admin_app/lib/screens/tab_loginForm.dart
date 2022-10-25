@@ -17,7 +17,7 @@ class LoginFormTab extends StatefulWidget {
 class _LoginFormTabState extends State<LoginFormTab> {
   OptionsService options = OptionsService.instance;
 
-  late IntroBloc bloc;
+  late IntroBloc? bloc;
   String _email = '';
   String _password = '';
 
@@ -27,7 +27,7 @@ class _LoginFormTabState extends State<LoginFormTab> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     bloc = BlocProvider.of<IntroBloc>(context);
-    bloc.stateStream.listen(onGetState);
+    bloc!.stateStream.listen(onGetState);
   }
 
   @override
@@ -99,12 +99,12 @@ class _LoginFormTabState extends State<LoginFormTab> {
     IntroEvent event;
     event = IntroSwitchEvent(switchTo: IntroTabType.RegisterForm);
 
-    bloc.eventSink.add(event);
+    bloc!.eventSink.add(event);
   }
 
   void login() {
     IntroEvent event = IntroLoginEvent(email: _email, passwod: _password);
-    bloc.eventSink.add(event);
+    bloc!.eventSink.add(event);
   }
 
   void onGetState(IntroState state) {

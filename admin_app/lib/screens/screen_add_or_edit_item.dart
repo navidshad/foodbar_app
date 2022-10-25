@@ -23,7 +23,7 @@ class AddOrEditeItem extends StatefulWidget {
   final bool hasImage;
   final Map editingDoc;
   final List<DbField> dbFields;
-  final CollectionEditorBloc bloc;
+  final CollectionEditorBloc? bloc;
 
   @override
   _AddOrEditeItemState createState() => _AddOrEditeItemState();
@@ -115,7 +115,7 @@ class _AddOrEditeItemState extends State<AddOrEditeItem> {
           onError: onError);
     }
 
-    widget.bloc.eventSink.add(event);
+    widget.bloc!.eventSink.add(event);
   }
 
   void onDocOperationDone() async {
@@ -136,7 +136,7 @@ class _AddOrEditeItemState extends State<AddOrEditeItem> {
         onError: onError,
       );
 
-      widget.bloc.eventSink.add(event);
+      widget.bloc!.eventSink.add(event);
 
       // or return back to collection viewer
     } else {

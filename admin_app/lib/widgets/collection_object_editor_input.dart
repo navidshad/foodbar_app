@@ -17,7 +17,7 @@ class CollectionObjectEditorInput extends StatefulWidget {
   final List<DbField> dbFields;
   final hasImage;
   final Map doc;
-  final CollectionEditorBloc bloc;
+  final CollectionEditorBloc? bloc;
 
   CollectionObjectEditorInput({
     this.title,
@@ -75,7 +75,7 @@ class _CollectionObjectEditorInputState
       DbField dbField = dbFields[i];
       Widget inputSection = getInputSection(
           dbField: dbField,
-          initialValue: changed[dbField.key],
+          initialValue: changed[dbField.key] ?? {},
           onSubmitted: (value) {
             //print('emit changed event $value');
             try {
@@ -101,12 +101,13 @@ class _CollectionObjectEditorInputState
     );
   }
 
-  Widget getInputSection(
-      {required DbField dbField,
-      required Function(dynamic value) onSubmitted,
-      dynamic initialValue}) {
+  Widget getInputSection({
+    required DbField dbField,
+    required Function(dynamic value) onSubmitted,
+    dynamic initialValue,
+  }) {
     //
-    Widget inputSection;
+    Widget inputSection = Container();
 
     TextInputType textInputType = getKeyboard(dbField.dataType);
     FieldType fieldType = dbField.fieldType;
@@ -116,7 +117,7 @@ class _CollectionObjectEditorInputState
         inputSection = SizedBox(
           height: 300,
           child: TextFormField(
-            initialValue: initialValue?.toString() ?? '',
+            initialValue: (initialValue ?? '').toString(),
             expands: true,
             keyboardType: textInputType,
             minLines: null,
@@ -131,11 +132,11 @@ class _CollectionObjectEditorInputState
       case FieldType.image:
         inputSection = CollectionImagePicker(
           imageDetail: ImageDetail(
-            initialValue as Map,
+            initialValue ?? {},
             id: changed['_id'],
             host: Vars.host,
-            db: widget.bloc.database,
-            collection: widget.bloc.collection,
+            db: widget.bloc!.database,
+            collection: widget.bloc!.collection,
           ),
           onSelectedImage: widget.onImageSelected,
         );
@@ -146,7 +147,7 @@ class _CollectionObjectEditorInputState
           title: dbField.title,
           dbFields: dbField.subFields!,
           onChanged: (value) => onSubmitted(value.toString()),
-          initialValue: initialValue,
+          initialValue: initialValue ?? '',
         );
         break;
 
@@ -159,13 +160,13 @@ class _CollectionObjectEditorInputState
           },
           onImageSelected: (image) {},
           dbFields: dbField.subFields!,
-          doc: initialValue,
+          doc: initialValue ?? {},
         );
         break;
 
       default:
         inputSection = TextFormField(
-          initialValue: initialValue?.toString() ?? '',
+          initialValue: (initialValue ?? '').toString(),
           keyboardType: textInputType,
           onChanged: (String value) => onSubmitted(value),
           decoration: InputDecoration(

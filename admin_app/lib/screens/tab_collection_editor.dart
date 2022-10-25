@@ -49,7 +49,7 @@ class CollectionEditorTab extends StatefulWidget {
 
 class _CollectionEditorTabState extends State<CollectionEditorTab> {
   StreamController<bool> _setStateStream = StreamController();
-  late CollectionEditorBloc bloc;
+  CollectionEditorBloc? bloc;
   bool allowTogetDocs = false;
   List<DbField> dbFields = [];
 
@@ -85,8 +85,8 @@ class _CollectionEditorTabState extends State<CollectionEditorTab> {
 
   void getDocs() {
     var event =
-        GetDocsEvent(page: bloc.navigatorDetail.page, query: widget.query);
-    bloc.eventSink.add(event);
+        GetDocsEvent(page: bloc!.navigatorDetail.page, query: widget.query);
+    bloc!.eventSink.add(event);
   }
 
   @override
@@ -96,10 +96,11 @@ class _CollectionEditorTabState extends State<CollectionEditorTab> {
       bloc = CollectionEditorBloc(
           database: widget.database, collection: widget.collection);
 
-      bloc.operationStream.listen((event) {
-        if (widget.onOperation != null)
-          widget.onOperation!(event, _setStateStream.sink);
-      });
+      bloc
+        ?..operationStream.listen((event) {
+          if (widget.onOperation != null)
+            widget.onOperation!(event, _setStateStream.sink);
+        });
     }
 
     if (allowTogetDocs) getDocs();
@@ -109,8 +110,8 @@ class _CollectionEditorTabState extends State<CollectionEditorTab> {
     if (dbFields == null)
       editor = Center(child: CircularProgressIndicator());
     else {
-      editor = BlocProvider(
-        bloc: bloc,
+      editor = BlocProvider<CollectionEditorBloc>(
+        bloc: bloc!,
         child: CollectionEditor(
           dbFields: dbFields,
           allowInsert: widget.allowInsert,

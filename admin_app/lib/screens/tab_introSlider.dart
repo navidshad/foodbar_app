@@ -18,20 +18,21 @@ class SliderIntroTab extends StatelessWidget {
 
     List<ContentConfig> slides = [];
 
-    bloc.introSlideItems.forEach((item) {
-      ContentConfig slideObject = ContentConfig(
-          title: item.title,
-          description: item.description,
-          backgroundColor: AppProperties.backLightColor,
-          marginDescription: EdgeInsets.only(left: 50, right: 50),
-          styleTitle: TextStyle(
-              color: AppProperties.mainColor,
-              fontWeight: FontWeight.bold,
-              fontSize: 25),
-          styleDescription:
-              TextStyle(color: AppProperties.textOnBackLight, fontSize: 18));
-      slides.add(slideObject);
-    });
+    bloc
+      ?..introSlideItems.forEach((item) {
+        ContentConfig slideObject = ContentConfig(
+            title: item.title,
+            description: item.description,
+            backgroundColor: AppProperties.backLightColor,
+            marginDescription: EdgeInsets.only(left: 50, right: 50),
+            styleTitle: TextStyle(
+                color: AppProperties.mainColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 25),
+            styleDescription:
+                TextStyle(color: AppProperties.textOnBackLight, fontSize: 18));
+        slides.add(slideObject);
+      });
 
     return IntroSlider(
       listContentConfig: slides,

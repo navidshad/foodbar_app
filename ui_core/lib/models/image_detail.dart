@@ -15,8 +15,10 @@ class ImageDetail {
   }) {
     if (detail == null) return;
 
-    type = detail['type'];
-    imgStamp = detail['imgStamp'].toString();
+    if (detail.containsKey('type') && detail.containsKey('imgStamp')) {
+      type = detail['type'];
+      imgStamp = detail['imgStamp'].toString();
+    }
   }
 
   String getUrl() {

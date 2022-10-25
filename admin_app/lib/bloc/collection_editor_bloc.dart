@@ -181,8 +181,8 @@ class CollectionEditorBlocEvent {
 
   CollectionEditorBlocEvent(
       {Function? onDone, Function(dynamic error)? onError}) {
-    _onDone = onDone!;
-    _onError = onError!;
+    _onDone = onDone;
+    _onError = onError;
   }
 
   void onDone() {

@@ -17,7 +17,7 @@ class RegisterTab extends StatefulWidget {
 class _RegisterTabState extends State<RegisterTab> {
   OptionsService options = OptionsService.instance;
 
-  late IntroBloc bloc;
+  late IntroBloc? bloc;
   String _email = '';
   String _password = '';
   late int _varificationCode;
@@ -43,7 +43,7 @@ class _RegisterTabState extends State<RegisterTab> {
 
     return StreamBuilder<IntroState>(
       initialData: IntroRegisterSubmitIdState(isSuccess: true),
-      stream: bloc.stateStream,
+      stream: bloc!.stateStream,
       builder: (con, snapshot) {
         errorMessage = '';
         List<Widget> listElements = [logo];
@@ -231,12 +231,12 @@ class _RegisterTabState extends State<RegisterTab> {
     IntroEvent event;
     event = IntroSwitchEvent(switchTo: IntroTabType.LoginForm);
 
-    bloc.eventSink.add(event);
+    bloc!.eventSink.add(event);
   }
 
   Future<void> waite() {
     IntroEvent event = IntroRegisterWaitingEvent();
-    bloc.eventSink.add(event);
+    bloc!.eventSink.add(event);
 
     return Future.delayed(Duration(milliseconds: 500));
   }
@@ -245,14 +245,14 @@ class _RegisterTabState extends State<RegisterTab> {
     await waite();
     IntroEvent event;
     event = IntroRegisterSubmitIdEvent(_email);
-    bloc.eventSink.add(event);
+    bloc!.eventSink.add(event);
   }
 
   void submitVarificationCode() async {
     await waite();
     IntroEvent event;
     event = IntroRegisterVarifyIdEvent(id: _email, code: _varificationCode);
-    bloc.eventSink.add(event);
+    bloc!.eventSink.add(event);
   }
 
   void submitPassword() async {
@@ -263,6 +263,6 @@ class _RegisterTabState extends State<RegisterTab> {
       id: _email,
       code: _varificationCode,
     );
-    bloc.eventSink.add(event);
+    bloc!.eventSink.add(event);
   }
 }
