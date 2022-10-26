@@ -85,8 +85,10 @@ class _CollectionImagePickerState extends State<CollectionImagePicker> {
     var picker = ImagePicker();
     picker.pickImage(source: ImageSource.gallery).catchError((onError) {
       print('Image has not been selected: ' + onError.toString());
-    }).then((file) {
-      _imageFile = file as File;
+    }).then((xfile) {
+      if (xfile == null) return;
+
+      _imageFile = File(xfile.path);
       widget.onSelectedImage(_imageFile!);
       setState(() {});
     });

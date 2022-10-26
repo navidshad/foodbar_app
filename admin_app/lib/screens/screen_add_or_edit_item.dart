@@ -31,8 +31,8 @@ class AddOrEditeItem extends StatefulWidget {
 
 class _AddOrEditeItemState extends State<AddOrEditeItem> {
   late ProgressDialog pd;
-  late Map doc;
   late File _imageFile;
+  Map? doc;
 
   @override
   Widget build(BuildContext context) {
@@ -104,13 +104,13 @@ class _AddOrEditeItemState extends State<AddOrEditeItem> {
 
     if (widget.isNew)
       event = CreateDocEvent(
-          doc: doc, onDone: onDocOperationDone, onError: onError);
+          doc: doc!, onDone: onDocOperationDone, onError: onError);
     else {
       if (doc == null) doc = Map.from(widget.editingDoc);
 
       event = UpdateDocEvent(
-          query: {'_id': doc['_id']},
-          update: doc,
+          query: {'_id': doc!['_id']},
+          update: doc!,
           onDone: onDocOperationDone,
           onError: onError);
     }
@@ -123,7 +123,7 @@ class _AddOrEditeItemState extends State<AddOrEditeItem> {
     if (_imageFile != null) {
       pd.update(message: 'Uploading Image...');
       var event = UploadImageEvent(
-        id: doc['_id'],
+        id: doc!['_id'],
         file: _imageFile,
         onTransform: (percent) =>
             pd.update(message: 'Uploading Image $percent\%'),
