@@ -1,4 +1,4 @@
-name: Deploy AdminApp to Amazon ECS
+name: Deploy AdminApp
 on:
   workflow_dispatch:
     branches:
