@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:foodbar_admin/settings/types.dart';
 import 'package:foodbar_flutter_core/foodbar_flutter_core.dart';
-
-import 'package:foodbar_flutter_core/utilities/text_util.dart';
-import 'package:foodbar_flutter_core/mongodb/mongodb.dart';
 import 'package:foodbar_admin/bloc/bloc.dart';
 import 'package:foodbar_admin/bloc/collection_editor_bloc.dart';
-import 'package:foodbar_admin/widgets/widgets.dart';
 
+// ignore: must_be_immutable
 class CollectionTableViewer extends StatelessWidget {
   CollectionTableViewer({
     Key? key,
@@ -59,7 +55,7 @@ class CollectionTableViewer extends StatelessWidget {
     List<String> visibleKeys = visibleFields.map((f) => f.key).toList();
 
     visibleKeys.forEach((key) {
-      String value = doc[key].toString();
+      String value = (doc[key] ?? '').toString();
 
       Widget fieldContent = Container(
         padding: EdgeInsets.all(10),
@@ -69,7 +65,7 @@ class CollectionTableViewer extends StatelessWidget {
         ),
       );
 
-      if (key == 'image') {
+      if (key == 'image' && doc[key] != null) {
         var imageDetail = ImageDetail(
           doc[key],
           db: bloc!.database,
@@ -104,7 +100,7 @@ class CollectionTableViewer extends StatelessWidget {
       tableRows.add(getTableRowByDoc(doc));
     });
 
-    return Table(
+    var table = Table(
       border: TableBorder(
           horizontalInside: BorderSide(
         width: 0.5,
@@ -112,6 +108,8 @@ class CollectionTableViewer extends StatelessWidget {
       )),
       children: tableRows,
     );
+
+    return table;
   }
 
   @override

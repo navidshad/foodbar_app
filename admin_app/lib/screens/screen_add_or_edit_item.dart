@@ -31,7 +31,7 @@ class AddOrEditeItem extends StatefulWidget {
 
 class _AddOrEditeItemState extends State<AddOrEditeItem> {
   late ProgressDialog pd;
-  late File _imageFile;
+  File? _imageFile;
   Map? doc;
 
   @override
@@ -124,7 +124,7 @@ class _AddOrEditeItemState extends State<AddOrEditeItem> {
       pd.update(message: 'Uploading Image...');
       var event = UploadImageEvent(
         id: doc!['_id'],
-        file: _imageFile,
+        file: _imageFile!,
         onTransform: (percent) =>
             pd.update(message: 'Uploading Image $percent\%'),
         onDone: () {

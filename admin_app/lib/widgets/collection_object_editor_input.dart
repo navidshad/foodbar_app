@@ -75,7 +75,7 @@ class _CollectionObjectEditorInputState
       DbField dbField = dbFields[i];
       Widget inputSection = getInputSection(
           dbField: dbField,
-          initialValue: changed[dbField.key] ?? {},
+          initialValue: changed[dbField.key] ?? null,
           onSubmitted: (value) {
             //print('emit changed event $value');
             try {
@@ -130,16 +130,17 @@ class _CollectionObjectEditorInputState
         break;
 
       case FieldType.image:
-        inputSection = CollectionImagePicker(
-          imageDetail: ImageDetail(
-            initialValue ?? {},
-            id: changed['_id'],
-            host: Vars.host,
-            db: widget.bloc!.database,
-            collection: widget.bloc!.collection,
-          ),
-          onSelectedImage: widget.onImageSelected,
-        );
+        if (changed['_id'] != null)
+          inputSection = CollectionImagePicker(
+            imageDetail: ImageDetail(
+              initialValue ?? {},
+              id: changed['_id'],
+              host: Vars.host,
+              db: widget.bloc!.database,
+              collection: widget.bloc!.collection,
+            ),
+            onSelectedImage: widget.onImageSelected,
+          );
         break;
 
       case FieldType.select:
