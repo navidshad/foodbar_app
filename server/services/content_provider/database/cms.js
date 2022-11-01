@@ -62,16 +62,12 @@ module.exports.getModels = (connection) => {
     foodCategorySchema.index({ title: 1 }, { unique: true });
     models['foodCategory'] = connection.model('foodCategory', foodCategorySchema);
 
-    let priceSchema = new Schema({
-        price: { type: Number, required: true },
-        currencyCode: { type: String, enum: Currency.getAllCodes() }
-    });
     let foodSchema = new Schema({
         category: { type: Schema.Types.ObjectId, ref: 'foodCategory', required: true },
         title: String,
         subTitle: String,
         description: String,
-        prices: [priceSchema],
+        prices: Number,
         image: ImageSchema,
     });
     foodSchema.index({ title: 1, category: 1 }, { unique: true });
