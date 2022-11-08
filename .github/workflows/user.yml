@@ -1,4 +1,4 @@
-name: Deploy UserApp to Amazon ECS
+name: Deploy UserApp
 on:
   workflow_dispatch:
     branches:
