@@ -67,7 +67,7 @@ module.exports.getModels = (connection) => {
         title: String,
         subTitle: String,
         description: String,
-        prices: Number,
+        price: Number,
         image: ImageSchema,
     });
     foodSchema.index({ title: 1, category: 1 }, { unique: true });
