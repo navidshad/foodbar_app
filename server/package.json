@@ -22,7 +22,7 @@
     "colog": "^1.0.4",
     "datejs": "^1.0.0-rc3",
     "file-system": "^2.2.2",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "koa-body": "^4.1.1",
     "koa-static": "^5.0.0",
     "modular-rest": "^1.0.9",
